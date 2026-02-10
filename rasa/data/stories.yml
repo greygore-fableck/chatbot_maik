@@ -1,0 +1,15 @@
+version: "3.1"
+
+stories:
+  - story: happy path (showcase)
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: project_chatbot
+      - action: utter_project_chatbot
+      - intent: tech_impl
+      - action: utter_tech_impl
+      - intent: praxisphase_info
+      - action: utter_praxisphase_info
+      - intent: contact_email
+      - action: utter_contact_email

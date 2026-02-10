@@ -1,0 +1,436 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - thanks
+  - affirm
+  - deny
+  - nlu_fallback
+
+  - start_prompt
+
+  - project_chatbot
+  - tech_impl
+
+  - origin_overview
+  - werdegang_overview
+
+  - praxisphase_info
+
+  - contact_email
+
+  - smalltalk_how_are_you
+  - smalltalk_who_are_you
+  - smalltalk_what_can_you_do
+  - smalltalk_compliment
+  - smalltalk_humor
+  - project_goal
+  - project_audience
+  - project_tech
+  - project_unique
+  - project_where
+  - project_improve
+  - project_duration
+  - project_missing
+  - project_challenge
+
+  - person_hobbies
+  - person_motivation
+  - person_sports
+  - person_collab
+  - person_next_step
+  - person_unwind
+  - person_task_style
+  - person_learning
+  - person_work_style
+
+  - experience_summary
+  - current_status
+  - projects_experience
+  - strengths_tasks
+  - praxisphase_why_company
+
+  - meta_privacy
+  - person_name_opinion
+
+entities:
+  - person_name
+
+responses:
+  # --- Einstieg ---
+  utter_greet:
+    - text: |
+        Hi 👋 Schön, dass du da bist!
+        Dieser Chatbot ist im Rahmen meiner Bachelorarbeit entstanden
+        und dient als digitale Visitenkarte.
+      custom:
+        followups:
+          - delay: 5000
+            text: |
+              Du kannst mir Fragen zu diesem Projekt stellen
+              oder auch etwas über mich erfahren 🙂
+              Ein einzelnes Wort reicht schon.
+          - delay: 25000
+            text: |
+              Möchtest du zuerst sehen, woran ich hier arbeite,
+              oder soll ich mich kurz vorstellen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über dich"
+                payload: "/origin_overview"
+
+
+  utter_start_prompt:
+    - text: "Womit sollen wir anfangen?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir kurz was zu dir"
+          payload: "/origin_overview"
+
+  utter_thanks:
+    - text: "Gern 🙂"
+
+  utter_goodbye:
+    - text: "Alles klar — bis bald! 👋"
+
+  utter_fallback:
+    - text: "Ich bin gerade unsicher, was du meinst 🤔. Ich kann dir gerne was zum Projekt sagen."
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir lieber was über dich"
+          payload: "/origin_overview"
+
+  # --- Projekt ---
+  utter_project_chatbot:
+    - text: |
+        Der Chatbot ersetzt die klassische Navigation
+        und führt dialogisch durch die Inhalte.
+        Hier bekommst du einen Einblick,
+        wie das Projekt gedacht ist.
+      custom:
+        stage: "chatbot_overview"
+        followups:
+          - delay: 5000
+            text: "Sag gerne Bescheid, wenn du Fragen hast 👋"
+          - delay: 40000
+            text: "Interessiert dich auch die Technik? Ansonsten kann ich dir auch gerne was zu meiner anstehenden Praxisphase
+            erzählen 🙂"
+            buttons:
+              - title: "Zeig mir die Technik 🛠️"
+                payload: "/tech_impl"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
+
+  # --- Technik ---
+  utter_tech_impl:
+    - text: "Technisch ist der Bot schlank und zustandsbasiert aufgebaut (Rasa/Python). Der Fokus liegt auf Klarheit und wenigen Entscheidungen."
+      custom:
+        stage: "tech_impl"
+        followups:
+          - delay: 16000
+            text: "Soll ich dir kurz sagen, wofür das gedacht ist?"
+            buttons:
+              - title: "Erzähl mir was zur Praxisphase 📌"
+                payload: "/praxisphase_info"
+              - title: "Erzähl mir kurz was zu dir"
+                payload: "/origin_overview"
+
+  # --- Maik: Ursprung / Werdegang ---
+  utter_origin_overview:
+    - text: "Hier ein kurzer Einblick, wie mein Interesse an Systemen und Technik entstanden ist 💾. Ich halte es kurz — die Ausführung steht auf der Seite."
+      custom:
+        stage: "origin"
+        followups:
+          - delay: 30000
+            text: "Willst du als Nächstes den Werdegang sehen oder direkt das Projekt?"
+            buttons:
+              - title: "Zeig mir den Werdegang 👨🏻‍💻"
+                payload: "/werdegang_overview"
+              - title: "Zeig mir das Projekt"
+                payload: "/project_chatbot"
+
+  utter_werdegang_overview:
+    - text: "Kurz zu meinem Werdegang: Gestaltung 🎨 → mehr technische Tiefe → Medieninformatik ⚙️, mit Fokus auf interaktive Systeme und konzeptionelles Arbeiten."
+      custom:
+        stage: "werdegang"
+        followups:
+          - delay: 30000
+            text: "Willst du sehen, wie sich das im Projekt zeigt?"
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
+
+  # --- Praxisphase ---
+  utter_praxisphase_info:
+    - text: "Ich suche aktuell eine Praxisphase im Rahmen meines Studiums — an der Schnittstelle von Konzept, UX/Interaction und KI-nahen Systemen."
+      custom:
+        stage: "praxisphase"
+        followups:
+          - delay: 25000
+            text: "Wenn du magst, zeige ich dir direkt die Kontaktmöglichkeit — oder kurz mehr zu mir."
+            buttons:
+              - title: "Gerne, zeig mir den Kontakt ✉️"
+                payload: "/contact_email"
+              - title: "Erzähl mir kurz was zu dir"
+                payload: "/origin_overview"
+
+  # --- Kontakt ---
+  utter_contact_email:
+    - text: "Am besten erreichst du mich per Mail: mpaulukat@web.de"
+      custom:
+        stage: "contact"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  # --- Smalltalk / Meta ---
+  utter_smalltalk_how_are_you:
+    - text: "Gut soweit 🙂 Magst du was über das Projekt erfahren?"
+      buttons:
+        - title: "Klar, zeig her!codex 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_smalltalk_who_are_you:
+    - text: "Ich bin Maiks digitaler Assistent — eine dialogische Visitenkarte. Womit soll ich anfangen?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir kurz was zu dir"
+          payload: "/origin_overview"
+
+  utter_smalltalk_what_can_you_do:
+    - text: "Ich führe dich kurz durch Projekt, Hintergrund und Praxisphase. Sag einfach, was dich interessiert."
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_smalltalk_compliment:
+    - text: "Freut mich 🙂 Willst du eher das Projekt sehen oder kurz zu Maik?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir kurz was zu dir"
+          payload: "/origin_overview"
+
+  utter_smalltalk_humor:
+    - text: "Ich bin eher der klare Typ 😄 Projekt oder Praxisphase?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  # --- Projekt: FAQ ---
+  utter_project_goal:
+    - text: "Ziel ist, im Rahmen der Bachelorarbeit Praxis zu sammeln und gleichzeitig eine passende Praxisphase zu finden. Der Bot gibt potenziellen Praxisstellen einen schnellen Eindruck."
+      custom:
+        idle_followup: true
+
+  utter_project_audience:
+    - text: "Vorrangig für potenzielle Praxisstellen — und für mich als Übungsprojekt, um Konzept, Dialog und Umsetzung zu schärfen."
+      custom:
+        idle_followup: true
+
+  utter_project_tech:
+    - text: "Technisch steckt vor allem Python mit Rasa dahinter, plus Web-Standard: HTML, CSS und JavaScript."
+      custom:
+        idle_followup: true
+
+  utter_project_unique:
+    - text: "Der Bot ist modular einsetzbar und wirkt wie ein Lotse: Er führt durch die Seite, statt nur Antworten abzufeuern."
+      custom:
+        idle_followup: true
+
+  utter_project_where:
+    - text: "Genau hier: Diese Seite ist das Projekt."
+      custom:
+        idle_followup: true
+
+  utter_project_improve:
+    - text: "Als Nächstes würde ich schauen, welche technischen Neuerungen sinnvoll sind, und den Dialog weiter ausbauen."
+      custom:
+        idle_followup: true
+
+  utter_project_duration:
+    - text: "Ich habe Anfang 2026 mit dem Bot hier angefangen."
+      custom:
+        idle_followup: true
+
+  utter_project_missing:
+    - text: "Soweit ist alles da. Komplett fertig wird so ein Bot eh nie — man kann immer weiter verbessern."
+      custom:
+        idle_followup: true
+
+  utter_project_challenge:
+    - text: "Die größte Herausforderung war, nicht zu viel zeigen zu wollen. Weniger ist mehr — auch wenn spielerisch noch einiges möglich wäre."
+      custom:
+        idle_followup: true
+
+  # --- Person: FAQ ---
+  utter_person_hobbies:
+    - text: "Ich sammle Schallplatten und halte mich mit Fitness fit — da feile ich gerade noch an der perfekten Routine."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_person_motivation:
+    - text: "Mich reizt der ständige Fortschritt: Wenn Technik besser wird, wird die Interaktion (meistens) auch besser."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_person_sports:
+    - text: "Ich habe lange aktiv Fußball gespielt — Mittelstürmer — heute eher als Zuschauer bei Rot‑Weiss Essen 🔴⚪"
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_person_collab:
+    - text: "Mir sind klare Kommunikation und eine gemeinsame Vision wichtig. Dann läuft die Zusammenarbeit richtig rund."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_person_next_step:
+    - text: "Definitiv weiter in dem Bereich arbeiten. Was genau, wird sich zeigen — Hauptsache Code, Grafik und alles dazwischen."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Erzähl mir kurz was zu dir"
+          payload: "/origin_overview"
+
+  utter_person_unwind:
+    - text: "Zum Abschalten hilft mir ein gutes Buch oder eine Runde Sport."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_person_task_style:
+    - text: "Am meisten mag ich den Mix aus Neuem und kreativer Arbeit."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_person_learning:
+    - text: "Ich hänge gerade grundsätzlich am Thema Künstliche Intelligenz und was das für die IT in Zukunft bedeutet."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_person_work_style:
+    - text: "Ich bin eher kreativ unterwegs."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  # --- Erfahrung / Status ---
+  utter_experience_summary:
+    - text: "Ich bringe einen Mix aus Design‑Denken und technischer Umsetzung mit — genau das zeige ich hier am Bot."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_current_status:
+    - text: "Aktuell studiere ich Medieninformatik und suche eine Praxisphase."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_projects_experience:
+    - text: "Neben dem Studium arbeite ich an Projekten wie diesem Bot, um Konzept und Umsetzung zu verbinden."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir kurz was zu dir"
+          payload: "/origin_overview"
+
+  utter_strengths_tasks:
+    - text: "Am liebsten arbeite ich an der Schnittstelle von Idee, Struktur und Umsetzung."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_praxisphase_why_company:
+    - text: "Weil ich in einem echten Team lernen will, wie gute digitale Produkte entstehen."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+
+  utter_meta_privacy:
+    - text: "Datenschutz: Ich halte die Interaktion so schlank wie möglich — ohne unnötige Datensammelei. Wenn du willst, kann ich dir den Umgang kurz erklären."
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Zeig mir die Kontaktmöglichkeit"
+          payload: "/contact_email"
+
+actions:
+  - action_person_name_opinion
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

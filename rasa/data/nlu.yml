@@ -1,0 +1,528 @@
+version: "3.1"
+nlu:
+# ---- Shared Layer ----
+  - intent: greet
+    examples: |
+      - hi
+      - hallo
+      - hey
+      - guten tag
+      - moin
+      - servus
+      - hallöchen
+
+  - intent: goodbye
+    examples: |
+      - tschüss
+      - bis bald
+      - ciao
+      - mach's gut
+      - auf wiedersehen
+
+  - intent: affirm
+    examples: |
+      - ja
+      - okay
+      - alles klar
+      - gern
+      - klar
+      - ok
+      - passt
+      - gerne
+
+  - intent: deny
+    examples: |
+      - nein
+      - lieber nicht
+      - eher nicht
+      - nicht so
+      - nein danke
+
+  - intent: thanks
+    examples: |
+      - danke
+      - vielen dank
+      - super, danke
+      - top danke
+      - danke dir
+      
+      
+
+# ---- Chatbot ----
+  - intent: project_chatbot
+    examples: |
+      - chatbot
+      - chat bot
+      - der chatbot
+      - erzähl mir vom chatbot
+      - erzähl was über den chatbot
+      - erzähl mir mehr über den chatbot
+      - chatbot projekt
+      - chat projekt
+      - dein chatbot projekt
+      - das chatbot projekt
+      - projekt chatbot
+      - projekt
+      - zeig mir das projekt
+      - was ist mit deinem projekt
+      - erzähl mir vom projekt
+      - projekt bitte
+      - ich will dein projekt sehen
+      - kannst du dein projekt zeigen
+      - bachelorarbeit chatbot
+      - chatbot bachelorarbeit
+      - chatbot aus der bachelorarbeit
+      - chatbot aus deinem studium
+      - rasa projekt
+      - python rasa chatbot
+      - mit rasa gebauter chatbot
+      - wie funktioniert dein chatbot
+      - wie ist der chatbot aufgebaut
+      - was macht der chatbot
+      - erklär mir den chatbot
+      - erklär mir das chatbot projekt
+      - zeig mir den chatbot
+      - erzähl mir etwas zu deinem chatbot
+      - wie bist du gebaut?
+      - wie funktioniert das?
+      - wie ist der bot aufgebaut?
+      - wie hast du das gemacht?
+
+  - intent: project_goal
+    examples: |
+      - was ist das ziel des projekts
+      - wozu ist das projekt
+      - warum hast du das projekt gemacht
+      - wofür ist der bot gedacht
+      - was ist die intention des projekts
+      - was bringt dir das projekt
+      - was wolltest du damit erreichen
+      - wozu der ganze bot
+      - was war dein plan mit dem projekt
+
+  - intent: project_audience
+    examples: |
+      - für wen ist der bot gedacht
+      - wer ist die zielgruppe
+      - an wen richtet sich das projekt
+      - wer soll das nutzen
+      - wer soll damit was anfangen
+      - für wen ist das hier
+      - wer ist hier die zielgruppe
+
+  - intent: project_tech
+    examples: |
+      - welche technologien nutzt du
+      - welche tools stecken dahinter
+      - was ist der tech stack
+      - womit ist der bot gebaut
+      - nutzt du python oder rasa
+      - womit hast du das gebaut
+      - welche sprache und framework
+      - was läuft da im hintergrund
+
+  - intent: project_unique
+    examples: |
+      - was ist das besondere an dem bot
+      - was macht den bot anders
+      - was unterscheidet den bot von anderen
+      - warum ist das projekt spannend
+      - was ist hier anders als sonst
+      - warum braucht man den bot
+      - was kann der besser
+
+  - intent: project_where
+    examples: |
+      - wo kann man das projekt sehen
+      - wo kann man das ausprobieren
+      - gibt es eine demo
+      - wo finde ich das projekt
+      - kann ich das irgendwo testen
+      - wo kann ich mir das anschauen
+      - gibt es einen link zur demo
+
+  - intent: project_improve
+    examples: |
+      - was würdest du als nächstes verbessern
+      - was würdest du am bot ändern
+      - was ist der nächste schritt am projekt
+      - was willst du als nächstes machen
+
+  - intent: project_duration
+    examples: |
+      - wie lange hast du daran gearbeitet
+      - seit wann arbeitest du daran
+      - wann hast du damit angefangen
+      - wann hast du den bot gestartet
+
+  - intent: project_missing
+    examples: |
+      - was fehlt dem bot noch
+      - was fehlt noch
+      - welche funktionen fehlen noch
+      - ist der bot fertig
+
+  - intent: project_challenge
+    examples: |
+      - was war die größte herausforderung
+      - was war schwierig beim bauen
+      - was war die größte hürde
+      - was hat am meisten zeit gekostet
+
+  - intent: tech_impl
+    examples: |
+      - technische umsetzung
+      - technik
+      - wie ist das technisch umgesetzt
+      - python und rasa?
+      - ist das rasa?
+      - nutzt du python?
+      - welche technik steckt dahinter
+      - wie ist das technisch gebaut
+      - was nutzt du technisch
+      - wie sieht die technische umsetzung aus
+      - stack?
+
+
+
+# ---- Ursprung / Werdegang (maik) ----
+  - intent: origin_overview
+    examples: |
+      - wer ist maik
+      - ursprung von maik
+      - wie hat alles angefangen
+      - erzähl mir etwas über maik
+      - was ist dein hintergrund
+      - wie bist du dazu gekommen
+      - wie hat es angefangen
+      - wie kam es zu deinem interesse
+      - woher kommst du
+
+  - intent: werdegang_overview
+    examples: |
+      - werdegang
+      - laufbahn
+      - was hast du gemacht
+      - wie ist dein werdegang
+      - wo kommst du her beruflich
+      - was ist dein weg gewesen
+      - wie war dein verlauf
+      - was hast du vorher gemacht
+      - was hast du so gemacht
+      - hast du studiert
+      - ausbildung
+      - aubildung
+      - ausbiildung
+      - ausbildun
+      - ausbilung
+      - ausbuldung
+      - ausbuidlung
+      - ausbildung?
+      - hast du eine ausbildung
+      - hast du eine aubildung
+      - hast du eine ausbildung gemacht
+      - welche ausbildung hast du
+      - was für eine ausbildung hast du
+      - bist du ausgebildet
+      - hast du eine berufsausbildung
+      - hast du eine ausbildung oder ein studium
+      
+  
+
+# ---- Start / Begrüßung (maik) ----
+  - intent: start_prompt
+    examples: |
+      - start prompt
+      - einleitung
+      - start frage
+      - womit fangen wir an
+      - wo starten wir
+      - wie geht es los
+      - was zuerst
+      - start
+
+
+
+# ---- Praxisphase ----
+  - intent: praxisphase_info
+    examples: |
+      - praxisphase
+      - praxissemester
+      - praktikum
+      - suchst du eine praxisphase
+      - bist du auf der suche nach einem praktikum
+      - suchst du ein praxisunternehmen
+      - was ist gerade aktuell
+      - was ist aktuell
+      - was ist bei dir aktuell
+      - was läuft gerade
+      - was läuft aktuell
+      - was geht aktuell
+      - was suchst du
+      - arbeitest du gerade
+      - kann man dir helfen
+ 
+
+
+# ---- Kontakt ----
+  - intent: contact_email
+    examples: |
+      - email
+      - mail
+      - per email
+      - e-mail adresse
+      - schick mir deine email
+      - kontakt
+      - wie erreiche ich dich
+      - kontaktmöglichkeiten
+      - wie kann ich dich kontaktieren
+      - wo finde ich dich
+
+
+
+# ---- Smalltalk ----
+  - intent: smalltalk_how_are_you
+    examples: |
+      - wie geht's?
+      - wie geht es dir?
+      - alles gut?
+      - wie läuft's?
+      - na alles klar?
+      - was geht?
+
+  - intent: smalltalk_who_are_you
+    examples: |
+      - wer bist du?
+      - was bist du?
+      - bist du ein bot?
+      - mit wem spreche ich?
+      - bist du echt?
+      - was ist das hier?
+      - was soll das?
+      - wie alt bist du?
+
+  - intent: smalltalk_what_can_you_do
+    examples: |
+      - was kannst du?
+      - was kannst du denn?
+      - was kannst du eigentlich?
+      - was kannst du mir sagen?
+      - wobei kannst du helfen?
+      - wie kannst du mir helfen?
+      - was machst du?
+      - wofür bist du da?
+      - welche fragen kannst du beantworten?
+
+  - intent: smalltalk_compliment
+    examples: |
+      - sieht gut aus
+      - cool gemacht
+      - nice
+      - gefällt mir
+      - super seite
+      - starker bot
+      - sehr clean
+      - sehr schön
+
+  - intent: smalltalk_humor
+    examples: |
+      - erzähl einen witz
+      - mach mich lachen
+      - sag was witziges
+      - hast du einen witz?
+      - bist du lustig?
+      - unterhalte mich
+
+# ---- Personenname ----
+  - intent: person_name_opinion
+    examples: |
+      - was hältst du von [Dennis](person_name)?
+      - was hälst du von [Thomas](person_name)
+      - kennst du [Sanja](person_name)?
+      - was sagst du zu [Axel](person_name)
+      - was hältst du von [Rita](person_name)
+      - wie findest du [Roland](person_name)?
+      - was meinst du zu [Sarah](person_name)
+      - was hältst du von [Laura](person_name)?
+      - kennst du [Kevin](person_name)?
+      - sag mir was zu [Marie](person_name)
+      - was ist mit [Dennis](person_name)
+      - mein name ist [Thomas](person_name)
+
+  - lookup: person_name
+    examples: |
+      - Sanja
+      - Axel
+      - Rita
+      - Roland
+      - Sarah
+
+# ---- Person ----
+  - intent: person_hobbies
+    examples: |
+      - hast du hobbys
+      - hast du hobbies
+      - was sind deine hobbys
+      - was machst du gern
+      - was machst du in deiner freizeit
+      - und sonst so
+      - was machst du so
+      - was geht sonst
+      - moah
+      - hast du ein hobby
+      - hast du irgendwelche hobbies
+      - was machst du nach feierabend
+      - was machst du privat so
+
+  - intent: person_motivation
+    examples: |
+      - warum interessiert dich ki
+      - was motiviert dich an dem thema
+      - was reizt dich an ux
+      - was findest du spannend an interaktion
+      - warum findest du das thema spannend
+      - was treibt dich da an
+      - was findest du an ki so interessant
+
+  - intent: person_sports
+    examples: |
+      - hast du einen lieblingsverein
+      - für welchen verein bist du
+      - bist du fußballfan
+      - fussball
+      - fußball
+      - spielst du noch fußball
+      - guckst du fußball
+      - hast du früher fußball gespielt
+      - hast du einen verein
+      - rot weiss essen
+      - rot-weiss essen
+      - rwe
+
+  - intent: person_collab
+    examples: |
+      - was ist dir bei zusammenarbeit wichtig
+      - wie arbeitest du am liebsten
+      - was ist dir im team wichtig
+      - wie sollte die zusammenarbeit laufen
+      - worauf legst du im team wert
+      - wie sieht gute zusammenarbeit aus
+      - wie tickst du im team
+
+  - intent: person_next_step
+    examples: |
+      - was willst du nach der praxisphase machen
+      - was ist dein nächster schritt
+      - wo willst du später arbeiten
+      - was kommt nach dem studium
+      - wie geht es nach dem studium weiter
+      - was planst du als nächstes
+      - wohin willst du dich entwickeln
+
+  - intent: person_unwind
+    examples: |
+      - wie entspannst du
+      - wie schaltest du ab
+      - was machst du zum abschalten
+      - was machst du wenn du frei hast
+
+  - intent: person_task_style
+    examples: |
+      - welche aufgaben machen dir am meisten spaß
+      - was machst du am liebsten
+      - was macht dir am meisten spaß
+      - welche art aufgaben magst du
+
+  - intent: person_learning
+    examples: |
+      - woran arbeitest du dich gerade ein
+      - in welches thema arbeitest du dich ein
+      - was lernst du gerade
+      - welches thema beschäftigt dich gerade
+
+  - intent: person_work_style
+    examples: |
+      - wie würdest du deinen stil beschreiben
+      - bist du eher kreativ oder strukturiert
+      - wie arbeitest du vom stil her
+      - wie würdest du dich beschreiben
+      
+  - intent: experience_summary
+    examples: |
+      - bisherige erfahrung
+      - was ist deine erfahrung
+      - was hast du bisher gemacht
+      - was ist dein hintergrund
+      - woher kommt deine erfahrung
+      - kurzprofil
+      - gib mir ein kurzes profil
+      - kannst du dein profil kurz zusammenfassen
+      - wie würdest du dich kurz beschreiben
+      - was bringst du mit
+      - was ist dein skillset
+      - erfahrung im überblick
+      - welche erfahrung hast du
+
+  - intent: current_status
+    examples: |
+      - was machst du gerade
+      - was ist dein aktueller job
+      - arbeitest du aktuell
+      - was ist dein aktueller status
+      - bist du gerade angestellt
+      - was ist gerade dein fokus
+      - was machst du aktuell beruflich
+      - was ist dein aktuelles projekt
+      - bist du gerade im studium
+      - was ist dein momentaner stand
+
+  - intent: projects_experience
+    examples: |
+      - welche projekte hast du gemacht
+      - woran hast du gearbeitet
+      - hast du praktische erfahrung
+      - welche praktischen erfahrungen hast du
+      - hast du referenzen
+      - hast du bereits projekte
+      - kannst du projekte nennen
+      - wie sammelst du praxis
+      - was hast du neben dem studium gemacht
+      - gib mir beispiele für projekte
+      - hast du schon an projekten gearbeitet
+
+  - intent: strengths_tasks
+    examples: |
+      - was sind deine stärken
+      - worin bist du gut
+      - was kannst du besonders gut
+      - was machst du am liebsten
+      - welche aufgaben liegen dir
+      - welche aufgaben magst du
+      - welche art aufgaben machen dir spaß
+      - wo liegen deine stärken
+      - worauf bist du spezialisiert
+
+  - intent: praxisphase_why_company
+    examples: |
+      - warum willst du die praxisphase bei uns machen
+      - warum gerade bei uns
+      - warum bewirbst du dich hier
+      - was reizt dich an unserem unternehmen
+      - warum unser team
+      - warum möchtest du bei uns arbeiten
+      - was erwartest du von der praxisphase bei uns
+
+
+
+# ---- Datenschutz ----
+  - intent: meta_privacy
+    examples: |
+      - datenschutz
+      - speicherst du daten?
+      - wird das hier gespeichert?
+      - was passiert mit meinen daten?
+      - trackst du mich?
+      - ist das anonym?
+      - cookies?
+      
+      

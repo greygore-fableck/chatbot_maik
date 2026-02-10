@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maik with AI — digital Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="typewriter" aria-label="Hi, mein Name ist Maik. Nicht Mike. Nicht Meik. Maik. Mit AI ;)">
+        <span class="typewriter-line tl-1"
+          >Hi, mein Name ist Maik.</span
+        >
+        <span class="typewriter-line tl-2"
+          >Nicht Mike.</span
+        >
+        <span class="typewriter-line tl-3"
+          >Nicht Meik.</span
+        >
+        <span class="typewriter-line last tl-4"
+          >Maik. Mit <span class="ai-accent">AI</span> ;)</span
+        >
+      </div>
+      <p class="subtext">Ein persönlicher Einblick in meine Arbeit im Bereich Design, Software und KI.</p>
+      <div class="project-detail" id="stage-project-detail" hidden></div>
+    </main>
+
+    <button class="contact-toggle" id="contact-widget-button" type="button" aria-label="Kontakt öffnen">
+      ✉
+    </button>
+    <div class="contact-hint" id="contact-hint" role="status" aria-live="polite">
+      Kontakt öffnen
+    </div>
+
+    <button class="chat-toggle" id="chat-widget-button" type="button" aria-label="Open chat">
+      ✦
+    </button>
+    <div class="chat-hint" id="chat-hint" role="status" aria-live="polite">
+      Tipp: Dialog starten
+    </div>
+
+    <section class="chat-widget" id="chat-widget" hidden>
+      <header class="chat-header">
+        <span>Chatte mit Maik AI</span>
+        <button class="chat-close" id="chat-widget-close-button" type="button" aria-label="Close chat">×</button>
+      </header>
+      <div class="chat-body" id="chat-widget-messages">
+        <button class="chat-history-toggle" id="chat-history-toggle" type="button" hidden>
+          Ältere Nachrichten anzeigen
+        </button>
+      </div>
+      <footer class="chat-footer">
+        <input
+          class="chat-input"
+          id="chat-widget-input"
+          type="text"
+          placeholder="Schreibe eine Nachricht ..."
+          autocomplete="off"
+        />
+        <div class="chat-status" id="chat-status"></div>
+      </footer>
+    </section>
+
+    <section class="contact-widget" id="contact-widget" hidden>
+      <header class="contact-header">
+        <span>Kontakt</span>
+        <button class="contact-close" id="contact-widget-close-button" type="button" aria-label="Close contact">×</button>
+      </header>
+      <div class="contact-body">
+        <p>Du erreichst mich am besten per Mail:</p>
+        <a class="contact-mail" href="mailto:mpaulukat@web.de">mpaulukat@web.de</a>
+        <p class="contact-note">Ich antworte in der Regel zeitnah.</p>
+      </div>
+    </section>
+
+    <script>
+      const contactWidgetButton = document.getElementById("contact-widget-button");
+      const contactWidget = document.getElementById("contact-widget");
+      const contactCloseButton = document.getElementById("contact-widget-close-button");
+      const chatWidgetButton = document.getElementById("chat-widget-button");
+      const chatWidget = document.getElementById("chat-widget");
+      const chatCloseButton = document.getElementById("chat-widget-close-button");
+      const chatInput = document.getElementById("chat-widget-input");
+      const chatMessages = document.getElementById("chat-widget-messages");
+      const chatHistoryToggle = document.getElementById("chat-history-toggle");
+      const chatStatus = document.getElementById("chat-status");
+      const contactHint = document.getElementById("contact-hint");
+      const stageProjectDetail = document.getElementById("stage-project-detail");
+      const stage = document.querySelector(".stage");
+      const stageTypewriter = document.querySelector(".typewriter");
+      const stageSubtext = document.querySelector(".subtext");
+      const chatHint = document.getElementById("chat-hint");
+      let pendingStageUrl = null;
+      let pendingStageMessage = null;
+      let pendingStageIntent = null;
+      let chatOpenPromptFollowupTimer = null;
+      let chatOpenPromptTimer = null;
+      let chatOpenPromptDone = false;
+      let greetDone = false;
+      let chatbotFollowupTimer = null;
+      let chatbotFollowupDone = false;
+      let idleFollowupTimer = null;
+      let idleFollowupEnabled = false;
+      let lastIdleFollowupIndex = -1;
+      let historyExpanded = false;
+      let userTypedSinceLastBot = false;
+      let customFollowupTimers = [];
+      let hasUserInteracted = false;
+
+      const idleFollowupDelayMs = 30000;
+      const chatHintDelayMs = 6000;
+      const contactHintAutoHideMs = 10000;
+      const maxVisibleMessages = 6;
+      const idleFollowupVariants = [
+        {
+          text: "Soll ich dir noch etwas zeigen oder erklären?",
+          buttons: [
+            { title: "Zeig mir das Projekt", payload: "/project_chatbot" },
+            { title: "Erzähl mir was zur Praxisphase", payload: "/praxisphase_info" },
+          ],
+        },
+        {
+          text: "Wenn du noch Fragen hast, sag gern Bescheid.",
+          buttons: [
+            { title: "Erzähl mir kurz was zu dir", payload: "/origin_overview" },
+            { title: "Zeig mir das Projekt", payload: "/project_chatbot" },
+          ],
+        },
+        {
+          text: "Magst du noch etwas wissen?",
+          buttons: [
+            { title: "Erzähl mir was zur Praxisphase", payload: "/praxisphase_info" },
+            { title: "Erzähl mir kurz was zu dir", payload: "/origin_overview" },
+          ],
+        },
+      ];
+
+      const stageUrlMap = {
+        chatbot_overview: "{{ url_for('static', filename='chatbot.html') }}",
+        chatbot_ursprung: "{{ url_for('static', filename='chatbot_ursprung.html') }}",
+        origin: "{{ url_for('static', filename='ursprung.html') }}",
+        werdegang: "{{ url_for('static', filename='werdegang.html') }}",
+        tech_impl: "{{ url_for('static', filename='technische_umsetzung.html') }}",
+        praxisphase: "{{ url_for('static', filename='praxisphase.html') }}",
+      };
+
+      const resolveStageUrl = (stageKey) => stageUrlMap[stageKey] || null;
+
+      const fadeOutStageIntro = () => {
+        if (stageTypewriter.hidden && stageSubtext.hidden) return;
+        stageTypewriter.classList.add("stage-fade-out");
+        stageSubtext.classList.add("stage-fade-out");
+        document.body.classList.add("is-detail");
+        stage?.classList.add("is-detail");
+        window.setTimeout(() => {
+          stageTypewriter.hidden = true;
+          stageSubtext.hidden = true;
+        }, 450);
+      };
+
+      const appendMessage = (label, message, variant = "bot", buttons = []) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = `chat-message ${variant}`;
+        const title = document.createElement("strong");
+        title.textContent = label;
+        const bubble = document.createElement("div");
+        bubble.className = "chat-bubble";
+        if (message) {
+          const text = document.createElement("div");
+          text.textContent = message;
+          bubble.appendChild(text);
+        }
+        if (Array.isArray(buttons) && buttons.length > 0) {
+          const buttonRow = document.createElement("div");
+          buttonRow.className = "chat-buttons";
+          buttons.forEach((btn) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "chat-button";
+            button.textContent = btn.title || "Option";
+            const payload = btn.payload || btn.title || "";
+            const url = btn.url || "";
+            button.addEventListener("click", () => {
+              userTypedSinceLastBot = true;
+              hasUserInteracted = true;
+              cancelCustomFollowups();
+              if (btn.action === "open_stage" && btn.stageUrl) {
+                cancelChatbotFollowup(true);
+                pendingStageUrl = null;
+                appendMessage("Du", btn.title || "Option", "user");
+                if (btn.botMessage) {
+                  appendMessage("Assistent", btn.botMessage, "bot");
+                }
+                if (btn.followupMessage) {
+                  if (chatOpenPromptFollowupTimer) {
+                    window.clearTimeout(chatOpenPromptFollowupTimer);
+                    chatOpenPromptFollowupTimer = null;
+                  }
+                  chatOpenPromptFollowupTimer = window.setTimeout(() => {
+                    if (!canShowFollowup()) return;
+                    appendMessage("Assistent", btn.followupMessage, "bot", btn.followupButtons || []);
+                    pendingStageUrl = btn.followupStageUrl || null;
+                    pendingStageMessage = btn.followupStageMessage || null;
+                  }, btn.followupDelay || 0);
+                }
+                renderStageFromFile(btn.stageUrl);
+                return;
+              }
+              if (url) {
+                window.location.href = url;
+                return;
+              }
+              const shouldUpdateStage =
+                typeof payload === "string" && payload.includes("ask_project_detail");
+              const isChatbotProject =
+                typeof payload === "string" && payload.includes("\"project\":\"chatbot\"");
+                const updateStage = shouldUpdateStage
+                ? isChatbotProject
+                  ? () => renderStageFromFile("{{ url_for('static', filename='chatbot.html') }}")
+                  : (text) => {
+                      stageProjectDetail.textContent = text;
+                      stageProjectDetail.hidden = false;
+                      fadeOutStageIntro();
+                    }
+                : null;
+              if (shouldUpdateStage) {
+                stageProjectDetail.hidden = false;
+                stageProjectDetail.textContent = "";
+                fadeOutStageIntro();
+              }
+              sendMessage(payload, btn.title || payload, updateStage, shouldUpdateStage);
+            });
+            buttonRow.appendChild(button);
+          });
+          bubble.appendChild(buttonRow);
+        }
+        wrapper.append(title, bubble);
+        chatMessages.appendChild(wrapper);
+        updateHistoryVisibility();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (variant === "bot") {
+          userTypedSinceLastBot = false;
+        }
+        return wrapper;
+      };
+
+      const updateHistoryVisibility = () => {
+        if (!chatHistoryToggle) return;
+        const messageNodes = Array.from(chatMessages.querySelectorAll(".chat-message")).filter(
+          (node) => !node.classList.contains("typing")
+        );
+        const total = messageNodes.length;
+        messageNodes.forEach((node) => node.classList.remove("is-hidden", "is-old", "is-latest"));
+        const botNodes = messageNodes.filter((node) => node.classList.contains("bot"));
+        const userNodes = messageNodes.filter((node) => node.classList.contains("user"));
+        const lastTwoBotNodes = botNodes.slice(-2);
+        const lastTwoUserNodes = userNodes.slice(-2);
+        const isHighlighted = (node) =>
+          lastTwoBotNodes.includes(node) || lastTwoUserNodes.includes(node);
+        if (total <= maxVisibleMessages) {
+          messageNodes.forEach((node) => {
+            if (isHighlighted(node)) {
+              node.classList.add("is-latest");
+            } else {
+              node.classList.add("is-old");
+            }
+          });
+          chatHistoryToggle.hidden = true;
+          return;
+        }
+        const hiddenCount = total - maxVisibleMessages;
+        if (!historyExpanded) {
+          messageNodes.forEach((node, index) => {
+            if (index < hiddenCount) {
+              node.classList.add("is-hidden");
+            } else {
+              node.classList.remove("is-hidden");
+            }
+          });
+          const shownNodes = messageNodes.filter((node) => !node.classList.contains("is-hidden"));
+          shownNodes.forEach((node) => {
+            if (isHighlighted(node)) {
+              node.classList.add("is-latest");
+            } else {
+              node.classList.add("is-old");
+            }
+          });
+          chatHistoryToggle.textContent = `Ältere Nachrichten anzeigen (${hiddenCount})`;
+        } else {
+          messageNodes.forEach((node) => {
+            if (isHighlighted(node)) {
+              node.classList.add("is-latest");
+            } else {
+              node.classList.add("is-old");
+            }
+          });
+          chatHistoryToggle.textContent = "Ältere Nachrichten ausblenden";
+        }
+        chatHistoryToggle.hidden = false;
+      };
+
+      const renderStageFromFile = async (url) => {
+        try {
+          const response = await fetch(url, { cache: "no-store" });
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const content =
+            doc.querySelector("[data-stage-content]")?.innerHTML ||
+            doc.body?.innerHTML ||
+            html;
+          stageProjectDetail.innerHTML = content.trim();
+          stageProjectDetail.hidden = false;
+          fadeOutStageIntro();
+          initStageReveals(stageProjectDetail);
+          if (typeof url === "string" && url.includes("praxisphase.html")) {
+            showContactHint();
+          }
+          if (typeof url === "string" && url.includes("chatbot.html")) {
+            // followup disabled for project view
+          }
+        } catch (error) {
+          stageProjectDetail.textContent =
+            "Konnte den Inhalt gerade nicht laden. Bitte versuch es nochmal.";
+          stageProjectDetail.hidden = false;
+          fadeOutStageIntro();
+        }
+      };
+
+      const appendStageFromFile = async (url, blockId) => {
+        try {
+          if (blockId && stageProjectDetail.querySelector(`[data-stage-block="${blockId}"]`)) {
+            return;
+          }
+          const response = await fetch(url, { cache: "no-store" });
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const block =
+            doc.querySelector("[data-stage-block]") ||
+            doc.querySelector("[data-stage-content]") ||
+            doc.body?.firstElementChild;
+          if (!block) return;
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = block.outerHTML;
+          stageProjectDetail.appendChild(wrapper.firstElementChild);
+          stageProjectDetail.hidden = false;
+          fadeOutStageIntro();
+        } catch (error) {
+          appendMessage("Assistent", "Konnte den Abschnitt gerade nicht laden.", "bot");
+        }
+      };
+
+      const initStageReveals = (root) => {
+        if (!root) return;
+        const bubbles = root.querySelectorAll("[data-reveal]");
+        const scrollArrow = root.querySelector(".scroll-arrow");
+        const copies = root.querySelectorAll(".stage-copy");
+        const lastCopy = copies.length > 0 ? copies[copies.length - 1] : null;
+        if (scrollArrow) {
+          scrollArrow.classList.remove("is-visible");
+          scrollArrow.classList.add("is-hidden");
+          const showArrow = () => {
+            scrollArrow.classList.remove("is-hidden");
+            scrollArrow.classList.add("is-visible");
+          };
+          if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            showArrow();
+          } else if (lastCopy) {
+            lastCopy.addEventListener("animationend", showArrow, { once: true });
+          }
+          window.setTimeout(showArrow, 6000);
+        }
+        if (bubbles.length === 0) return;
+        if (!("IntersectionObserver" in window)) {
+          bubbles.forEach((bubble) => {
+            const direction = bubble.dataset.reveal === "right" ? "right" : "left";
+            bubble.classList.add(`reveal-${direction}`);
+          });
+          if (scrollArrow) {
+            scrollArrow.classList.add("is-hidden");
+          }
+          return;
+        }
+        if (scrollArrow) {
+          const arrowObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  scrollArrow.classList.add("is-hidden");
+                  scrollArrow.classList.remove("is-visible");
+                }
+              });
+            },
+            { root: null, threshold: 0.15 }
+          );
+          arrowObserver.observe(bubbles[0]);
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (window.scrollY > 60) {
+                scrollArrow.classList.add("is-hidden");
+                scrollArrow.classList.remove("is-visible");
+              }
+            },
+            { passive: true }
+          );
+        }
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const direction = entry.target.dataset.reveal === "right" ? "right" : "left";
+              entry.target.classList.add(`reveal-${direction}`);
+              observer.unobserve(entry.target);
+            });
+          },
+          { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.25 }
+        );
+        bubbles.forEach((bubble) => revealObserver.observe(bubble));
+      };
+
+      const resolveFollowupIntent = (followup) => {
+        if (typeof followup?.intent === "string" && followup.intent.trim() !== "") {
+          return followup.intent.trim();
+        }
+        if (Array.isArray(followup?.buttons)) {
+          const button = followup.buttons.find(
+            (btn) => typeof btn?.payload === "string" && btn.payload.trim().startsWith("/")
+          );
+          return button?.payload || null;
+        }
+        return null;
+      };
+
+      const handleStageCustom = (custom) => {
+        if (!custom || typeof custom !== "object") return;
+        if (Array.isArray(custom.followups)) {
+          custom.followups.forEach((followup) => {
+            const delayMs = Number.isFinite(followup?.delay) ? followup.delay : 0;
+            const timerId = window.setTimeout(() => {
+              if (!canShowFollowup()) return;
+              appendMessage("Assistent", followup.text || "", "bot", followup.buttons || []);
+              if (followup.stage) {
+                pendingStageUrl = resolveStageUrl(followup.stage);
+                pendingStageMessage = followup.stageMessage || null;
+                pendingStageIntent = resolveFollowupIntent(followup);
+              }
+            }, delayMs);
+            customFollowupTimers.push(timerId);
+          });
+        }
+        if (custom.stage) {
+          const url = resolveStageUrl(custom.stage);
+          if (url) {
+            if (custom.stage === "chatbot_ursprung") {
+              appendStageFromFile(url, "chatbot-ursprung");
+            } else {
+              renderStageFromFile(url);
+            }
+          }
+          if (custom.stage === "praxisphase") {
+            showContactHint();
+          }
+        }
+      };
+
+      const showContactHint = () => {
+        if (!contactHint || !contactWidget || !contactWidget.hidden) return;
+        contactHint.classList.add("is-visible");
+        if (contactHintAutoHideMs > 0) {
+          window.setTimeout(() => {
+            contactHint.classList.remove("is-visible");
+          }, contactHintAutoHideMs);
+        }
+      };
+
+      const canShowFollowup = () => {
+        if (chatWidget.hidden) return false;
+        if (chatInput.value.trim() !== "") return false;
+        if (userTypedSinceLastBot) return false;
+        return true;
+      };
+
+      const cancelCustomFollowups = () => {
+        if (customFollowupTimers.length === 0) return;
+        customFollowupTimers.forEach((timerId) => {
+          window.clearTimeout(timerId);
+        });
+        customFollowupTimers = [];
+      };
+
+      const startChatbotFollowup = () => {
+        return;
+        if (chatbotFollowupTimer) {
+          window.clearTimeout(chatbotFollowupTimer);
+          chatbotFollowupTimer = null;
+        }
+        chatbotFollowupDone = false;
+        chatbotFollowupTimer = window.setTimeout(() => {
+          chatbotFollowupTimer = null;
+          if (chatbotFollowupDone) return;
+          if (chatWidget.hidden) return;
+          chatbotFollowupDone = true;
+          triggerIntent("/chatbot_followup_idea_or_tech");
+        }, 6000);
+      };
+
+      const startChatOpenPrompt = () => {
+        if (chatOpenPromptDone) return;
+        if (chatOpenPromptTimer) {
+          window.clearTimeout(chatOpenPromptTimer);
+          chatOpenPromptTimer = null;
+        }
+        chatOpenPromptTimer = window.setTimeout(() => {
+          chatOpenPromptTimer = null;
+          if (chatWidget.hidden || chatOpenPromptDone) return;
+          chatOpenPromptDone = true;
+          triggerIntent("/start_prompt");
+        }, 5000);
+      };
+
+      const cancelChatOpenPrompt = () => {
+        if (!chatOpenPromptTimer) return;
+        window.clearTimeout(chatOpenPromptTimer);
+        chatOpenPromptTimer = null;
+      };
+
+      const cancelChatbotFollowup = (force = false) => {
+        if (chatbotFollowupDone) return;
+        if (!chatbotFollowupTimer && !force) return;
+        chatbotFollowupDone = true;
+        if (chatbotFollowupTimer) {
+          window.clearTimeout(chatbotFollowupTimer);
+          chatbotFollowupTimer = null;
+        }
+      };
+
+      const pickIdleFollowupVariant = () => {
+        if (idleFollowupVariants.length === 1) return idleFollowupVariants[0];
+        let index = Math.floor(Math.random() * idleFollowupVariants.length);
+        if (index === lastIdleFollowupIndex) {
+          index = (index + 1) % idleFollowupVariants.length;
+        }
+        lastIdleFollowupIndex = index;
+        return idleFollowupVariants[index];
+      };
+
+      const cancelIdleFollowup = () => {
+        if (!idleFollowupTimer) return;
+        window.clearTimeout(idleFollowupTimer);
+        idleFollowupTimer = null;
+      };
+
+      const startIdleFollowup = () => {
+        cancelIdleFollowup();
+        if (!idleFollowupEnabled) return;
+        idleFollowupTimer = window.setTimeout(() => {
+          idleFollowupTimer = null;
+          if (!idleFollowupEnabled || !canShowFollowup()) return;
+          const variant = pickIdleFollowupVariant();
+          appendMessage("Assistent", variant.text, "bot", variant.buttons || []);
+          idleFollowupEnabled = false;
+        }, idleFollowupDelayMs);
+      };
+
+      const scheduleIdleFollowup = (enabled) => {
+        idleFollowupEnabled = Boolean(enabled);
+        if (!idleFollowupEnabled) {
+          cancelIdleFollowup();
+          return;
+        }
+        startIdleFollowup();
+      };
+
+      const handleIdleFollowup = (custom) => {
+        if (!custom || typeof custom !== "object") {
+          scheduleIdleFollowup(false);
+          return;
+        }
+        if (custom.idle_followup === true) {
+          if (!hasUserInteracted) {
+            scheduleIdleFollowup(false);
+            return;
+          }
+          scheduleIdleFollowup(true);
+          return;
+        }
+        scheduleIdleFollowup(false);
+      };
+
+      chatWidgetButton.addEventListener("click", () => {
+        chatWidget.hidden = !chatWidget.hidden;
+        if (!chatWidget.hidden) {
+          contactWidget.hidden = true;
+          if (chatHint) chatHint.classList.remove("is-visible");
+          chatInput.focus();
+          if (!greetDone) {
+            greetDone = true;
+            triggerIntent("/greet");
+          }
+        }
+      });
+
+      chatCloseButton.addEventListener("click", () => {
+        chatWidget.hidden = true;
+        cancelChatOpenPrompt();
+        scheduleIdleFollowup(false);
+      });
+
+      if (chatHint) {
+        window.setTimeout(() => {
+          if (!chatWidget.hidden) return;
+          chatHint.classList.add("is-visible");
+        }, chatHintDelayMs);
+        chatHint.addEventListener("click", () => {
+          chatHint.classList.remove("is-visible");
+        });
+      }
+
+      contactWidgetButton.addEventListener("click", () => {
+        contactWidget.hidden = !contactWidget.hidden;
+        if (!contactWidget.hidden) {
+          chatWidget.hidden = true;
+        }
+        if (contactHint) {
+          contactHint.classList.remove("is-visible");
+        }
+      });
+
+      contactCloseButton.addEventListener("click", () => {
+        contactWidget.hidden = true;
+        if (contactHint) {
+          contactHint.classList.remove("is-visible");
+        }
+      });
+
+      const sendMessage = async (
+        payload,
+        displayText = payload,
+        stageUpdate = null,
+        suppressBotReply = false
+      ) => {
+        if (!payload) return;
+        userTypedSinceLastBot = true;
+        hasUserInteracted = true;
+        cancelCustomFollowups();
+        const normalized = typeof payload === "string" ? payload.trim().toLowerCase() : "";
+        const firstToken = normalized.split(/\s+/)[0] || "";
+        const isAffirmation =
+          !normalized.startsWith("/") &&
+          [
+            "ja",
+            "jo",
+            "ok",
+            "okay",
+            "klar",
+            "gerne",
+            "yes",
+            "yep",
+            "sure",
+          ].includes(firstToken);
+        if (pendingStageUrl && isAffirmation) {
+          appendMessage("Du", displayText, "user");
+          if (pendingStageMessage) {
+            appendMessage("Assistent", pendingStageMessage, "bot");
+          }
+          if (pendingStageIntent) {
+            triggerIntent(pendingStageIntent, null, true);
+          } else {
+            renderStageFromFile(pendingStageUrl);
+          }
+          pendingStageUrl = null;
+          pendingStageMessage = null;
+          pendingStageIntent = null;
+          return;
+        }
+        chatOpenPromptDone = true;
+        cancelChatOpenPrompt();
+        cancelChatbotFollowup();
+        scheduleIdleFollowup(false);
+        appendMessage("Du", displayText, "user");
+        const typingMessage = showTypingIndicator();
+        chatStatus.textContent = "Thinking…";
+
+        try {
+          const response = await fetch("/webhook", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: payload }),
+          });
+          const data = await response.json();
+          const applyResponse = () => {
+            if (Array.isArray(data.messages) && data.messages.length > 0) {
+              data.messages.forEach((msg) => {
+                handleStageCustom(msg.custom);
+                handleIdleFollowup(msg.custom);
+                if (suppressBotReply) return;
+                const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
+                const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
+                if (hasText || hasButtons) {
+                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+                }
+              });
+              if (stageUpdate && data.messages[0].text) {
+                stageUpdate(data.messages[0].text);
+              }
+              return;
+            }
+            if (!suppressBotReply) {
+              appendMessage("Assistent", data.response || "Sorry, I did not get that.");
+            }
+            if (stageUpdate && data.response) {
+              stageUpdate(data.response);
+            }
+          };
+
+          window.setTimeout(() => {
+            removeTypingIndicator(typingMessage);
+            applyResponse();
+          }, 2000);
+        } catch (error) {
+          removeTypingIndicator(typingMessage);
+          appendMessage("Assistent", "Sekunde. Ich bin gleich soweit");
+        } finally {
+          chatStatus.textContent = "";
+        }
+      };
+
+      const triggerIntent = async (payload, stageUpdate = null, suppressBotReply = false) => {
+        if (!payload) return;
+        chatOpenPromptDone = true;
+        cancelChatOpenPrompt();
+        cancelChatbotFollowup();
+        scheduleIdleFollowup(false);
+        const typingMessage = showTypingIndicator();
+        chatStatus.textContent = "Thinking…";
+
+        try {
+          const response = await fetch("/webhook", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: payload }),
+          });
+          const data = await response.json();
+          if (Array.isArray(data.messages) && data.messages.length > 0) {
+            data.messages.forEach((msg) => {
+              handleStageCustom(msg.custom);
+              handleIdleFollowup(msg.custom);
+              if (suppressBotReply) return;
+              const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
+              const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
+              if (hasText || hasButtons) {
+                appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+              }
+            });
+            if (stageUpdate && data.messages[0].text) {
+              stageUpdate(data.messages[0].text);
+            }
+          }
+        } catch (error) {
+          appendMessage("Assistent", "Oops – irgendwas ist schiefgelaufen.", "bot");
+        } finally {
+          chatStatus.textContent = "";
+          removeTypingIndicator(typingMessage);
+        }
+      };
+
+      const showTypingIndicator = () => {
+        const wrapper = appendMessage("Assistent", "", "typing");
+        const bubble = wrapper.querySelector(".chat-bubble");
+        const text = document.createElement("span");
+        text.textContent = "tippt";
+        const dots = document.createElement("span");
+        dots.className = "typing-dots";
+        for (let i = 0; i < 3; i += 1) {
+          const dot = document.createElement("span");
+          dots.appendChild(dot);
+        }
+        bubble.append(text, dots);
+        return wrapper;
+      };
+
+      const removeTypingIndicator = (wrapper) => {
+        if (!wrapper) return;
+        wrapper.remove();
+        updateHistoryVisibility();
+      };
+
+      chatInput.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") return;
+        const userMessage = chatInput.value.trim();
+        if (!userMessage) return;
+        chatInput.value = "";
+        sendMessage(userMessage);
+      });
+
+      chatInput.addEventListener("input", () => {
+        if (!chatOpenPromptDone) {
+          chatOpenPromptDone = true;
+          cancelChatOpenPrompt();
+        }
+        if (chatInput.value.trim()) {
+          userTypedSinceLastBot = true;
+          cancelChatbotFollowup(true);
+        }
+      });
+
+      if (chatHistoryToggle) {
+        chatHistoryToggle.addEventListener("click", () => {
+          historyExpanded = !historyExpanded;
+          updateHistoryVisibility();
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+      }
+    </script>
+  </body>
+</html>

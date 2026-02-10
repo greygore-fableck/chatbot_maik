@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Env
+.env
+
+# Mac
+.DS_Store
+
+# Rasa
+rasa/models/
+.rasa/
+
+# Optional: eigene Modelle
+models/

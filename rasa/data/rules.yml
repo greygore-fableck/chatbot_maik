@@ -1,0 +1,332 @@
+version: "3.1"
+
+rules:
+  - rule: greet
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: start prompt
+    steps:
+      - intent: start_prompt
+      - action: utter_start_prompt
+
+  - rule: project chatbot
+    steps:
+      - intent: project_chatbot
+      - action: utter_project_chatbot
+
+  - rule: technical implementation
+    steps:
+      - intent: tech_impl
+      - action: utter_tech_impl
+
+  - rule: origin overview
+    steps:
+      - intent: origin_overview
+      - action: utter_origin_overview
+
+  - rule: werdegang overview
+    steps:
+      - intent: werdegang_overview
+      - action: utter_werdegang_overview
+
+  - rule: praxisphase info
+    steps:
+      - intent: praxisphase_info
+      - action: utter_praxisphase_info
+
+  - rule: contact email
+    steps:
+      - intent: contact_email
+      - action: utter_contact_email
+
+  - rule: thanks
+    steps:
+      - intent: thanks
+      - action: utter_thanks
+
+  - rule: goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # smalltalk / meta
+  - rule: smalltalk how are you
+    steps:
+      - intent: smalltalk_how_are_you
+      - action: utter_smalltalk_how_are_you
+
+  - rule: smalltalk who are you
+    steps:
+      - intent: smalltalk_who_are_you
+      - action: utter_smalltalk_who_are_you
+
+  - rule: smalltalk what can you do
+    steps:
+      - intent: smalltalk_what_can_you_do
+      - action: utter_smalltalk_what_can_you_do
+
+  - rule: smalltalk compliment
+    steps:
+      - intent: smalltalk_compliment
+      - action: utter_smalltalk_compliment
+
+  - rule: smalltalk humor
+    steps:
+      - intent: smalltalk_humor
+      - action: utter_smalltalk_humor
+
+  # project faq
+  - rule: project goal
+    steps:
+      - intent: project_goal
+      - action: utter_project_goal
+
+  - rule: project audience
+    steps:
+      - intent: project_audience
+      - action: utter_project_audience
+
+  - rule: project tech
+    steps:
+      - intent: project_tech
+      - action: utter_project_tech
+
+  - rule: project unique
+    steps:
+      - intent: project_unique
+      - action: utter_project_unique
+
+  - rule: project where
+    steps:
+      - intent: project_where
+      - action: utter_project_where
+
+  - rule: project improve
+    steps:
+      - intent: project_improve
+      - action: utter_project_improve
+
+  - rule: project duration
+    steps:
+      - intent: project_duration
+      - action: utter_project_duration
+
+  - rule: project missing
+    steps:
+      - intent: project_missing
+      - action: utter_project_missing
+
+  - rule: project challenge
+    steps:
+      - intent: project_challenge
+      - action: utter_project_challenge
+
+  # person faq
+  - rule: person hobbies
+    steps:
+      - intent: person_hobbies
+      - action: utter_person_hobbies
+
+  - rule: person motivation
+    steps:
+      - intent: person_motivation
+      - action: utter_person_motivation
+
+  - rule: person sports
+    steps:
+      - intent: person_sports
+      - action: utter_person_sports
+
+  - rule: person collab
+    steps:
+      - intent: person_collab
+      - action: utter_person_collab
+
+  - rule: person next step
+    steps:
+      - intent: person_next_step
+      - action: utter_person_next_step
+
+  - rule: person unwind
+    steps:
+      - intent: person_unwind
+      - action: utter_person_unwind
+
+  - rule: person task style
+    steps:
+      - intent: person_task_style
+      - action: utter_person_task_style
+
+  - rule: person learning
+    steps:
+      - intent: person_learning
+      - action: utter_person_learning
+
+  - rule: person work style
+    steps:
+      - intent: person_work_style
+      - action: utter_person_work_style
+
+  # experience / status
+  - rule: experience summary
+    steps:
+      - intent: experience_summary
+      - action: utter_experience_summary
+
+  - rule: current status
+    steps:
+      - intent: current_status
+      - action: utter_current_status
+
+  - rule: projects experience
+    steps:
+      - intent: projects_experience
+      - action: utter_projects_experience
+
+  - rule: strengths tasks
+    steps:
+      - intent: strengths_tasks
+      - action: utter_strengths_tasks
+
+  - rule: praxisphase why company
+    steps:
+      - intent: praxisphase_why_company
+      - action: utter_praxisphase_why_company
+
+  - rule: privacy
+    steps:
+      - intent: meta_privacy
+      - action: utter_meta_privacy
+
+  - rule: person name opinion
+    steps:
+      - intent: person_name_opinion
+      - action: action_person_name_opinion
+
+  - rule: fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_fallback
+
+  # affirm/deny followups (mapped to first/second option)
+  - rule: affirm after project chatbot
+    steps:
+      - action: utter_project_chatbot
+      - intent: affirm
+      - action: utter_tech_impl
+
+  - rule: deny after project chatbot
+    steps:
+      - action: utter_project_chatbot
+      - intent: deny
+      - action: utter_praxisphase_info
+
+  - rule: affirm after tech impl
+    steps:
+      - action: utter_tech_impl
+      - intent: affirm
+      - action: utter_praxisphase_info
+
+  - rule: deny after tech impl
+    steps:
+      - action: utter_tech_impl
+      - intent: deny
+      - action: utter_origin_overview
+
+  - rule: affirm after origin overview
+    steps:
+      - action: utter_origin_overview
+      - intent: affirm
+      - action: utter_werdegang_overview
+
+  - rule: deny after origin overview
+    steps:
+      - action: utter_origin_overview
+      - intent: deny
+      - action: utter_project_chatbot
+
+  - rule: affirm after werdegang overview
+    steps:
+      - action: utter_werdegang_overview
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after werdegang overview
+    steps:
+      - action: utter_werdegang_overview
+      - intent: deny
+      - action: utter_praxisphase_info
+
+  - rule: affirm after praxisphase info
+    steps:
+      - action: utter_praxisphase_info
+      - intent: affirm
+      - action: utter_contact_email
+
+  - rule: deny after praxisphase info
+    steps:
+      - action: utter_praxisphase_info
+      - intent: deny
+      - action: utter_project_chatbot
+
+  - rule: affirm after smalltalk how are you
+    steps:
+      - action: utter_smalltalk_how_are_you
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after smalltalk how are you
+    steps:
+      - action: utter_smalltalk_how_are_you
+      - intent: deny
+      - action: utter_praxisphase_info
+
+  - rule: affirm after smalltalk who are you
+    steps:
+      - action: utter_smalltalk_who_are_you
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after smalltalk who are you
+    steps:
+      - action: utter_smalltalk_who_are_you
+      - intent: deny
+      - action: utter_origin_overview
+
+  - rule: affirm after smalltalk what can you do
+    steps:
+      - action: utter_smalltalk_what_can_you_do
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after smalltalk what can you do
+    steps:
+      - action: utter_smalltalk_what_can_you_do
+      - intent: deny
+      - action: utter_praxisphase_info
+
+  - rule: affirm after smalltalk compliment
+    steps:
+      - action: utter_smalltalk_compliment
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after smalltalk compliment
+    steps:
+      - action: utter_smalltalk_compliment
+      - intent: deny
+      - action: utter_origin_overview
+
+  - rule: affirm after smalltalk humor
+    steps:
+      - action: utter_smalltalk_humor
+      - intent: affirm
+      - action: utter_project_chatbot
+
+  - rule: deny after smalltalk humor
+    steps:
+      - action: utter_smalltalk_humor
+      - intent: deny
+      - action: utter_praxisphase_info
