@@ -188,9 +188,6 @@ nlu:
 # ---- Ursprung / Werdegang (maik) ----
   - intent: origin_overview
     examples: |
-      - maik
-      - maik?
-      - maik bitte
       - wer ist maik
       - ursprung von maik
       - wie hat alles angefangen
