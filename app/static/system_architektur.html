@@ -1,0 +1,36 @@
+<section class="stage-panel is-animated" data-stage-content>
+
+  <div class="stage-header">
+    <h2 class="stage-title">System-Architektur</h2>
+    <span class="stage-tag">Modularität</span>
+  </div>
+
+  <div class="stage-section">
+    <div class="stage-subtitle">Aufbau im Überblick</div>
+    <p class="stage-copy">
+      Der Bot ist bewusst <span class="subtle-highlight">modular</span> aufgebaut. Das bedeutet: Frontend, Backend,
+      Dialogsystem und Actions laufen getrennt voneinander und kommunizieren über klare Schnittstellen. So kann ich
+      einzelne Teile austauschen oder erweitern, ohne das Gesamtsystem umzubauen.
+    </p>
+    <p class="stage-copy">
+      Praktisch heißt das: Ich könnte ein anderes Frontend nutzen (z.B. eine mobile App) und denselben Bot weiterverwenden.
+      Die Logik bleibt im <span class="subtle-highlight">Rasa-Server</span>, während die <span class="subtle-highlight">Actions</span>
+      echte Funktionen und externe Daten liefern.
+    </p>
+
+    <div class="architecture-stack">
+      <div class="architecture-banner" data-reveal="bottom">Railway (Deployment)</div>
+      <div class="architecture-node" data-reveal="bottom">Browser (Nutzer)</div>
+      <div class="architecture-arrow" data-reveal="bottom"><span>HTTP</span></div>
+      <div class="architecture-node" data-reveal="bottom">Flask Web-App</div>
+      <div class="architecture-arrow" data-reveal="bottom"><span>/webhooks/rest/webhook</span></div>
+      <div class="architecture-node" data-reveal="bottom">Rasa-Server (NLU + Dialog)</div>
+      <div class="architecture-arrow" data-reveal="bottom"><span>Action-Endpoint</span></div>
+      <div class="architecture-node" data-reveal="bottom">Rasa Actions (Custom Actions)</div>
+    </div>
+
+    <p class="stage-copy" data-reveal="bottom">
+      Antworten fließen anschließend wieder zurück über Rasa und die Web-App in den Browser.
+    </p>
+  </div>
+  </section>

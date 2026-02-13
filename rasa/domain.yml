@@ -12,6 +12,7 @@ intents:
 
   - project_chatbot
   - tech_impl
+  - system_architecture
 
   - origin_overview
   - werdegang_overview
@@ -32,8 +33,6 @@ intents:
   - project_where
   - project_improve
   - project_duration
-  - project_missing
-  - project_challenge
 
   - person_hobbies
   - person_motivation
@@ -41,9 +40,6 @@ intents:
   - person_collab
   - person_next_step
   - person_unwind
-  - person_task_style
-  - person_learning
-  - person_work_style
 
   - experience_summary
   - current_status
@@ -71,7 +67,7 @@ responses:
               Du kannst mir Fragen zu diesem Projekt stellen
               oder auch etwas über mich erfahren 🙂
               Ein einzelnes Wort reicht schon.
-          - delay: 25000
+          - delay: 20000
             text: |
               Möchtest du zuerst sehen, woran ich hier arbeite,
               oder soll ich mich kurz vorstellen?
@@ -138,6 +134,22 @@ responses:
                 payload: "/praxisphase_info"
               - title: "Erzähl mir kurz was zu dir"
                 payload: "/origin_overview"
+              - title: "Zeig mir die Architektur 🧭"
+                payload: "/system_architecture"
+
+  # --- Architektur ---
+  utter_system_architecture:
+    - text: "Hier ist ein kurzer Überblick über die modulare Architektur und den Ablauf im System."
+      custom:
+        stage: "system_architecture"
+        followups:
+          - delay: 18000
+            text: "Soll ich dir dazu noch etwas im Detail erklären?"
+            buttons:
+              - title: "Erzähl mir was zur Technik"
+                payload: "/tech_impl"
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
 
   # --- Maik: Ursprung / Werdegang ---
   utter_origin_overview:
@@ -259,22 +271,12 @@ responses:
         idle_followup: true
 
   utter_project_improve:
-    - text: "Als Nächstes würde ich schauen, welche technischen Neuerungen sinnvoll sind, und den Dialog weiter ausbauen."
+    - text: "Als Nächstes würde ich den Dialog weiter ausbauen und schauen, was noch fehlt oder sich verbessern lässt."
       custom:
         idle_followup: true
 
   utter_project_duration:
     - text: "Ich habe Anfang 2026 mit dem Bot hier angefangen."
-      custom:
-        idle_followup: true
-
-  utter_project_missing:
-    - text: "Soweit ist alles da. Komplett fertig wird so ein Bot eh nie — man kann immer weiter verbessern."
-      custom:
-        idle_followup: true
-
-  utter_project_challenge:
-    - text: "Die größte Herausforderung war, nicht zu viel zeigen zu wollen. Weniger ist mehr — auch wenn spielerisch noch einiges möglich wäre."
       custom:
         idle_followup: true
 
@@ -339,36 +341,6 @@ responses:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
 
-  utter_person_task_style:
-    - text: "Am meisten mag ich den Mix aus Neuem und kreativer Arbeit."
-      custom:
-        idle_followup: true
-      buttons:
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
-
-  utter_person_learning:
-    - text: "Ich hänge gerade grundsätzlich am Thema Künstliche Intelligenz und was das für die IT in Zukunft bedeutet."
-      custom:
-        idle_followup: true
-      buttons:
-        - title: "Erzähl mir was zur Praxisphase 📌"
-          payload: "/praxisphase_info"
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-
-  utter_person_work_style:
-    - text: "Ich bin eher kreativ unterwegs."
-      custom:
-        idle_followup: true
-      buttons:
-        - title: "Erzähl mir kurz was zu dir 👨‍💻"
-          payload: "/origin_overview"
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-
   # --- Erfahrung / Status ---
   utter_experience_summary:
     - text: "Ich bringe einen Mix aus Design‑Denken und technischer Umsetzung mit — genau das zeige ich hier am Bot."
@@ -381,7 +353,7 @@ responses:
           payload: "/praxisphase_info"
 
   utter_current_status:
-    - text: "Aktuell studiere ich Medieninformatik und suche eine Praxisphase."
+    - text: "Aktuell studiere ich Medieninformatik, suche eine Praxisphase und beschäftige mich viel mit KI‑nahen Systemen."
       custom:
         idle_followup: true
       buttons:
@@ -401,7 +373,7 @@ responses:
           payload: "/origin_overview"
 
   utter_strengths_tasks:
-    - text: "Am liebsten arbeite ich an der Schnittstelle von Idee, Struktur und Umsetzung."
+    - text: "Am liebsten arbeite ich an der Schnittstelle von Idee, Struktur und Umsetzung — kreativ, aber trotzdem klar strukturiert."
       custom:
         idle_followup: true
       buttons:

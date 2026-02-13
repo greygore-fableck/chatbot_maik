@@ -147,6 +147,14 @@ nlu:
       - was würdest du am bot ändern
       - was ist der nächste schritt am projekt
       - was willst du als nächstes machen
+      - was fehlt dem bot noch
+      - was fehlt noch
+      - welche funktionen fehlen noch
+      - ist der bot fertig
+      - was war die größte herausforderung
+      - was war schwierig beim bauen
+      - was war die größte hürde
+      - was hat am meisten zeit gekostet
 
   - intent: project_duration
     examples: |
@@ -154,20 +162,6 @@ nlu:
       - seit wann arbeitest du daran
       - wann hast du damit angefangen
       - wann hast du den bot gestartet
-
-  - intent: project_missing
-    examples: |
-      - was fehlt dem bot noch
-      - was fehlt noch
-      - welche funktionen fehlen noch
-      - ist der bot fertig
-
-  - intent: project_challenge
-    examples: |
-      - was war die größte herausforderung
-      - was war schwierig beim bauen
-      - was war die größte hürde
-      - was hat am meisten zeit gekostet
 
   - intent: tech_impl
     examples: |
@@ -182,6 +176,18 @@ nlu:
       - was nutzt du technisch
       - wie sieht die technische umsetzung aus
       - stack?
+
+  - intent: system_architecture
+    examples: |
+      - architektur
+      - system architektur
+      - systemarchitektur
+      - wie ist das system aufgebaut
+      - wie ist die struktur
+      - wie sieht der aufbau aus
+      - modularität
+      - modularer aufbau
+      - wie hängt das zusammen
 
 
 
@@ -426,33 +432,11 @@ nlu:
       - was machst du zum abschalten
       - was machst du wenn du frei hast
 
-  - intent: person_task_style
-    examples: |
-      - welche aufgaben machen dir am meisten spaß
-      - was machst du am liebsten
-      - was macht dir am meisten spaß
-      - welche art aufgaben magst du
-
-  - intent: person_learning
-    examples: |
-      - woran arbeitest du dich gerade ein
-      - in welches thema arbeitest du dich ein
-      - was lernst du gerade
-      - welches thema beschäftigt dich gerade
-
-  - intent: person_work_style
-    examples: |
-      - wie würdest du deinen stil beschreiben
-      - bist du eher kreativ oder strukturiert
-      - wie arbeitest du vom stil her
-      - wie würdest du dich beschreiben
-      
   - intent: experience_summary
     examples: |
       - bisherige erfahrung
       - was ist deine erfahrung
       - was hast du bisher gemacht
-      - was ist dein hintergrund
       - woher kommt deine erfahrung
       - kurzprofil
       - gib mir ein kurzes profil
@@ -475,6 +459,10 @@ nlu:
       - was ist dein aktuelles projekt
       - bist du gerade im studium
       - was ist dein momentaner stand
+      - woran arbeitest du dich gerade ein
+      - in welches thema arbeitest du dich ein
+      - was lernst du gerade
+      - welches thema beschäftigt dich gerade
 
   - intent: projects_experience
     examples: |
@@ -496,6 +484,13 @@ nlu:
       - worin bist du gut
       - was kannst du besonders gut
       - was machst du am liebsten
+      - welche aufgaben machen dir am meisten spaß
+      - was macht dir am meisten spaß
+      - welche art aufgaben magst du
+      - wie würdest du deinen stil beschreiben
+      - bist du eher kreativ oder strukturiert
+      - wie arbeitest du vom stil her
+      - wie würdest du dich beschreiben
       - welche aufgaben liegen dir
       - welche aufgaben magst du
       - welche art aufgaben machen dir spaß

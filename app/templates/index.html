@@ -142,6 +142,7 @@
         origin: "{{ url_for('static', filename='ursprung.html') }}",
         werdegang: "{{ url_for('static', filename='werdegang.html') }}",
         tech_impl: "{{ url_for('static', filename='technische_umsetzung.html') }}",
+        system_architecture: "{{ url_for('static', filename='system_architektur.html') }}",
         praxisphase: "{{ url_for('static', filename='praxisphase.html') }}",
       };
 
@@ -315,7 +316,7 @@
           fadeOutStageIntro();
           initStageReveals(stageProjectDetail);
           if (typeof url === "string" && url.includes("praxisphase.html")) {
-            showContactHint();
+            enableContactPrompt();
           }
           if (typeof url === "string" && url.includes("chatbot.html")) {
             // followup disabled for project view
@@ -375,7 +376,11 @@
         if (bubbles.length === 0) return;
         if (!("IntersectionObserver" in window)) {
           bubbles.forEach((bubble) => {
-            const direction = bubble.dataset.reveal === "right" ? "right" : "left";
+            const direction = bubble.dataset.reveal === "right"
+              ? "right"
+              : bubble.dataset.reveal === "bottom"
+                ? "bottom"
+                : "left";
             bubble.classList.add(`reveal-${direction}`);
           });
           if (scrollArrow) {
@@ -411,7 +416,11 @@
           (entries, observer) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
-              const direction = entry.target.dataset.reveal === "right" ? "right" : "left";
+              const direction = entry.target.dataset.reveal === "right"
+                ? "right"
+                : entry.target.dataset.reveal === "bottom"
+                  ? "bottom"
+                  : "left";
               entry.target.classList.add(`reveal-${direction}`);
               observer.unobserve(entry.target);
             });
@@ -461,19 +470,23 @@
             }
           }
           if (custom.stage === "praxisphase") {
-            showContactHint();
+            enableContactPrompt();
           }
         }
       };
 
-      const showContactHint = () => {
+      const showContactHint = (persistent = false) => {
         if (!contactHint || !contactWidget || !contactWidget.hidden) return;
         contactHint.classList.add("is-visible");
-        if (contactHintAutoHideMs > 0) {
+        if (!persistent && contactHintAutoHideMs > 0) {
           window.setTimeout(() => {
             contactHint.classList.remove("is-visible");
           }, contactHintAutoHideMs);
         }
+      };
+
+      const enableContactPrompt = () => {
+        showContactHint(true);
       };
 
       const canShowFollowup = () => {

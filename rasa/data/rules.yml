@@ -93,6 +93,11 @@ rules:
       - intent: project_tech
       - action: utter_project_tech
 
+  - rule: system architecture
+    steps:
+      - intent: system_architecture
+      - action: utter_system_architecture
+
   - rule: project unique
     steps:
       - intent: project_unique
@@ -112,16 +117,6 @@ rules:
     steps:
       - intent: project_duration
       - action: utter_project_duration
-
-  - rule: project missing
-    steps:
-      - intent: project_missing
-      - action: utter_project_missing
-
-  - rule: project challenge
-    steps:
-      - intent: project_challenge
-      - action: utter_project_challenge
 
   # person faq
   - rule: person hobbies
@@ -153,21 +148,6 @@ rules:
     steps:
       - intent: person_unwind
       - action: utter_person_unwind
-
-  - rule: person task style
-    steps:
-      - intent: person_task_style
-      - action: utter_person_task_style
-
-  - rule: person learning
-    steps:
-      - intent: person_learning
-      - action: utter_person_learning
-
-  - rule: person work style
-    steps:
-      - intent: person_work_style
-      - action: utter_person_work_style
 
   # experience / status
   - rule: experience summary
