@@ -58,6 +58,7 @@
           placeholder="Schreibe eine Nachricht ..."
           autocomplete="off"
         />
+        <button class="chat-send" id="chat-widget-send" type="button" aria-label="Senden">Senden</button>
         <div class="chat-status" id="chat-status"></div>
       </footer>
     </section>
@@ -82,6 +83,7 @@
       const chatWidget = document.getElementById("chat-widget");
       const chatCloseButton = document.getElementById("chat-widget-close-button");
       const chatInput = document.getElementById("chat-widget-input");
+      const chatSendButton = document.getElementById("chat-widget-send");
       const chatMessages = document.getElementById("chat-widget-messages");
       const chatHistoryToggle = document.getElementById("chat-history-toggle");
       const chatStatus = document.getElementById("chat-status");
@@ -107,6 +109,15 @@
       let userTypedSinceLastBot = false;
       let customFollowupTimers = [];
       let hasUserInteracted = false;
+
+      const syncChatToggleState = () => {
+        if (!chatWidgetButton || !chatWidget) return;
+        if (chatWidget.hidden) {
+          chatWidgetButton.classList.remove("is-minimized");
+        } else {
+          chatWidgetButton.classList.add("is-minimized");
+        }
+      };
 
       const idleFollowupDelayMs = 30000;
       const chatHintDelayMs = 6000;
@@ -613,14 +624,25 @@
             greetDone = true;
             triggerIntent("/greet");
           }
+        } else {
+          // closed
         }
+        syncChatToggleState();
       });
 
       chatCloseButton.addEventListener("click", () => {
         chatWidget.hidden = true;
         cancelChatOpenPrompt();
         scheduleIdleFollowup(false);
+        syncChatToggleState();
       });
+
+      if (chatWidget) {
+        const observer = new MutationObserver(() => {
+          syncChatToggleState();
+        });
+        observer.observe(chatWidget, { attributes: true, attributeFilter: ["hidden"] });
+      }
 
       if (chatHint) {
         window.setTimeout(() => {
@@ -808,6 +830,15 @@
         chatInput.value = "";
         sendMessage(userMessage);
       });
+
+      if (chatSendButton) {
+        chatSendButton.addEventListener("click", () => {
+          const userMessage = chatInput.value.trim();
+          if (!userMessage) return;
+          chatInput.value = "";
+          sendMessage(userMessage);
+        });
+      }
 
       chatInput.addEventListener("input", () => {
         if (!chatOpenPromptDone) {
