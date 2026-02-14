@@ -27,7 +27,7 @@ def webhook():
     except requests.RequestException:
         return jsonify(
             {
-                "response": "Entschuldige. Gerade ist selbt der Bot beschäftigt. Versuch es bitte gleich nochmal.",
+                "response": "Der Bot ist gerade kurz nicht erreichbar. Versuch es bitte in 10–20 Sekunden nochmal.",
             }
         )
 

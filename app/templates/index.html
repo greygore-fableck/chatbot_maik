@@ -498,6 +498,7 @@
 
       const enableContactPrompt = () => {
         showContactHint(true);
+        contactHint?.classList.add("is-emphasis");
       };
 
       const canShowFollowup = () => {
@@ -661,6 +662,7 @@
         }
         if (contactHint) {
           contactHint.classList.remove("is-visible");
+          contactHint.classList.remove("is-emphasis");
         }
       });
 
@@ -668,6 +670,7 @@
         contactWidget.hidden = true;
         if (contactHint) {
           contactHint.classList.remove("is-visible");
+          contactHint.classList.remove("is-emphasis");
         }
       });
 
