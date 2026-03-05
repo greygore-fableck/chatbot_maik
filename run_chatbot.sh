@@ -19,33 +19,38 @@ if [[ -z "${RASA:-}" || -z "${PYTHON:-}" ]]; then
   exit 1
 fi
 
-cd "$RASA_DIR"
+SERVICE="${CHATBOT_SERVICE:-flask}"
 
-echo "Training Rasa model..."
-"$RASA" train --config "$RASA_DIR/config.yml" --domain "$RASA_DIR/domain.yml" --data "$RASA_DIR/data" --out "$RASA_DIR/models"
+case "$SERVICE" in
+  flask)
+    cd "$APP_DIR"
+    exec "$PYTHON" app.py
+    ;;
 
-LATEST_MODEL="$(ls -1t "$RASA_DIR/models"/*.tar.gz 2>/dev/null | head -n 1 || true)"
-if [[ -z "${LATEST_MODEL:-}" ]]; then
-  echo "No trained model found in $RASA_DIR/models after training." >&2
-  exit 1
-fi
-echo "Starting Rasa with model: $(basename "$LATEST_MODEL")"
+  rasa)
+    MODEL_PATH="${RASA_MODEL_PATH:-$RASA_DIR/models/latest.tar.gz}"
+    if [[ ! -f "$MODEL_PATH" ]]; then
+      echo "Model file not found: $MODEL_PATH" >&2
+      echo "Set RASA_MODEL_PATH or place a trained model at rasa/models/latest.tar.gz" >&2
+      exit 1
+    fi
 
-cleanup() {
-  if [[ -n "${RASA_PID:-}" ]]; then
-    kill "$RASA_PID" 2>/dev/null || true
-  fi
-  if [[ -n "${ACTIONS_PID:-}" ]]; then
-    kill "$ACTIONS_PID" 2>/dev/null || true
-  fi
-}
-trap cleanup EXIT
+    PORT="${PORT:-5005}"
+    HOST="${RASA_HOST:-0.0.0.0}"
+    cd "$RASA_DIR"
+    exec "$RASA" run --port "$PORT" --enable-api --cors "*" --model "$MODEL_PATH" --host "$HOST"
+    ;;
 
-"$RASA" run --model "$LATEST_MODEL" &
-RASA_PID=$!
+  actions)
+    PORT="${PORT:-5056}"
+    HOST="${RASA_ACTIONS_HOST:-0.0.0.0}"
+    cd "$RASA_DIR"
+    SANIC_HOST="$HOST" exec "$RASA" run actions --port "$PORT"
+    ;;
 
-SANIC_HOST=127.0.0.1 "$RASA" run actions --port 5056 &
-ACTIONS_PID=$!
-
-cd "$APP_DIR"
-exec "$PYTHON" app.py
+  *)
+    echo "Unsupported CHATBOT_SERVICE: $SERVICE" >&2
+    echo "Use one of: flask, rasa, actions" >&2
+    exit 1
+    ;;
+esac

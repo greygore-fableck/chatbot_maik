@@ -11,6 +11,11 @@ def index():
     return render_template("index.html")
 
 
+@bp.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"}), 200
+
+
 @bp.route("/webhook", methods=["POST"])
 def webhook():
     payload = request.get_json(silent=True) or {}

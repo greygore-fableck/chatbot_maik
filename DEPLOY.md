@@ -16,19 +16,27 @@ This repo is deployed as three separate Railway services:
 ### Rasa server
 Build command:
 ```
-rasa train --config rasa/config.yml --domain rasa/domain.yml --data rasa/data --out rasa/models
+# leer lassen (kein Training beim Start/Build)
 ```
 Start command:
 ```
-rasa run --port $PORT --enable-api --cors "*" --model rasa/models
+CHATBOT_SERVICE=rasa RASA_MODEL_PATH=/app/rasa/models/latest.tar.gz ./run_chatbot.sh
 ```
 
 ### Rasa actions
 Start command:
 ```
-rasa run actions --port $PORT
+CHATBOT_SERVICE=actions ./run_chatbot.sh
+```
+
+### Flask app
+Start command:
+```
+CHATBOT_SERVICE=flask ./run_chatbot.sh
 ```
 
 ## Notes
 - Keep Rasa config/domain/data under rasa/.
+- Use a fixed model file path in production (`/app/rasa/models/latest.tar.gz`).
+- Ensure `latest.tar.gz` points to your intended trained model before deploy.
 - If you move files, update the commands above.
