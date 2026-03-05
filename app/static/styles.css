@@ -84,7 +84,7 @@ body.is-detail {
 }
 
 .subtext-line-1 {
-  animation: fade-in 0.6s ease 4.4s forwards;
+  animation: fade-in 0.6s ease 5.1s forwards;
 }
 
 .subtext-line-2 {
@@ -125,7 +125,7 @@ body.is-detail {
 }
 
 .typewriter-line.tl-4 {
-  --d: 3200ms;
+  --d: 3750ms;
   --t: 0.9s;
   --ch: 15;
 }
@@ -677,6 +677,9 @@ body.is-detail {
   box-shadow: 0 10px 24px rgba(31, 31, 28, 0.14);
 }
 
+.chat-toggle.is-pulse {
+  animation: chat-pulse 1.38s cubic-bezier(0.2, 0.75, 0.25, 1) 1;
+}
 
 .chat-hint {
   position: fixed;
@@ -1199,6 +1202,36 @@ body.is-detail {
   20% {
     opacity: 1;
     transform: translateY(-2px);
+  }
+}
+
+@keyframes chat-pulse {
+  0% {
+    transform: scale(1);
+  }
+  24% {
+    transform: scale(1.15);
+  }
+  40% {
+    transform: scale(0.98);
+  }
+  54% {
+    transform: scale(1.05);
+  }
+  66% {
+    transform: scale(0.99);
+  }
+  77% {
+    transform: scale(1.02);
+  }
+  87% {
+    transform: scale(0.995);
+  }
+  94% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

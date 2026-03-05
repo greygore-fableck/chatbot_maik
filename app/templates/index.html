@@ -38,7 +38,7 @@
       ✦
     </button>
     <div class="chat-hint" id="chat-hint" role="status" aria-live="polite">
-      Tipp: Dialog starten
+      Mehr dazu im Dialog →
     </div>
 
     <section class="chat-widget" id="chat-widget" hidden>
@@ -126,7 +126,6 @@
       };
 
       const idleFollowupDelayMs = 30000;
-      const chatHintDelayMs = 6400;
       const contactHintAutoHideMs = 10000;
       const maxVisibleMessages = 6;
       const idleFollowupVariants = [
@@ -692,10 +691,27 @@
       }
 
       if (chatHint) {
-        window.setTimeout(() => {
+        const showChatHint = () => {
           if (!chatWidget.hidden) return;
           chatHint.classList.add("is-visible");
-        }, chatHintDelayMs);
+          chatWidgetButton?.classList.add("is-pulse");
+          window.setTimeout(() => {
+            chatWidgetButton?.classList.remove("is-pulse");
+          }, 1450);
+        };
+        const subtextLine = document.querySelector(".subtext-line-1");
+        if (subtextLine) {
+          subtextLine.addEventListener(
+            "animationend",
+            () => {
+              window.setTimeout(showChatHint, 250);
+            },
+            { once: true }
+          );
+          window.setTimeout(showChatHint, 9000);
+        } else {
+          window.setTimeout(showChatHint, 6400);
+        }
         chatHint.addEventListener("click", () => {
           chatHint.classList.remove("is-visible");
         });
