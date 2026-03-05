@@ -57,20 +57,30 @@ responses:
   # --- Einstieg ---
   utter_greet:
     - text: |
-        Hi 👋 Schön, dass du da bist!
-        Dieser Chatbot ist im Rahmen meiner Bachelorarbeit entstanden
-        und dient als digitale Visitenkarte.
+        Schön, dass du hier bist 👋
       custom:
         followups:
-          - delay: 5000
+          - delay: 3000
             text: |
-              Du kannst mir Fragen zu diesem Projekt stellen
-              oder auch etwas über mich erfahren 🙂
-              Ein einzelnes Wort reicht schon.
-          - delay: 20000
+              Falls du gerade denkst: „Okay… und jetzt?“ – ich kann dir kurz erzählen, wer ich bin 
+              oder was dieses Projekt hier eigentlich soll.
+          - delay: 12000
             text: |
-              Möchtest du zuerst sehen, woran ich hier arbeite,
-              oder soll ich mich kurz vorstellen?
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über dich"
+                payload: "/origin_overview"
+    - text: |
+        Schön, dass du hier bist 👋
+      custom:
+        followups:
+          - delay: 3000
+            text: "Falls du dich fragst, was hier eigentlich passiert – ich erzähle dir gern kurz etwas über 
+        mich oder dieses Projekt."
+          - delay: 12000
+            text: "Womit soll ich starten?"
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
@@ -120,6 +130,19 @@ responses:
                 payload: "/tech_impl"
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
+    - text: |
+        Der Bot ist der Navigator: Er führt durch Inhalte statt Menüs.
+        Unten siehst du, wie das Projekt strukturiert ist.
+      custom:
+        stage: "chatbot_overview"
+        followups:
+          - delay: 7000
+            text: "Soll ich dir auch die Technik zeigen?"
+            buttons:
+              - title: "Zeig mir die Technik 🛠️"
+                payload: "/tech_impl"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
 
   # --- Technik ---
   utter_tech_impl:
@@ -136,6 +159,17 @@ responses:
                 payload: "/origin_overview"
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
+    - text: "Technisch: Python + Rasa, bewusst reduziert und stabil gehalten."
+      custom:
+        stage: "tech_impl"
+        followups:
+          - delay: 14000
+            text: "Soll ich dir die System-Architektur zeigen?"
+            buttons:
+              - title: "Zeig mir die Architektur 🧭"
+                payload: "/system_architecture"
+              - title: "Erzähl mir was zur Praxisphase 📌"
+                payload: "/praxisphase_info"
 
   # --- Architektur ---
   utter_system_architecture:
@@ -191,10 +225,27 @@ responses:
                 payload: "/contact_email"
               - title: "Erzähl mir kurz was zu dir"
                 payload: "/origin_overview"
+    - text: "Ich suche eine Praxisphase im Studium – Fokus: Konzept, UX/Interaction und KI‑nahe Systeme."
+      custom:
+        stage: "praxisphase"
+        followups:
+          - delay: 22000
+            text: "Soll ich dir direkt den Kontakt zeigen?"
+            buttons:
+              - title: "Kontakt öffnen ✉️"
+                payload: "/contact_email"
+              - title: "Erzähl mir kurz was zu dir"
+                payload: "/origin_overview"
 
   # --- Kontakt ---
   utter_contact_email:
     - text: "Am besten erreichst du mich per Mail: mpaulukat@web.de"
+      custom:
+        stage: "contact"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+    - text: "Kontakt: mpaulukat@web.de – ich antworte in der Regel zeitnah."
       custom:
         stage: "contact"
       buttons:

@@ -167,6 +167,7 @@ nlu:
     examples: |
       - technische umsetzung
       - technik
+      - tech
       - wie ist das technisch umgesetzt
       - python und rasa?
       - ist das rasa?
@@ -180,6 +181,8 @@ nlu:
   - intent: system_architecture
     examples: |
       - architektur
+      - system
+      - struktur
       - system architektur
       - systemarchitektur
       - wie ist das system aufgebaut
@@ -258,6 +261,7 @@ nlu:
   - intent: praxisphase_info
     examples: |
       - praxisphase
+      - praxis
       - praxissemester
       - praktikum
       - suchst du eine praxisphase
@@ -280,6 +284,7 @@ nlu:
     examples: |
       - email
       - mail
+      - e-mail
       - per email
       - e-mail adresse
       - schick mir deine email

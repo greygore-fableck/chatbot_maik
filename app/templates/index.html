@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,24 +8,25 @@
   </head>
   <body>
     <main class="stage">
-      <div class="typewriter" aria-label="Hi, mein Name ist Maik. Nicht Mike. Nicht Meik. Maik. Mit AI ;)">
+      <div class="typewriter" aria-label="Hi, mein Name ist Maik. Nicht Meik. Nicht Mike. Maik. Mit AI ;)">
         <span class="typewriter-line tl-1"
           >Hi, mein Name ist Maik.</span
         >
         <span class="typewriter-line tl-2"
-          >Nicht Mike.</span
-        >
-        <span class="typewriter-line tl-3"
           >Nicht Meik.</span
         >
+        <span class="typewriter-line tl-3"
+          >Nicht Mike.</span
+        >
         <span class="typewriter-line last tl-4"
-          >Maik. Mit <span class="ai-accent">AI</span> ;)</span
+          >Maik - mit <span class="ai-accent">AI</span> ;)</span
         >
       </div>
-      <p class="subtext">Ein persönlicher Einblick in meine Arbeit im Bereich Design, Software und KI.</p>
+      <p class="subtext">
+        <span class="subtext-line subtext-line-1">Und das hier ist mein Ansatz, eine klassische Bewerbung um einen Dialog zu erweitern</span>
+      </p>
       <div class="project-detail" id="stage-project-detail" hidden></div>
     </main>
-
     <button class="contact-toggle" id="contact-widget-button" type="button" aria-label="Kontakt öffnen">
       ✉
     </button>
@@ -72,6 +73,11 @@
         <p>Du erreichst mich am besten per Mail:</p>
         <a class="contact-mail" href="mailto:mpaulukat@web.de">mpaulukat@web.de</a>
         <p class="contact-note">Ich antworte in der Regel zeitnah.</p>
+        <div class="contact-credit" aria-label="Copyright Hinweis">
+          <span>&copy; Maik Paulukat</span>
+          <span aria-hidden="true">|</span>
+          <a href="https://maikmitai.de" target="_blank" rel="noopener noreferrer">maikmitai.de</a>
+        </div>
       </div>
     </section>
 
@@ -120,7 +126,7 @@
       };
 
       const idleFollowupDelayMs = 30000;
-      const chatHintDelayMs = 6000;
+      const chatHintDelayMs = 6400;
       const contactHintAutoHideMs = 10000;
       const maxVisibleMessages = 6;
       const idleFollowupVariants = [
@@ -158,6 +164,18 @@
       };
 
       const resolveStageUrl = (stageKey) => stageUrlMap[stageKey] || null;
+      const getTypingDelayMs = (text) => {
+        const length = String(text || "").length;
+        if (length <= 40) return 900;
+        if (length <= 120) return 1400;
+        return 1900;
+      };
+      const getFollowupTypingDelayMs = (text) => {
+        const length = String(text || "").length;
+        if (length <= 40) return 600;
+        if (length <= 120) return 900;
+        return 1200;
+      };
 
       const fadeOutStageIntro = () => {
         if (stageTypewriter.hidden && stageSubtext.hidden) return;
@@ -211,9 +229,19 @@
                   }
                   chatOpenPromptFollowupTimer = window.setTimeout(() => {
                     if (!canShowFollowup()) return;
-                    appendMessage("Assistent", btn.followupMessage, "bot", btn.followupButtons || []);
-                    pendingStageUrl = btn.followupStageUrl || null;
-                    pendingStageMessage = btn.followupStageMessage || null;
+                    const typingMessage = showTypingIndicator();
+                    chatStatus.textContent = "Assistent tippt...";
+                    window.setTimeout(() => {
+                      removeTypingIndicator(typingMessage);
+                      if (!canShowFollowup()) {
+                        chatStatus.textContent = "";
+                        return;
+                      }
+                      appendMessage("Assistent", btn.followupMessage, "bot", btn.followupButtons || []);
+                      pendingStageUrl = btn.followupStageUrl || null;
+                      pendingStageMessage = btn.followupStageMessage || null;
+                      chatStatus.textContent = "";
+                    }, getFollowupTypingDelayMs(btn.followupMessage));
                   }, btn.followupDelay || 0);
                 }
                 renderStageFromFile(btn.stageUrl);
@@ -461,12 +489,22 @@
             const delayMs = Number.isFinite(followup?.delay) ? followup.delay : 0;
             const timerId = window.setTimeout(() => {
               if (!canShowFollowup()) return;
-              appendMessage("Assistent", followup.text || "", "bot", followup.buttons || []);
-              if (followup.stage) {
-                pendingStageUrl = resolveStageUrl(followup.stage);
-                pendingStageMessage = followup.stageMessage || null;
-                pendingStageIntent = resolveFollowupIntent(followup);
-              }
+              const typingMessage = showTypingIndicator();
+              chatStatus.textContent = "Assistent tippt...";
+              window.setTimeout(() => {
+                removeTypingIndicator(typingMessage);
+                if (!canShowFollowup()) {
+                  chatStatus.textContent = "";
+                  return;
+                }
+                appendMessage("Assistent", followup.text || "", "bot", followup.buttons || []);
+                if (followup.stage) {
+                  pendingStageUrl = resolveStageUrl(followup.stage);
+                  pendingStageMessage = followup.stageMessage || null;
+                  pendingStageIntent = resolveFollowupIntent(followup);
+                }
+                chatStatus.textContent = "";
+              }, getFollowupTypingDelayMs(followup.text || ""));
             }, delayMs);
             customFollowupTimers.push(timerId);
           });
@@ -585,8 +623,16 @@
           idleFollowupTimer = null;
           if (!idleFollowupEnabled || !canShowFollowup()) return;
           const variant = pickIdleFollowupVariant();
-          appendMessage("Assistent", variant.text, "bot", variant.buttons || []);
-          idleFollowupEnabled = false;
+          const typingMessage = showTypingIndicator();
+          chatStatus.textContent = "Assistent tippt...";
+          window.setTimeout(() => {
+            removeTypingIndicator(typingMessage);
+            if (idleFollowupEnabled && canShowFollowup()) {
+              appendMessage("Assistent", variant.text, "bot", variant.buttons || []);
+              idleFollowupEnabled = false;
+            }
+            chatStatus.textContent = "";
+          }, 900);
         }, idleFollowupDelayMs);
       };
 
@@ -720,7 +766,7 @@
         scheduleIdleFollowup(false);
         appendMessage("Du", displayText, "user");
         const typingMessage = showTypingIndicator();
-        chatStatus.textContent = "Thinking…";
+        chatStatus.textContent = "Assistent tippt...";
 
         try {
           const response = await fetch("/webhook", {
@@ -754,10 +800,19 @@
             }
           };
 
+          const delayMs = (() => {
+            const firstText =
+              (Array.isArray(data.messages) && data.messages[0]?.text) || data.response || "";
+            const length = String(firstText).length;
+            if (length <= 40) return 900;
+            if (length <= 120) return 1400;
+            return 1900;
+          })();
+
           window.setTimeout(() => {
             removeTypingIndicator(typingMessage);
             applyResponse();
-          }, 2000);
+          }, delayMs);
         } catch (error) {
           removeTypingIndicator(typingMessage);
           appendMessage("Assistent", "Sekunde. Ich bin gleich soweit");
@@ -773,7 +828,7 @@
         cancelChatbotFollowup();
         scheduleIdleFollowup(false);
         const typingMessage = showTypingIndicator();
-        chatStatus.textContent = "Thinking…";
+        chatStatus.textContent = "Assistent tippt...";
 
         try {
           const response = await fetch("/webhook", {
@@ -782,26 +837,42 @@
             body: JSON.stringify({ message: payload }),
           });
           const data = await response.json();
-          if (Array.isArray(data.messages) && data.messages.length > 0) {
-            data.messages.forEach((msg) => {
-              handleStageCustom(msg.custom);
-              handleIdleFollowup(msg.custom);
-              if (suppressBotReply) return;
-              const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
-              const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
-              if (hasText || hasButtons) {
-                appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+          const applyResponse = () => {
+            if (Array.isArray(data.messages) && data.messages.length > 0) {
+              data.messages.forEach((msg) => {
+                handleStageCustom(msg.custom);
+                handleIdleFollowup(msg.custom);
+                if (suppressBotReply) return;
+                const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
+                const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
+                if (hasText || hasButtons) {
+                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+                }
+              });
+              if (stageUpdate && data.messages[0].text) {
+                stageUpdate(data.messages[0].text);
               }
-            });
-            if (stageUpdate && data.messages[0].text) {
-              stageUpdate(data.messages[0].text);
             }
-          }
+          };
+
+          const delayMs = (() => {
+            const firstText =
+              (Array.isArray(data.messages) && data.messages[0]?.text) || data.response || "";
+            const length = String(firstText).length;
+            if (length <= 40) return 900;
+            if (length <= 120) return 1400;
+            return 1900;
+          })();
+
+          window.setTimeout(() => {
+            removeTypingIndicator(typingMessage);
+            applyResponse();
+            chatStatus.textContent = "";
+          }, delayMs);
         } catch (error) {
-          appendMessage("Assistent", "Oops – irgendwas ist schiefgelaufen.", "bot");
-        } finally {
-          chatStatus.textContent = "";
           removeTypingIndicator(typingMessage);
+          chatStatus.textContent = "";
+          appendMessage("Assistent", "Oops – irgendwas ist schiefgelaufen.", "bot");
         }
       };
 
@@ -809,7 +880,7 @@
         const wrapper = appendMessage("Assistent", "", "typing");
         const bubble = wrapper.querySelector(".chat-bubble");
         const text = document.createElement("span");
-        text.textContent = "tippt";
+        text.textContent = "Assistent tippt...";
         const dots = document.createElement("span");
         dots.className = "typing-dots";
         for (let i = 0; i < 3; i += 1) {
