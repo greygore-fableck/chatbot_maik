@@ -24,6 +24,13 @@ cd "$RASA_DIR"
 echo "Training Rasa model..."
 "$RASA" train --config "$RASA_DIR/config.yml" --domain "$RASA_DIR/domain.yml" --data "$RASA_DIR/data" --out "$RASA_DIR/models"
 
+LATEST_MODEL="$(ls -1t "$RASA_DIR/models"/*.tar.gz 2>/dev/null | head -n 1 || true)"
+if [[ -z "${LATEST_MODEL:-}" ]]; then
+  echo "No trained model found in $RASA_DIR/models after training." >&2
+  exit 1
+fi
+echo "Starting Rasa with model: $(basename "$LATEST_MODEL")"
+
 cleanup() {
   if [[ -n "${RASA_PID:-}" ]]; then
     kill "$RASA_PID" 2>/dev/null || true
@@ -34,7 +41,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-"$RASA" run &
+"$RASA" run --model "$LATEST_MODEL" &
 RASA_PID=$!
 
 SANIC_HOST=127.0.0.1 "$RASA" run actions --port 5056 &
