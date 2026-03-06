@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Maik with AI — digital Assistant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v='20260306-1') }}" />
   </head>
   <body>
     <main class="stage">
@@ -19,11 +19,10 @@
           >Nicht Mike.</span
         >
         <span class="typewriter-line last tl-4"
-          >Maik - mit <span class="ai-accent">AI</span> ;)</span
-        >
+          >Maik - mit <span class="ai-accent">AI</span>.</span>
       </div>
       <p class="subtext">
-        <span class="subtext-line subtext-line-1">Und das hier ist mein Ansatz, eine klassische Bewerbung um einen Dialog zu erweitern</span>
+        <span class="subtext-line subtext-line-1">Und das hier ist mein Ansatz, eine klassische Bewerbung um einen Dialog zu erweitern.</span>
       </p>
       <div class="project-detail" id="stage-project-detail" hidden></div>
     </main>
@@ -93,6 +92,17 @@
       const chatMessages = document.getElementById("chat-widget-messages");
       const chatHistoryToggle = document.getElementById("chat-history-toggle");
       const chatStatus = document.getElementById("chat-status");
+      const chatSenderId = (() => {
+        const prefix = "web-session-";
+        try {
+          if (window.crypto && typeof window.crypto.randomUUID === "function") {
+            return `${prefix}${window.crypto.randomUUID()}`;
+          }
+        } catch (_err) {
+          // Fallback below.
+        }
+        return `${prefix}${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      })();
       const contactHint = document.getElementById("contact-hint");
       const stageProjectDetail = document.getElementById("stage-project-detail");
       const stage = document.querySelector(".stage");
@@ -704,13 +714,13 @@
           subtextLine.addEventListener(
             "animationend",
             () => {
-              window.setTimeout(showChatHint, 250);
+              window.setTimeout(showChatHint, 2200);
             },
             { once: true }
           );
-          window.setTimeout(showChatHint, 9000);
+          window.setTimeout(showChatHint, 10800);
         } else {
-          window.setTimeout(showChatHint, 6400);
+          window.setTimeout(showChatHint, 7600);
         }
         chatHint.addEventListener("click", () => {
           chatHint.classList.remove("is-visible");
@@ -788,7 +798,7 @@
           const response = await fetch("/webhook", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: payload }),
+            body: JSON.stringify({ message: payload, sender: chatSenderId }),
           });
           const data = await response.json();
           const applyResponse = () => {
@@ -850,7 +860,7 @@
           const response = await fetch("/webhook", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: payload }),
+            body: JSON.stringify({ message: payload, sender: chatSenderId }),
           });
           const data = await response.json();
           const applyResponse = () => {

@@ -4,6 +4,23 @@ import requests
 from .services.rasa_client import send_message
 
 bp = Blueprint("routes", __name__)
+GREET_ALIASES = {
+    "hi",
+    "hallo",
+    "hey",
+    "moin",
+    "servus",
+    "hallochen",
+    "hallöchen",
+    "guten tag",
+}
+
+
+def normalize_user_message(message: str) -> str:
+    cleaned = message.strip().strip(".,!?;:").casefold()
+    if cleaned in GREET_ALIASES:
+        return "/greet"
+    return message
 
 
 @bp.route("/")
@@ -20,6 +37,7 @@ def health():
 def webhook():
     payload = request.get_json(silent=True) or {}
     message = (payload.get("message") or "").strip()
+    sender = (payload.get("sender") or "web-user").strip() or "web-user"
     if not message:
         return jsonify(
             {
@@ -28,7 +46,7 @@ def webhook():
         )
 
     try:
-        data = send_message(message)
+        data = send_message(normalize_user_message(message), sender=sender)
     except requests.RequestException:
         return jsonify(
             {

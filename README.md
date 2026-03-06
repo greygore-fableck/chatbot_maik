@@ -14,13 +14,23 @@ chatbotFlask/
   scripts/             # optional: weitere Helfer
   app.py               # Flask Einstieg
   run_chatbot.sh       # Startet genau einen Service (flask|rasa|actions)
-  start.sh             # Wrapper für run_chatbot.sh (ohne Hintergrundprozess)
-  stop.sh               # Stoppt Ports 3000/5005/5056
+  start.sh             # Startet alle Services im Hintergrund + Health-Checks
+  stop.sh              # Stoppt Services via PID-Dateien und Port-Fallback
+  restart.sh           # Stop + Start in einem Befehl
+  status.sh            # Zeigt PID + HTTP-Status aller Services
 ```
 
 ## Start
 1. Stelle sicher, dass deine virtuelle Umgebung aktiv ist.
-2. Starte pro Service genau einen Prozess:
+2. Starte alle Services mit einem Befehl:
+
+```bash
+./start.sh
+```
+
+Das Script startet `flask`, `rasa` und `actions` im Hintergrund, schreibt Logs nach `/tmp/chatbot-*.log` und prüft die Health-Endpoints.
+
+Optional kannst du weiterhin einzelne Services separat starten:
 
 ```bash
 # Flask
@@ -38,6 +48,24 @@ CHATBOT_SERVICE=actions ./run_chatbot.sh
 ```bash
 ./stop.sh
 ```
+
+Das Script beendet zuerst die über `start.sh` gestarteten PIDs und räumt danach ggf. noch Prozesse auf Ports `3000/5005/5056` auf.
+
+## Restart
+
+```bash
+./restart.sh
+```
+
+`restart.sh` läuft nur erfolgreich durch, wenn danach alle 3 Services laut `status.sh` wirklich `running` und per HTTP erreichbar sind.
+
+## Status
+
+```bash
+./status.sh
+```
+
+Exit-Code ist `0` nur wenn alle Services gesund sind, sonst `1`.
 
 ## Modell-Link setzen
 

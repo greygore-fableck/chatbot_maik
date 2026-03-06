@@ -5,17 +5,35 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP_DIR="$SCRIPT_DIR"
 RASA_DIR="$APP_DIR/rasa"
 
-if [[ -n "${VIRTUAL_ENV:-}" ]]; then
-  VENV_BIN="$VIRTUAL_ENV/bin"
-  RASA="$VENV_BIN/rasa"
-  PYTHON="$VENV_BIN/python"
-else
-  RASA="$(command -v rasa || true)"
-  PYTHON="$(command -v python || true)"
+# Prefer an explicit project-local venv, then active venv, then PATH.
+VENV_CANDIDATES=(
+  "${APP_DIR}/.venv"
+  "$(cd "${APP_DIR}/.." && pwd)/.venv"
+)
+
+RASA=""
+PYTHON=""
+
+for venv in "${VENV_CANDIDATES[@]}"; do
+  if [[ -x "${venv}/bin/rasa" && -x "${venv}/bin/python" ]]; then
+    RASA="${venv}/bin/rasa"
+    PYTHON="${venv}/bin/python"
+    break
+  fi
+done
+
+if [[ -z "${RASA}" || -z "${PYTHON}" ]]; then
+  if [[ -n "${VIRTUAL_ENV:-}" && -x "${VIRTUAL_ENV}/bin/rasa" && -x "${VIRTUAL_ENV}/bin/python" ]]; then
+    RASA="${VIRTUAL_ENV}/bin/rasa"
+    PYTHON="${VIRTUAL_ENV}/bin/python"
+  else
+    RASA="$(command -v rasa || true)"
+    PYTHON="$(command -v python3 || command -v python || true)"
+  fi
 fi
 
 if [[ -z "${RASA:-}" || -z "${PYTHON:-}" ]]; then
-  echo "Could not find 'rasa' or 'python' in PATH or VIRTUAL_ENV." >&2
+  echo "Could not find usable 'rasa' and 'python'. Checked project .venv, parent .venv, VIRTUAL_ENV, and PATH." >&2
   exit 1
 fi
 
@@ -38,7 +56,7 @@ case "$SERVICE" in
     PORT="${PORT:-5005}"
     HOST="${RASA_HOST:-0.0.0.0}"
     cd "$RASA_DIR"
-    exec "$RASA" run --port "$PORT" --enable-api --cors "*" --model "$MODEL_PATH" --host "$HOST"
+    exec "$RASA" run --port "$PORT" --enable-api --cors "*" --model "$MODEL_PATH" --interface "$HOST"
     ;;
 
   actions)

@@ -62,9 +62,11 @@ responses:
         followups:
           - delay: 3000
             text: |
-              Falls du gerade denkst: „Okay… und jetzt?“ – ich kann dir kurz erzählen, wer ich bin 
-              oder was dieses Projekt hier eigentlich soll.
-          - delay: 12000
+              Falls du gerade denkst: „Okay... und jetzt?“
+
+              Ich kann dir kurz zeigen,
+              wer ich bin und worum es in diesem Projekt geht.
+          - delay: 10000
             text: |
               Womit möchtest du anfangen?
             buttons:
@@ -73,13 +75,15 @@ responses:
               - title: "Erzähl mir was über dich"
                 payload: "/origin_overview"
     - text: |
-        Schön, dass du hier bist 👋
+        Freut mich, dass du hier bist 👋
       custom:
         followups:
           - delay: 3000
-            text: "Falls du dich fragst, was hier eigentlich passiert – ich erzähle dir gern kurz etwas über 
-        mich oder dieses Projekt."
-          - delay: 12000
+            text: |
+              Wenn du dich gerade fragst: „Alles klar… und was passiert hier?“
+
+              Ich kann dir kurz zeigen, wer ich bin und warum diese Seite als Einstieg in ein mögliches Gespräch gedacht ist.
+          - delay: 10000
             text: "Womit soll ich starten?"
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
