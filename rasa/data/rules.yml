@@ -41,6 +41,16 @@ rules:
       - intent: contact_email
       - action: utter_contact_email
 
+  - rule: application details
+    steps:
+      - intent: application_details
+      - action: utter_application_details
+
+  - rule: links portfolio
+    steps:
+      - intent: links_portfolio
+      - action: utter_links_portfolio
+
   - rule: thanks
     steps:
       - intent: thanks
@@ -124,6 +134,11 @@ rules:
       - intent: person_hobbies
       - action: utter_person_hobbies
 
+  - rule: person age
+    steps:
+      - intent: person_age
+      - action: utter_person_age
+
   - rule: person motivation
     steps:
       - intent: person_motivation
@@ -179,6 +194,16 @@ rules:
     steps:
       - intent: meta_privacy
       - action: utter_meta_privacy
+
+  - rule: clarify retry
+    steps:
+      - intent: clarify_retry
+      - action: utter_clarify_retry
+
+  - rule: english fallback
+    steps:
+      - intent: english_fallback
+      - action: utter_english_fallback
 
   - rule: person name opinion
     steps:

@@ -20,6 +20,8 @@ intents:
   - praxisphase_info
 
   - contact_email
+  - application_details
+  - links_portfolio
 
   - smalltalk_how_are_you
   - smalltalk_who_are_you
@@ -35,6 +37,7 @@ intents:
   - project_duration
 
   - person_hobbies
+  - person_age
   - person_motivation
   - person_sports
   - person_collab
@@ -48,6 +51,8 @@ intents:
   - praxisphase_why_company
 
   - meta_privacy
+  - clarify_retry
+  - english_fallback
   - person_name_opinion
 
 entities:
@@ -74,6 +79,8 @@ responses:
                 payload: "/project_chatbot"
               - title: "Erzähl mir was über dich"
                 payload: "/origin_overview"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
     - text: |
         Freut mich, dass du hier bist 👋
       custom:
@@ -90,6 +97,8 @@ responses:
                 payload: "/project_chatbot"
               - title: "Erzähl mir was über dich"
                 payload: "/origin_overview"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
 
 
   utter_start_prompt:
@@ -101,10 +110,20 @@ responses:
           payload: "/origin_overview"
 
   utter_thanks:
-    - text: "Gern 🙂"
+    - text: "Gern 🙂 Womit soll ich weitermachen?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was über dich"
+          payload: "/origin_overview"
 
   utter_goodbye:
-    - text: "Alles klar — bis bald! 👋"
+    - text: "Alles klar — bis bald! 👋 Wenn du magst, können wir auch noch kurz weitermachen."
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Kontakt per E-Mail"
+          payload: "/contact_email"
 
   utter_fallback:
     - text: "Ich bin gerade unsicher, was du meinst 🤔. Ich kann dir gerne was zum Projekt sagen."
@@ -258,6 +277,27 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
+  utter_application_details:
+    - text: |
+        Kurz und konkret:
+        Ich suche eine Praxisphase im Umfeld von Medieninformatik,
+        idealerweise mit Fokus auf KI-nahe Systeme, UX und Entwicklung.
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Kontakt per E-Mail"
+          payload: "/contact_email"
+
+  utter_links_portfolio:
+    - text: |
+        Diese Seite ist die direkte Live-Demo des Projekts.
+        Für weitere Unterlagen oder Links können wir gerne direkt per Mail weitermachen.
+      buttons:
+        - title: "Kontakt per E-Mail"
+          payload: "/contact_email"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+
   # --- Smalltalk / Meta ---
   utter_smalltalk_how_are_you:
     - text: "Gut soweit 🙂 Magst du was über das Projekt erfahren?"
@@ -274,6 +314,14 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir kurz was zu dir"
           payload: "/origin_overview"
+
+  utter_person_age:
+    - text: "Ich wurde 1988 geboren."
+      buttons:
+        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Zeig mir den Werdegang"
+          payload: "/werdegang_overview"
 
   utter_smalltalk_what_can_you_do:
     - text: "Ich führe dich kurz durch Projekt, Hintergrund und Praxisphase. Sag einfach, was dich interessiert."
@@ -454,6 +502,26 @@ responses:
           payload: "/project_chatbot"
         - title: "Zeig mir die Kontaktmöglichkeit"
           payload: "/contact_email"
+
+  utter_clarify_retry:
+    - text: |
+        Danke für den Hinweis.
+        Ich kann es gern anders erklären — womit soll ich neu starten?
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was über dich"
+          payload: "/origin_overview"
+
+  utter_english_fallback:
+    - text: "Aktuell antworte ich primär auf Deutsch. Wenn du magst, stelle die Frage gern auf Deutsch oder nutze direkt den Kontakt."
+      buttons:
+        - title: "Erzähl mir was über dich"
+          payload: "/origin_overview"
+        - title: "Kontakt per E-Mail"
+          payload: "/contact_email"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
 
 actions:
   - action_person_name_opinion

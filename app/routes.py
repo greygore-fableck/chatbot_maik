@@ -14,12 +14,38 @@ GREET_ALIASES = {
     "hallöchen",
     "guten tag",
 }
+WHO_ARE_YOU_ALIASES = {
+    "wer bist du",
+    "wer bistn du",
+    "mit wem spreche ich",
+    "was bist du",
+    "bist du ein bot",
+}
+PERSON_AGE_ALIASES = {
+    "wie alt bist du",
+    "wie alt bist du denn",
+    "wie alt ist maik",
+    "dein alter",
+    "alter",
+}
+ENGLISH_MODE_ALIASES = {
+    "mach mal auf englisch",
+    "bitte auf englisch",
+    "auf englisch bitte",
+    "antwort auf englisch",
+}
 
 
 def normalize_user_message(message: str) -> str:
     cleaned = message.strip().strip(".,!?;:").casefold()
     if cleaned in GREET_ALIASES:
         return "/greet"
+    if cleaned in PERSON_AGE_ALIASES:
+        return "/person_age"
+    if cleaned in ENGLISH_MODE_ALIASES:
+        return "/english_fallback"
+    if cleaned in WHO_ARE_YOU_ALIASES:
+        return "/smalltalk_who_are_you"
     return message
 
 

@@ -91,6 +91,7 @@ nlu:
   - intent: project_goal
     examples: |
       - was ist das ziel des projekts
+      - was ist das ziel vom projekt
       - wozu ist das projekt
       - warum hast du das projekt gemacht
       - wofür ist der bot gedacht
@@ -144,6 +145,7 @@ nlu:
   - intent: project_improve
     examples: |
       - was würdest du als nächstes verbessern
+      - was würdest du verbessern
       - was würdest du am bot ändern
       - was ist der nächste schritt am projekt
       - was willst du als nächstes machen
@@ -294,6 +296,30 @@ nlu:
       - wie kann ich dich kontaktieren
       - wo finde ich dich
 
+  - intent: application_details
+    examples: |
+      - was suchst du genau
+      - was suchst du aktuell genau
+      - was für eine praxisphase suchst du
+      - welche rolle suchst du
+      - in welchem bereich suchst du eine praxisphase
+      - ab wann wärst du verfügbar
+      - wann könntest du starten
+      - was stellst du dir für die praxisphase vor
+      - was ist dir für die praxisphase wichtig
+
+  - intent: links_portfolio
+    examples: |
+      - hast du github
+      - gibt es ein github repo
+      - kann ich den code sehen
+      - hast du linkedin
+      - hast du einen lebenslauf
+      - kann ich deinen cv sehen
+      - hast du ein portfolio
+      - wo finde ich mehr von dir
+      - gibt es weitere unterlagen
+
 
 
 # ---- Smalltalk ----
@@ -315,7 +341,6 @@ nlu:
       - bist du echt?
       - was ist das hier?
       - was soll das?
-      - wie alt bist du?
 
   - intent: smalltalk_what_can_you_do
     examples: |
@@ -374,6 +399,25 @@ nlu:
       - Sarah
 
 # ---- Person ----
+  - intent: person_age
+    examples: |
+      - wie alt bist du?
+      - wie alt bist du
+      - wie alt bist du denn
+      - wie alt genau
+      - wie viele jahre hast du
+      - wieviel jahre hast du
+      - dein alter?
+      - alter?
+      - wie jung bist du
+      - wie alt ist maik
+      - wie alt ist maik eigentlich
+      - wie alt bist du maik
+      - wie alt bist du denn maik
+      - welches alter hat maik
+      - maik alter
+      - alter von maik
+
   - intent: person_hobbies
     examples: |
       - hast du hobbys
@@ -491,6 +535,7 @@ nlu:
   - intent: strengths_tasks
     examples: |
       - was sind deine stärken
+      - welche stärken hast du
       - worin bist du gut
       - was kannst du besonders gut
       - was machst du am liebsten
@@ -520,14 +565,40 @@ nlu:
 
 
 # ---- Datenschutz ----
+  - intent: clarify_retry
+    examples: |
+      - das war unklar
+      - ich verstehe das nicht ganz
+      - kannst du das anders erklären
+      - erklär das bitte einfacher
+      - kannst du das kürzer sagen
+      - bitte nochmal
+      - kannst du das wiederholen
+      - ich bin noch nicht ganz mitgekommen
+      - das hilft mir noch nicht
+
   - intent: meta_privacy
     examples: |
       - datenschutz
+      - ist das hier datenschutzkonform
       - speicherst du daten?
       - wird das hier gespeichert?
       - was passiert mit meinen daten?
       - trackst du mich?
       - ist das anonym?
       - cookies?
+
+  - intent: english_fallback
+    examples: |
+      - what is this project about
+      - can i see your cv
+      - can i see your resume
+      - do you have github
+      - do you have linkedin
+      - can you explain in english
+      - please answer in english
+      - switch to english
+      - can we speak english
+      - tell me about your project
       
       
