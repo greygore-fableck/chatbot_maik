@@ -60,7 +60,7 @@ body.is-detail {
   display: grid;
   gap: 0.3rem;
   font-weight: 600;
-  font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+  font-size: clamp(1.45rem, 2.95vw, 2.35rem);
   letter-spacing: 0.01em;
   text-align: left;
   align-items: start;
@@ -69,7 +69,8 @@ body.is-detail {
 
 .subtext {
   margin-top: 26px;
-  font-size: clamp(0.82rem, 1.2vw, 0.98rem);
+  font-size: clamp(0.92rem, 1.45vw, 1.12rem);
+  line-height: 1.35;
   color: rgba(31, 31, 28, 0.7);
   display: grid;
   gap: 0.2rem;
@@ -84,11 +85,19 @@ body.is-detail {
 }
 
 .subtext-line-1 {
-  animation: fade-in 0.6s ease 5.1s forwards;
+  animation: fade-in 0.9s ease 5.3s forwards;
 }
 
 .subtext-line-2 {
-  animation: fade-in 0.6s ease 5.8s forwards;
+  animation: fade-in 0.9s ease 6.25s forwards;
+}
+
+.subtext-kicker {
+  display: inline-block;
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(31, 79, 69, 0.82);
 }
 
 .stage-fade-out {
@@ -855,15 +864,47 @@ body.is-detail {
 }
 
 .contact-mail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(31, 79, 69, 0.12), rgba(31, 79, 69, 0.22));
+  box-shadow: inset 0 0 0 1px rgba(31, 79, 69, 0.18);
+  cursor: pointer;
   font-weight: 600;
   color: var(--accent-strong);
   text-decoration: none;
   word-break: break-all;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.contact-mail:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(31, 79, 69, 0.24), 0 10px 24px rgba(31, 79, 69, 0.12);
+}
+
+.contact-mail:focus-visible {
+  outline: 2px solid rgba(31, 79, 69, 0.35);
+  outline-offset: 3px;
+}
+
+.contact-mail.is-copied {
+  background: linear-gradient(135deg, rgba(44, 125, 74, 0.18), rgba(44, 125, 74, 0.28));
+  box-shadow: inset 0 0 0 1px rgba(44, 125, 74, 0.22);
 }
 
 .contact-note {
   font-size: 0.85rem;
   color: rgba(31, 31, 28, 0.55);
+}
+
+.contact-copy-status {
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 28, 0.52);
 }
 
 .contact-credit {
@@ -1270,7 +1311,7 @@ body.is-detail {
 
 @media (max-width: 600px) {
   .typewriter {
-    font-size: clamp(1.15rem, 5vw, 1.6rem);
+    font-size: clamp(1.28rem, 5.35vw, 1.78rem);
     text-align: left;
     justify-items: start;
   }

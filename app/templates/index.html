@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Maik with AI — digital Assistant</title>
+    <title>maikmitAI.de | Bewerbung als Dialog</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v='20260306-1') }}" />
   </head>
   <body>
@@ -22,7 +22,10 @@
           >Maik - mit <span class="ai-accent">AI</span>.</span>
       </div>
       <p class="subtext">
-        <span class="subtext-line subtext-line-1">Und das hier ist mein Ansatz, eine klassische Bewerbung um einen Dialog zu erweitern.</span>
+        <span class="subtext-line subtext-line-1">
+          <span class="subtext-kicker">Und ich habe mich gefragt:</span>
+        </span>
+        <span class="subtext-line subtext-line-2">Wie wäre es, eine Bewerbung um einen Dialog zu erweitern?</span>
       </p>
       <div class="project-detail" id="stage-project-detail" hidden></div>
     </main>
@@ -69,9 +72,18 @@
         <button class="contact-close" id="contact-widget-close-button" type="button" aria-label="Close contact">×</button>
       </header>
       <div class="contact-body">
-        <p>Du erreichst mich am besten per Mail:</p>
-        <a class="contact-mail" href="mailto:mpaulukat@web.de">mpaulukat@web.de</a>
-        <p class="contact-note">Ich antworte in der Regel zeitnah.</p>
+        <p>Wenn du das Gespräch gern persönlich fortsetzen möchtest, erreichst du mich am besten per Mail.</p>
+        <button
+          class="contact-mail"
+          id="contact-copy-mail"
+          type="button"
+          data-copy-value="mpaulukat@web.de"
+          aria-describedby="contact-copy-status"
+        >
+          mpaulukat@web.de
+        </button>
+        <p class="contact-note">Ich freue mich von dir zu hören.</p>
+        <p class="contact-copy-status" id="contact-copy-status" aria-live="polite">Klick zum Kopieren</p>
         <div class="contact-credit" aria-label="Copyright Hinweis">
           <span>&copy; Maik Paulukat</span>
           <span aria-hidden="true">|</span>
@@ -84,6 +96,8 @@
       const contactWidgetButton = document.getElementById("contact-widget-button");
       const contactWidget = document.getElementById("contact-widget");
       const contactCloseButton = document.getElementById("contact-widget-close-button");
+      const contactCopyMailButton = document.getElementById("contact-copy-mail");
+      const contactCopyStatus = document.getElementById("contact-copy-status");
       const chatWidgetButton = document.getElementById("chat-widget-button");
       const chatWidget = document.getElementById("chat-widget");
       const chatCloseButton = document.getElementById("chat-widget-close-button");
@@ -125,6 +139,7 @@
       let userTypedSinceLastBot = false;
       let customFollowupTimers = [];
       let hasUserInteracted = false;
+      let contactCopyResetTimer = null;
 
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
@@ -133,6 +148,37 @@
         } else {
           chatWidgetButton.classList.add("is-minimized");
         }
+      };
+
+      const setContactCopyStatus = (message, copied = false) => {
+        if (!contactCopyStatus || !contactCopyMailButton) return;
+        contactCopyStatus.textContent = message;
+        contactCopyMailButton.classList.toggle("is-copied", copied);
+        window.clearTimeout(contactCopyResetTimer);
+        if (copied) {
+          contactCopyResetTimer = window.setTimeout(() => {
+            contactCopyStatus.textContent = "Klick zum Kopieren";
+            contactCopyMailButton.classList.remove("is-copied");
+          }, 2200);
+        }
+      };
+
+      const copyTextToClipboard = async (value) => {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+          return true;
+        }
+
+        const helper = document.createElement("textarea");
+        helper.value = value;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "absolute";
+        helper.style.left = "-9999px";
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand("copy");
+        document.body.removeChild(helper);
+        return copied;
       };
 
       const idleFollowupDelayMs = 30000;
@@ -724,6 +770,19 @@
         }
         chatHint.addEventListener("click", () => {
           chatHint.classList.remove("is-visible");
+        });
+      }
+
+      if (contactCopyMailButton) {
+        contactCopyMailButton.addEventListener("click", async () => {
+          const value = contactCopyMailButton.dataset.copyValue;
+          if (!value) return;
+          try {
+            const copied = await copyTextToClipboard(value);
+            setContactCopyStatus(copied ? "Mailadresse kopiert" : "Kopieren nicht verfuegbar", copied);
+          } catch (_error) {
+            setContactCopyStatus("Kopieren nicht verfuegbar");
+          }
         });
       }
 
