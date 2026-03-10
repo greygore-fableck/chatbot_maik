@@ -293,10 +293,18 @@ body.is-detail {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(31, 31, 28, 0.55);
-  margin: 8px 0 12px;
+  margin: 14px 0 16px;
   position: relative;
   z-index: 1;
   text-align: left;
+}
+
+.stage-copy + .stage-subtitle {
+  margin-top: 34px;
+}
+
+.stage-subtitle + .stage-copy {
+  margin-top: 0;
 }
 
 .stage-section {
@@ -779,6 +787,10 @@ body.is-detail {
   transform: translateY(-2px);
   box-shadow: 0 24px 60px rgba(31, 31, 28, 0.22);
   background: rgba(31, 79, 69, 0.16);
+}
+
+.contact-toggle.is-pulse {
+  animation: chat-pulse 1.38s cubic-bezier(0.2, 0.75, 0.25, 1) 1;
 }
 
 

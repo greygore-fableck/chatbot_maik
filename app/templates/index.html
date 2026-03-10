@@ -140,6 +140,7 @@
       let customFollowupTimers = [];
       let hasUserInteracted = false;
       let contactCopyResetTimer = null;
+      let contactPromptTimer = null;
 
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
@@ -183,6 +184,7 @@
 
       const idleFollowupDelayMs = 30000;
       const contactHintAutoHideMs = 10000;
+      const contactPromptDelayMs = 1400;
       const maxVisibleMessages = 6;
       const idleFollowupVariants = [
         {
@@ -590,8 +592,15 @@
       };
 
       const enableContactPrompt = () => {
-        showContactHint(true);
-        contactHint?.classList.add("is-emphasis");
+        window.clearTimeout(contactPromptTimer);
+        contactPromptTimer = window.setTimeout(() => {
+          showContactHint(true);
+          contactHint?.classList.add("is-emphasis");
+          contactWidgetButton?.classList.add("is-pulse");
+          window.setTimeout(() => {
+            contactWidgetButton?.classList.remove("is-pulse");
+          }, 1450);
+        }, contactPromptDelayMs);
       };
 
       const canShowFollowup = () => {
@@ -791,6 +800,8 @@
         if (!contactWidget.hidden) {
           chatWidget.hidden = true;
         }
+        window.clearTimeout(contactPromptTimer);
+        contactWidgetButton.classList.remove("is-pulse");
         if (contactHint) {
           contactHint.classList.remove("is-visible");
           contactHint.classList.remove("is-emphasis");
@@ -799,6 +810,8 @@
 
       contactCloseButton.addEventListener("click", () => {
         contactWidget.hidden = true;
+        window.clearTimeout(contactPromptTimer);
+        contactWidgetButton.classList.remove("is-pulse");
         if (contactHint) {
           contactHint.classList.remove("is-visible");
           contactHint.classList.remove("is-emphasis");

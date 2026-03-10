@@ -154,15 +154,15 @@ responses:
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
     - text: |
-        Der Bot ist der Navigator: Er führt durch Inhalte statt Menüs.
-        Unten siehst du, wie das Projekt strukturiert ist.
+        Hier übernimmt der Chatbot die Navigation und führt Schritt für Schritt durch die Inhalte.
+        Die zugehörigen Informationen erscheinen dabei direkt auf der Hauptseite.
       custom:
         stage: "chatbot_overview"
         followups:
           - delay: 7000
-            text: "Soll ich dir auch die Technik zeigen?"
+            text: "Soll ich dir die technische Umsetzung zeigen?"
             buttons:
-              - title: "Zeig mir die Technik 🛠️"
+              - title: "Zeig mir die technische Umsetzung 🛠️"
                 payload: "/tech_impl"
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
