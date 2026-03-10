@@ -213,7 +213,7 @@ rules:
   - rule: fallback
     steps:
       - intent: nlu_fallback
-      - action: utter_fallback
+      - action: action_smart_fallback
 
   # affirm/deny followups (mapped to first/second option)
   - rule: affirm after project chatbot

@@ -141,6 +141,7 @@
       let hasUserInteracted = false;
       let contactCopyResetTimer = null;
       let contactPromptTimer = null;
+      let contactGuideResetTimer = null;
 
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
@@ -149,6 +150,30 @@
         } else {
           chatWidgetButton.classList.add("is-minimized");
         }
+      };
+
+      const openContactWidget = () => {
+        if (!contactWidget) return;
+        contactWidget.hidden = false;
+        if (contactHint) {
+          contactHint.classList.remove("is-visible");
+          contactHint.classList.remove("is-emphasis");
+        }
+        window.clearTimeout(contactPromptTimer);
+        contactWidgetButton?.classList.remove("is-pulse");
+      };
+
+      const guideContactWidget = () => {
+        if (!contactCopyMailButton || !contactCopyStatus) return;
+        openContactWidget();
+        contactCopyStatus.textContent = "Mailadresse anklicken zum Kopieren";
+        contactCopyMailButton.classList.add("is-guided");
+        window.clearTimeout(contactCopyResetTimer);
+        window.clearTimeout(contactGuideResetTimer);
+        contactGuideResetTimer = window.setTimeout(() => {
+          contactCopyStatus.textContent = "Klick zum Kopieren";
+          contactCopyMailButton.classList.remove("is-guided");
+        }, 2600);
       };
 
       const setContactCopyStatus = (message, copied = false) => {
@@ -306,6 +331,11 @@
               }
               if (url) {
                 window.location.href = url;
+                return;
+              }
+              if (payload === "/contact_email") {
+                appendMessage("Du", btn.title || "Kontakt per Mail", "user");
+                guideContactWidget();
                 return;
               }
               const shouldUpdateStage =
@@ -574,6 +604,9 @@
             } else {
               renderStageFromFile(url);
             }
+          }
+          if (custom.stage === "contact") {
+            guideContactWidget();
           }
           if (custom.stage === "praxisphase") {
             enableContactPrompt();

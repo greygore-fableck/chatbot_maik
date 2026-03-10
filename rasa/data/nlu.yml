@@ -14,9 +14,13 @@ nlu:
   - intent: goodbye
     examples: |
       - tschüss
+      - tschuess
+      - tschau
+      - tschau
       - bis bald
       - ciao
       - mach's gut
+      - machs gut
       - auf wiedersehen
 
   - intent: affirm
@@ -54,6 +58,8 @@ nlu:
       - chatbot
       - chat bot
       - der chatbot
+      - website
+      - webseite
       - erzähl mir vom chatbot
       - erzähl was über den chatbot
       - erzähl mir mehr über den chatbot
@@ -87,6 +93,11 @@ nlu:
       - wie funktioniert das?
       - wie ist der bot aufgebaut?
       - wie hast du das gemacht?
+      - erzähl mir was über das projekt
+      - zeig mir mehr zum projekt
+      - worum geht es auf der website
+      - was ist das für eine website
+      - was kannst du mir über die bachelorarbeit sagen
 
   - intent: project_goal
     examples: |
@@ -205,10 +216,17 @@ nlu:
   - intent: origin_overview
     examples: |
       - wer ist maik
+      - wer ist maik eigentlich
       - ursprung von maik
       - wie hat alles angefangen
       - erzähl mir etwas über maik
+      - erzähl mir was über maik
+      - was kannst du mir über maik sagen
+      - sag mir was über maik
+      - mehr über maik
+      - über maik
       - was ist dein hintergrund
+      - erzähl mir was über deinen hintergrund
       - wie bist du dazu gekommen
       - wie hat es angefangen
       - wie kam es zu deinem interesse
@@ -266,8 +284,11 @@ nlu:
       - praxis
       - praxissemester
       - praktikum
+      - stelle
       - suchst du eine praxisphase
       - bist du auf der suche nach einem praktikum
+      - suchst du ein praktikum
+      - suchst du aktuell eher praxis oder stelle
       - suchst du ein praxisunternehmen
       - was ist gerade aktuell
       - was ist aktuell
@@ -295,6 +316,10 @@ nlu:
       - kontaktmöglichkeiten
       - wie kann ich dich kontaktieren
       - wo finde ich dich
+      - wie kann ich dich erreichen
+      - ich suche kontakt
+      - wie bist du erreichbar
+      - kontakt per mail
 
   - intent: application_details
     examples: |
@@ -335,6 +360,8 @@ nlu:
   - intent: smalltalk_who_are_you
     examples: |
       - wer bist du?
+      - wer bist du eigentlich?
+      - wer bistn du?
       - was bist du?
       - bist du ein bot?
       - mit wem spreche ich?
@@ -348,10 +375,12 @@ nlu:
       - was kannst du denn?
       - was kannst du eigentlich?
       - was kannst du mir sagen?
+      - was kannst du mir zeigen?
       - wobei kannst du helfen?
       - wie kannst du mir helfen?
       - was machst du?
       - wofür bist du da?
+      - wofuer bist du da?
       - welche fragen kannst du beantworten?
 
   - intent: smalltalk_compliment

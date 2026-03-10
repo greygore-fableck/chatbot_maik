@@ -1,8 +1,11 @@
-from typing import Any, Dict, List, Optional, Text
+import logging
 import re
+from typing import Any, Dict, List, Optional, Text
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+
+logger = logging.getLogger(__name__)
 
 
 class ActionPersonNameOpinion(Action):
@@ -55,4 +58,100 @@ class ActionPersonNameOpinion(Action):
             ]
 
         dispatcher.utter_message(text=text, buttons=buttons)
+        return []
+
+
+class ActionSmartFallback(Action):
+    ROUTES = [
+        {
+            "response": "utter_project_chatbot",
+            "keywords": {
+                "projekt": 3,
+                "chatbot": 3,
+                "website": 2,
+                "webseite": 2,
+                "bachelorarbeit": 2,
+                "idee": 1,
+            },
+        },
+        {
+            "response": "utter_origin_overview",
+            "keywords": {
+                "ueber mich": 3,
+                "über mich": 3,
+                "hintergrund": 2,
+                "motivation": 2,
+                "wer bist du": 3,
+                "wer ist maik": 3,
+                "ueber maik": 2,
+                "über maik": 2,
+                "maik": 1,
+            },
+        },
+        {
+            "response": "utter_praxisphase_info",
+            "keywords": {
+                "praxisphase": 3,
+                "praktikum": 3,
+                "praxis": 2,
+                "stelle": 2,
+            },
+        },
+    ]
+
+    def name(self) -> Text:
+        return "action_smart_fallback"
+
+    def _normalize_text(self, text: Text) -> Text:
+        normalized = (text or "").strip().lower()
+        return normalized.replace("ß", "ss")
+
+    def _resolve_response(self, text: Text) -> Dict[Text, Any]:
+        normalized = self._normalize_text(text)
+        best_match: Optional[Dict[Text, Any]] = None
+
+        for route in self.ROUTES:
+            matches = [
+                keyword
+                for keyword in route["keywords"]
+                if keyword in normalized
+            ]
+            if not matches:
+                continue
+
+            score = sum(route["keywords"][keyword] for keyword in matches)
+            candidate = {
+                "response": route["response"],
+                "score": score,
+                "matches": matches,
+            }
+            if best_match is None or candidate["score"] > best_match["score"]:
+                best_match = candidate
+
+        if best_match is not None:
+            return best_match
+
+        return {
+            "response": "utter_fallback",
+            "score": 0,
+            "matches": [],
+        }
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # Score keyword groups and route to the closest known topic.
+        latest_text = tracker.latest_message.get("text") or ""
+        route = self._resolve_response(latest_text)
+        logger.info(
+            "smart_fallback text=%r response=%s score=%s matches=%s",
+            latest_text,
+            route["response"],
+            route["score"],
+            route["matches"],
+        )
+        dispatcher.utter_message(response=route["response"])
         return []
