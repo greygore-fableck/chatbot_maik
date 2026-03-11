@@ -72,22 +72,23 @@
         <button class="contact-close" id="contact-widget-close-button" type="button" aria-label="Close contact">×</button>
       </header>
       <div class="contact-body">
-        <p>Wenn du das Gespräch gern persönlich fortsetzen möchtest, erreichst du mich am besten per Mail.</p>
-        <button
-          class="contact-mail"
-          id="contact-copy-mail"
-          type="button"
-          data-copy-value="mpaulukat@web.de"
-          aria-describedby="contact-copy-status"
-        >
-          mpaulukat@web.de
-        </button>
-        <p class="contact-note">Ich freue mich von dir zu hören.</p>
+        <p>Wenn du das Gespräch persönlich fortsetzen möchtest, freue ich mich über deine Nachricht.</p>
+        <div class="contact-actions">
+          <button
+            class="contact-mail"
+            id="contact-copy-mail"
+            type="button"
+            data-copy-value="hi@maikmitai.de"
+            aria-describedby="contact-copy-status"
+          >
+            hi@maikmitai.de
+          </button>
+        </div>
         <p class="contact-copy-status" id="contact-copy-status" aria-live="polite">Klick zum Kopieren</p>
         <div class="contact-credit" aria-label="Copyright Hinweis">
           <span>&copy; Maik Paulukat</span>
           <span aria-hidden="true">|</span>
-          <a href="https://maikmitai.de" target="_blank" rel="noopener noreferrer">maikmitai.de</a>
+          <a href="mailto:hi@maikmitai.de">hi@maikmitai.de</a>
         </div>
       </div>
     </section>
@@ -142,6 +143,7 @@
       let contactCopyResetTimer = null;
       let contactPromptTimer = null;
       let contactGuideResetTimer = null;
+      const defaultContactCopyStatus = contactCopyStatus?.textContent?.trim() || "Klick zum Kopieren";
 
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
@@ -172,20 +174,24 @@
         window.clearTimeout(contactCopyResetTimer);
         window.clearTimeout(contactGuideResetTimer);
         contactGuideResetTimer = window.setTimeout(() => {
-          contactCopyStatus.textContent = "Klick zum Kopieren";
+          contactCopyStatus.textContent = defaultContactCopyStatus;
           contactCopyMailButton.classList.remove("is-guided");
         }, 2600);
       };
 
       const setContactCopyStatus = (message, copied = false) => {
-        if (!contactCopyStatus || !contactCopyMailButton) return;
+        if (!contactCopyMailButton || !contactCopyStatus) return;
         contactCopyStatus.textContent = message;
         contactCopyMailButton.classList.toggle("is-copied", copied);
         window.clearTimeout(contactCopyResetTimer);
         if (copied) {
           contactCopyResetTimer = window.setTimeout(() => {
-            contactCopyStatus.textContent = "Klick zum Kopieren";
+            contactCopyStatus.textContent = defaultContactCopyStatus;
             contactCopyMailButton.classList.remove("is-copied");
+          }, 2200);
+        } else {
+          contactCopyResetTimer = window.setTimeout(() => {
+            contactCopyStatus.textContent = defaultContactCopyStatus;
           }, 2200);
         }
       };
