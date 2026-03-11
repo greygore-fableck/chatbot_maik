@@ -129,11 +129,6 @@ rules:
       - action: utter_project_duration
 
   # person faq
-  - rule: person hobbies
-    steps:
-      - intent: person_hobbies
-      - action: utter_person_hobbies
-
   - rule: person age
     steps:
       - intent: person_age

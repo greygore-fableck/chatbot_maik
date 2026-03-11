@@ -36,7 +36,6 @@ intents:
   - project_improve
   - project_duration
 
-  - person_hobbies
   - person_age
   - person_motivation
   - person_sports
@@ -455,17 +454,6 @@ responses:
     - text: "Ich habe Anfang 2026 mit dem Bot hier angefangen."
       custom:
         idle_followup: true
-
-  # --- Person: FAQ ---
-  utter_person_hobbies:
-    - text: "Ich sammle Schallplatten und halte mich mit Fitness fit — da feile ich gerade noch an der perfekten Routine."
-      custom:
-        idle_followup: true
-      buttons:
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
 
   utter_person_motivation:
     - text: "Mich reizt der ständige Fortschritt: Wenn Technik besser wird, wird die Interaktion (meistens) auch besser."

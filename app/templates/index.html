@@ -161,6 +161,7 @@
         }
         window.clearTimeout(contactPromptTimer);
         contactWidgetButton?.classList.remove("is-pulse");
+        contactWidgetButton?.classList.remove("is-emphasis");
       };
 
       const guideContactWidget = () => {
@@ -629,6 +630,7 @@
         contactPromptTimer = window.setTimeout(() => {
           showContactHint(true);
           contactHint?.classList.add("is-emphasis");
+          contactWidgetButton?.classList.add("is-emphasis");
           contactWidgetButton?.classList.add("is-pulse");
           window.setTimeout(() => {
             contactWidgetButton?.classList.remove("is-pulse");
@@ -835,6 +837,7 @@
         }
         window.clearTimeout(contactPromptTimer);
         contactWidgetButton.classList.remove("is-pulse");
+        contactWidgetButton.classList.remove("is-emphasis");
         if (contactHint) {
           contactHint.classList.remove("is-visible");
           contactHint.classList.remove("is-emphasis");
@@ -845,6 +848,7 @@
         contactWidget.hidden = true;
         window.clearTimeout(contactPromptTimer);
         contactWidgetButton.classList.remove("is-pulse");
+        contactWidgetButton.classList.remove("is-emphasis");
         if (contactHint) {
           contactHint.classList.remove("is-visible");
           contactHint.classList.remove("is-emphasis");

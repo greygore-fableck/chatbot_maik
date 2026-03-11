@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request
+import random
 import requests
 
 from .services.rasa_client import send_message
@@ -6,14 +7,68 @@ from .services.rasa_client import send_message
 bp = Blueprint("routes", __name__)
 MATCH_EXACT = "exact"
 MATCH_CONTAINS = "contains"
-DEFAULT_FALLBACK_TEXT = (
-    "Ich bin mir gerade nicht ganz sicher, wie ich das einordnen soll. "
-    "Ich kann dir aber direkt beim Projekt, bei meinem Hintergrund oder bei der Praxisphase weiterhelfen."
-)
-DEFAULT_FALLBACK_BUTTONS = [
-    {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
-    {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
-    {"title": "Mehr zur Praxisphase", "payload": "/praxisphase_info"},
+DEFAULT_FALLBACK_TEXTS = [
+    (
+        "Ich bin mir gerade nicht ganz sicher, wie ich das einordnen soll. "
+        "Ich kann dir aber direkt weiterhelfen."
+    ),
+    (
+        "Das war fuer mich gerade nicht ganz eindeutig. "
+        "Wir koennen aber direkt weitermachen."
+    ),
+    (
+        "Darauf habe ich gerade keine wirklich gute Antwort. "
+        "Ich kann dir aber sofort etwas Passendes zeigen."
+    ),
+    (
+        "Mhh. Ich bin gerade nicht ganz sicher, was du meinst. "
+        "Wir finden aber direkt einen Einstieg."
+    ),
+    (
+        "Puh, da weiss ich gerade nicht genau, worauf du hinauswillst. "
+        "Ich kann dir aber direkt etwas zeigen."
+    ),
+    "Da muss wohl noch ein wenig Gehirnschmalz fliessen. Vielleicht ist hier etwas fuer dich dabei.",
+    "Da darf ich wohl noch etwas nachschaerfen. Vielleicht passt einer der Einstiege.",
+    "Das habe ich gerade noch nicht sauber drauf. Vielleicht ist das hier spannend.",
+    "Hier fehlt mir gerade noch die passende Antwort. Vielleicht hilft dir das hier weiter.",
+    "Nicht ganz eindeutig gerade. Vielleicht ist das hier spannend.",
+    "Da bin ich gerade nicht sicher. Vielleicht passt einer der Einstiege.",
+    "Ich hab's gerade nicht ganz. Vielleicht ist hier etwas fuer dich dabei.",
+]
+DEFAULT_FALLBACK_BUTTON_SETS = [
+    [
+        {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
+        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Mehr zur Praxisphase", "payload": "/praxisphase_info"},
+    ],
+    [
+        {"title": "Zum Projekt", "payload": "/project_chatbot"},
+        {"title": "Über dich", "payload": "/origin_overview"},
+        {"title": "Zur Praxisphase", "payload": "/praxisphase_info"},
+    ],
+    [
+        {"title": "Projekt zeigen", "payload": "/project_chatbot"},
+        {"title": "Hintergrund", "payload": "/origin_overview"},
+        {"title": "Praxisphase", "payload": "/praxisphase_info"},
+    ],
+    [
+        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
+        {"title": "Praxisphase", "payload": "/praxisphase_info"},
+    ],
+    [
+        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
+        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+    ],
+    [
+        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Praxisphase", "payload": "/praxisphase_info"},
+    ],
+    [
+        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
+        {"title": "Praxisphase", "payload": "/praxisphase_info"},
+    ],
 ]
 # Order matters: more specific rewrites should stay above broader topic matches.
 NORMALIZATION_RULES = [
@@ -138,12 +193,14 @@ NORMALIZATION_RULES = [
 
 
 def build_default_fallback_response():
+    text = random.choice(DEFAULT_FALLBACK_TEXTS)
+    buttons = random.choice(DEFAULT_FALLBACK_BUTTON_SETS)
     return {
-        "response": DEFAULT_FALLBACK_TEXT,
+        "response": text,
         "messages": [
             {
-                "text": DEFAULT_FALLBACK_TEXT,
-                "buttons": DEFAULT_FALLBACK_BUTTONS,
+                "text": text,
+                "buttons": buttons,
             }
         ],
     }

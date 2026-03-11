@@ -447,22 +447,6 @@ nlu:
       - maik alter
       - alter von maik
 
-  - intent: person_hobbies
-    examples: |
-      - hast du hobbys
-      - hast du hobbies
-      - was sind deine hobbys
-      - was machst du gern
-      - was machst du in deiner freizeit
-      - und sonst so
-      - was machst du so
-      - was geht sonst
-      - moah
-      - hast du ein hobby
-      - hast du irgendwelche hobbies
-      - was machst du nach feierabend
-      - was machst du privat so
-
   - intent: person_motivation
     examples: |
       - warum interessiert dich ki
