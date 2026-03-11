@@ -311,6 +311,14 @@ body.is-detail {
   margin-top: 22px;
 }
 
+.stage-subtitle + .stage-copy {
+  margin-top: 0;
+}
+
+.werdegang-section + .werdegang-section {
+  margin-top: 40px;
+}
+
 /* Architecture diagram */
 
 .architecture-stack {
