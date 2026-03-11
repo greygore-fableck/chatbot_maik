@@ -33,7 +33,7 @@
       ✉
     </button>
     <div class="contact-hint" id="contact-hint" role="status" aria-live="polite">
-      Kontakt öffnen
+      ← Kontakt öffnen
     </div>
 
     <button class="chat-toggle" id="chat-widget-button" type="button" aria-label="Open chat">
@@ -151,6 +151,7 @@
           chatWidgetButton.classList.remove("is-minimized");
         } else {
           chatWidgetButton.classList.add("is-minimized");
+          chatWidgetButton.classList.remove("is-pulse");
         }
       };
 
@@ -800,6 +801,7 @@
         const showChatHint = () => {
           if (!chatWidget.hidden) return;
           chatHint.classList.add("is-visible");
+          chatWidgetButton?.classList.add("is-emphasis");
           chatWidgetButton?.classList.add("is-pulse");
           window.setTimeout(() => {
             chatWidgetButton?.classList.remove("is-pulse");

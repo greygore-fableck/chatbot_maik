@@ -681,19 +681,25 @@ body.is-detail {
   height: 56px;
   border-radius: 50%;
   border: none;
-  background: var(--chat-accent);
-  color: #f7f3ea;
+  background: rgba(31, 79, 69, 0.08);
+  color: var(--ink);
   font-size: 1.6rem;
   box-shadow: var(--chat-shadow);
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .chat-toggle:hover {
   transform: translateY(-2px);
   box-shadow: 0 24px 60px rgba(31, 31, 28, 0.22);
+  background: rgba(31, 79, 69, 0.16);
+}
+
+.chat-toggle.is-emphasis {
+  background: var(--chat-accent);
+  color: #f7f3ea;
 }
 
 .chat-toggle.is-minimized {
@@ -752,13 +758,6 @@ body.is-detail {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-}
-
-.contact-hint.is-emphasis {
-  background: rgba(31, 79, 69, 0.1);
-  border-color: rgba(31, 79, 69, 0.25);
-  color: var(--ink);
-  box-shadow: 0 18px 40px rgba(31, 31, 28, 0.16);
 }
 
 .contact-toggle {
