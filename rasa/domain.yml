@@ -29,9 +29,11 @@ intents:
   - smalltalk_compliment
   - smalltalk_humor
   - project_goal
+  - project_why_chatbot
   - project_audience
   - project_tech
   - project_unique
+  - project_business_use
   - project_where
   - project_improve
   - project_duration
@@ -41,6 +43,7 @@ intents:
   - person_sports
   - person_collab
   - person_next_step
+  - person_development
   - person_unwind
 
   - experience_summary
@@ -372,7 +375,7 @@ responses:
   utter_smalltalk_how_are_you:
     - text: "Gut soweit 🙂 Magst du was über das Projekt erfahren?"
       buttons:
-        - title: "Klar, zeig her!codex 🤖💬"
+        - title: "Klar, zeig her 🤖💬"
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -421,39 +424,94 @@ responses:
 
   # --- Projekt: FAQ ---
   utter_project_goal:
-    - text: "Ziel ist, im Rahmen der Bachelorarbeit Praxis zu sammeln und gleichzeitig eine passende Praxisphase zu finden. Der Bot gibt potenziellen Praxisstellen einen schnellen Eindruck."
+    - text: "Ziel ist, die Idee einer dialogischen Navigation praktisch zu zeigen und daraus zugleich einen guten Einstieg in ein mögliches Kennenlernen zu machen."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Warum ein Chatbot?"
+          payload: "/project_why_chatbot"
+        - title: "Nutzen im Unternehmen"
+          payload: "/project_business_use"
+
+  utter_project_why_chatbot:
+    - text: "Weil der Bot hier nicht nur etwas erklärt, sondern die Idee direkt zeigt: Navigation und Gespräch fallen bewusst zusammen."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Was ist das Ziel?"
+          payload: "/project_goal"
+        - title: "Wie wäre das im Unternehmen?"
+          payload: "/project_business_use"
 
   utter_project_audience:
-    - text: "Vorrangig für potenzielle Praxisstellen — und für mich als Übungsprojekt, um Konzept, Dialog und Umsetzung zu schärfen."
+    - text: "Gedacht ist das vor allem für potenzielle Praxisstellen, aber auch als persönliches Projekt, um Konzept, Dialog und Umsetzung weiterzudenken."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Was ist das Ziel?"
+          payload: "/project_goal"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
 
   utter_project_tech:
     - text: "Technisch steckt vor allem Python mit Rasa dahinter, plus Web-Standard: HTML, CSS und JavaScript."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Zeig mir die Technik 🛠️"
+          payload: "/tech_impl"
+        - title: "Zeig mir die Architektur 🧭"
+          payload: "/system_architecture"
 
   utter_project_unique:
-    - text: "Der Bot ist modular einsetzbar und wirkt wie ein Lotse: Er führt durch die Seite, statt nur Antworten abzufeuern."
+    - text: "Der Bot ist hier nicht nur Antwortgeber, sondern eher ein Lotse: Er führt durch die Inhalte, statt nur einzelne Fragen zu bedienen."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Warum ein Chatbot?"
+          payload: "/project_why_chatbot"
+        - title: "Wie wäre das im Unternehmen?"
+          payload: "/project_business_use"
+
+  utter_project_business_use:
+    - text: "Im Unternehmen könnte so ein Bot Orientierung geben, Fragen vorstrukturieren und Inhalte gezielter zugänglich machen, ohne Nutzer erst durch viele Menüs zu schicken."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Was ist das Besondere?"
+          payload: "/project_unique"
+        - title: "Zeig mir die Technik 🛠️"
+          payload: "/tech_impl"
 
   utter_project_where:
     - text: "Genau hier: Diese Seite ist das Projekt."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Was ist das Ziel?"
+          payload: "/project_goal"
+        - title: "Warum ein Chatbot?"
+          payload: "/project_why_chatbot"
 
   utter_project_improve:
     - text: "Als Nächstes würde ich den Dialog weiter ausbauen und schauen, was noch fehlt oder sich verbessern lässt."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Fachliche Entwicklung"
+          payload: "/person_development"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
 
   utter_project_duration:
     - text: "Ich habe Anfang 2026 mit dem Bot hier angefangen."
       custom:
         idle_followup: true
+      buttons:
+        - title: "Was würdest du verbessern?"
+          payload: "/project_improve"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
 
   utter_person_motivation:
     - text: "Mich reizt der ständige Fortschritt: Wenn Technik besser wird, wird die Interaktion (meistens) auch besser."
@@ -486,7 +544,7 @@ responses:
           payload: "/project_chatbot"
 
   utter_person_next_step:
-    - text: "Definitiv weiter in dem Bereich arbeiten. Was genau, wird sich zeigen — Hauptsache Code, Grafik und alles dazwischen."
+    - text: "Ich möchte nach der Praxisphase in dem Bereich weiterarbeiten und das, was ich hier andeute, in echten Projekten weiter ausbauen."
       custom:
         idle_followup: true
       buttons:
@@ -494,6 +552,16 @@ responses:
           payload: "/praxisphase_info"
         - title: "Erzähl mir kurz was zu dir"
           payload: "/origin_overview"
+
+  utter_person_development:
+    - text: "Fachlich möchte ich die Verbindung aus Konzeption, UX und KI-nahen Systemen weiter vertiefen und in der Umsetzung Schritt für Schritt sicherer werden."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Was motiviert dich?"
+          payload: "/person_motivation"
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
 
   utter_person_unwind:
     - text: "Zum Abschalten hilft mir ein gutes Buch oder eine Runde Sport."

@@ -93,6 +93,11 @@ rules:
       - intent: project_goal
       - action: utter_project_goal
 
+  - rule: project why chatbot
+    steps:
+      - intent: project_why_chatbot
+      - action: utter_project_why_chatbot
+
   - rule: project audience
     steps:
       - intent: project_audience
@@ -112,6 +117,11 @@ rules:
     steps:
       - intent: project_unique
       - action: utter_project_unique
+
+  - rule: project business use
+    steps:
+      - intent: project_business_use
+      - action: utter_project_business_use
 
   - rule: project where
     steps:
@@ -153,6 +163,11 @@ rules:
     steps:
       - intent: person_next_step
       - action: utter_person_next_step
+
+  - rule: person development
+    steps:
+      - intent: person_development
+      - action: utter_person_development
 
   - rule: person unwind
     steps:

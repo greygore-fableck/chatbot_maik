@@ -6,6 +6,10 @@ nlu:
       - hi
       - hallo
       - hey
+      - na
+      - na?
+      - na du
+      - hey na
       - guten tag
       - moin
       - servus
@@ -17,7 +21,10 @@ nlu:
       - tschuess
       - tschau
       - tschau
+      - bye
       - bis bald
+      - bis dann
+      - man sieht sich
       - ciao
       - mach's gut
       - machs gut
@@ -26,6 +33,10 @@ nlu:
   - intent: affirm
     examples: |
       - ja
+      - jo
+      - jup
+      - jawohl
+      - yes
       - okay
       - alles klar
       - gern
@@ -37,6 +48,9 @@ nlu:
   - intent: deny
     examples: |
       - nein
+      - nee
+      - nö
+      - nope
       - lieber nicht
       - eher nicht
       - nicht so
@@ -46,6 +60,9 @@ nlu:
     examples: |
       - danke
       - vielen dank
+      - danke schön
+      - merci
+      - thx
       - super, danke
       - top danke
       - danke dir
@@ -112,6 +129,19 @@ nlu:
       - wozu der ganze bot
       - was war dein plan mit dem projekt
 
+  - intent: project_why_chatbot
+    examples: |
+      - warum ein chatbot
+      - warum hast du einen chatbot gebaut
+      - warum ist das ein chatbot
+      - warum ein dialog statt navigation
+      - warum keine normale navigation
+      - warum keine menüs
+      - warum läuft das hier über chat
+      - warum genau ein bot
+      - weshalb ein chatbot
+      - warum hast du das als dialog gebaut
+
   - intent: project_audience
     examples: |
       - für wen ist der bot gedacht
@@ -142,6 +172,19 @@ nlu:
       - was ist hier anders als sonst
       - warum braucht man den bot
       - was kann der besser
+
+  - intent: project_business_use
+    examples: |
+      - wie kann man so einen chatbot im unternehmen einsetzen
+      - wo wäre der einsatz im unternehmen
+      - was bringt das für unternehmen
+      - wie lässt sich das im unternehmen nutzen
+      - wäre das auch was für unternehmen
+      - kann man sowas in firmen einsetzen
+      - wie könnte ein unternehmen so einen bot nutzen
+      - wo liegt der nutzen für firmen
+      - wie kann so ein bot im arbeitsalltag helfen
+      - was wäre ein anwendungsfall im unternehmen
 
   - intent: project_where
     examples: |
@@ -351,18 +394,31 @@ nlu:
   - intent: smalltalk_how_are_you
     examples: |
       - wie geht's?
+      - wie geht's
+      - wie gehts?
+      - wie gehts
       - wie geht es dir?
+      - wie geht es dir
       - alles gut?
+      - alles gut
       - wie läuft's?
+      - wie läufts?
+      - wie läufts
       - na alles klar?
+      - na alles klar
+      - na wie gehts
       - was geht?
+      - was geht
 
   - intent: smalltalk_who_are_you
     examples: |
       - wer bist du?
       - wer bist du eigentlich?
+      - wer genau bist du
       - wer bistn du?
       - was bist du?
+      - bist du maik
+      - bist du der chatbot
       - bist du ein bot?
       - mit wem spreche ich?
       - bist du echt?
@@ -374,13 +430,17 @@ nlu:
       - was kannst du?
       - was kannst du denn?
       - was kannst du eigentlich?
+      - was kann ich hier machen
       - was kannst du mir sagen?
       - was kannst du mir zeigen?
       - wobei kannst du helfen?
+      - wobei hilfst du mir
       - wie kannst du mir helfen?
       - was machst du?
       - wofür bist du da?
       - wofuer bist du da?
+      - wofür bist du gedacht
+      - wofuer bist du gedacht
       - welche fragen kannst du beantworten?
 
   - intent: smalltalk_compliment
@@ -402,6 +462,9 @@ nlu:
       - hast du einen witz?
       - bist du lustig?
       - unterhalte mich
+      - haha
+      - lol
+      - witzig
 
 # ---- Personenname ----
   - intent: person_name_opinion
@@ -491,6 +554,19 @@ nlu:
       - wie geht es nach dem studium weiter
       - was planst du als nächstes
       - wohin willst du dich entwickeln
+
+  - intent: person_development
+    examples: |
+      - wie entwickelst du dich fachlich weiter
+      - woran willst du dich noch entwickeln
+      - was lernst du gerade dazu
+      - wie sieht deine fachliche entwicklung aus
+      - wo willst du fachlich noch hin
+      - welche themen willst du noch vertiefen
+      - was baust du gerade aus
+      - in welche richtung entwickelst du dich
+      - worin willst du besser werden
+      - was sind deine nächsten lernthemen
 
   - intent: person_unwind
     examples: |
