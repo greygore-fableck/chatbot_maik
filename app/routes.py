@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, send_from_directory
 import random
 import requests
 
@@ -485,6 +485,11 @@ def normalize_user_message(message: str) -> str:
 @bp.route("/")
 def index():
     return render_template("index.html")
+
+
+@bp.route("/favicon.ico")
+def favicon():
+    return send_from_directory(bp.root_path + "/static", "favicon.ico")
 
 
 @bp.route("/health", methods=["GET"])
