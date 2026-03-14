@@ -30,6 +30,8 @@ intents:
   - smalltalk_compliment
   - smalltalk_humor
   - smalltalk_coffee
+  - smalltalk_time_meta
+  - smalltalk_why_so
   - playground_coffee_tea
   - playground_pick_coffee
   - playground_pick_tea
@@ -44,6 +46,7 @@ intents:
   - project_where
   - project_improve
   - project_duration
+  - project_menu_meta
 
   - person_age
   - person_motivation
@@ -53,6 +56,8 @@ intents:
   - person_future_vision
   - person_development
   - person_unwind
+  - person_outside_work
+  - person_records_followup
 
   - experience_summary
   - current_status
@@ -327,6 +332,8 @@ responses:
                 payload: "/origin_overview"
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
     - text: "Technisch: Python + Rasa, bewusst reduziert und stabil gehalten."
       custom:
         stage: "tech_impl"
@@ -336,6 +343,8 @@ responses:
             buttons:
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
               - title: "Erzähl mir was zur Praxisphase 📌"
                 payload: "/praxisphase_info"
 
@@ -444,6 +453,8 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_smalltalk_day:
     - text: "Ganz ordentlich bisher 🙂 Und selbst?"
@@ -452,6 +463,8 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_smalltalk_who_are_you:
     - text: "Ich bin als moderne Navigation gedacht. Womit soll ich anfangen?"
@@ -460,6 +473,8 @@ responses:
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_person_age:
     - text: "Ich wurde 1988 geboren."
@@ -486,34 +501,59 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_smalltalk_humor:
     - text: ""
       custom:
         followups:
           - delay: 1400
-            text: "▒▒▒ ▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒ ▒▒▒▒ ▒▒▒▒▒▒▒."
-          - delay: 4600
+            text: "Lass mich kurz überlegen ..."
+          - delay: 6200
+            text: "▒▒▒ ▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒ ▒▒▒▒ ▒▒▒▒▒▒▒. :')"
+          - delay: 9500
             text: |
-              Ich hätte einen guten Witz erzählt.
+              Mhh, mein BE-SERIOUS-FILTER hat ihn vorsorglich blockiert.
 
-              Aber mein Humor-Algorithmus hat ihn vorsorglich blockiert.
               Schade eigentlich.
-
-              Vielleicht war er nicht chatbot-tauglich.
+          - delay: 14800
+            text: "Manche Dinge bleiben wohl doch eher dem persönlichen Kontakt vorbehalten."
             buttons:
-              - title: "Kontakt per E-Mail"
+              - title: "Kontakt herstellen"
                 payload: "/contact_email"
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
+
+  utter_smalltalk_time_meta:
+    - text: "Zeit ist hier relativ. Aber ja, prinzipiell bin ich auch nachts ansprechbar."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Kennst du einen guten Witz?"
+          payload: "/smalltalk_humor"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
+
+  utter_smalltalk_why_so:
+    - text: "Antwort wurde nach interner Abwägung freigegeben."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
 
   utter_smalltalk_coffee:
     - text: |
           Bist du eher Team Kaffee oder Team Tee?
       buttons:
-        - title: "Kaffee"
+        - title: "Kaffee ☕"
           payload: "/playground_pick_coffee"
-        - title: "Tee"
+        - title: "Tee 🍵"
           payload: "/playground_pick_tea"
         - title: "Egal, zeig mir lieber was anderes"
           payload: "/show_playground_questions"
@@ -522,43 +562,65 @@ responses:
     - text: |
           Bist du eher Team Kaffee oder Team Tee?
       buttons:
-        - title: "Kaffee"
+        - title: "Kaffee ☕"
           payload: "/playground_pick_coffee"
-        - title: "Tee"
+        - title: "Tee 🍵"
           payload: "/playground_pick_tea"
         - title: "Egal, zeig mir lieber was anderes"
           payload: "/show_playground_questions"
 
   utter_playground_pick_coffee:
-    - text: |
-          Ah, stark. Team Kaffee also. ☕
-
-          Meine Statistik von letzter Woche:
-
-          6,2 Liter Kaffee und 1,4 Liter Tee.
-          Die Tendenz ist eindeutig.
-      buttons:
-        - title: "Erzähl mir mehr über Maik"
-          payload: "/origin_overview"
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
+    - text: ""
+      custom:
+        coffee_stats:
+          title: "Aktueller Stand der Woche"
+          items:
+            - label: "Kaffee"
+              value: 6.2
+              display: "6,2 L"
+            - label: "Tee"
+              value: 1.4
+              display: "1,4 L"
+              tone: "muted"
+        followups:
+          - delay: 1200
+            text: "Die Datenlage spricht wohl für sich. ☕"
+            buttons:
+              - title: "Erzähl mir mehr über Maik"
+                payload: "/origin_overview"
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
   utter_playground_pick_tea:
-    - text: |
-          Verstehe. Also eher Team Tee. 🍵
-
-          Meine Statistik von letzter Woche:
-
-          6,2 Liter Kaffee und 1,4 Liter Tee.
-          Daher eher team Kaffee.
-      buttons:
-        - title: "Erzähl mir mehr über Maik"
-          payload: "/origin_overview"
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
+    - text: ""
+      custom:
+        coffee_stats:
+          title: "Aktueller Stand der Woche"
+          items:
+            - label: "Kaffee"
+              value: 6.2
+              display: "6,2 L"
+            - label: "Tee"
+              value: 1.4
+              display: "1,4 L"
+              tone: "muted"
+        followups:
+          - delay: 1200
+            text: "Ich glaube, ich habe eine Präferenz."
+            buttons:
+              - title: "Erzähl mir mehr über Maik"
+                payload: "/origin_overview"
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
   utter_playground_structure_creativity:
-    - text: "Am liebsten beides: erst die Idee, dann die Struktur, damit am Ende auch wirklich etwas Gutes daraus wird."
+    - text: |
+        Erst die Idee, dann die Struktur.
+        Ohne Struktur bleiben Ideen meistens nur… Ideen.
       buttons:
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
@@ -566,7 +628,10 @@ responses:
           payload: "/project_chatbot"
 
   utter_playground_early_bird:
-    - text: "Definitiv Frühaufsteher. Meine innere Uhr ist einfach eher Team 6 Uhr als Team Mitternacht."
+    - text: |
+        Meine innere Uhr ist eher Team 6 Uhr als Team Mitternacht.
+
+        Leider auch am Wochenende.
       buttons:
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
@@ -583,6 +648,8 @@ responses:
           payload: "/project_why_chatbot"
         - title: "Nutzen im Unternehmen"
           payload: "/project_business_use"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_project_why_chatbot:
     - text: "Weil der Bot hier nicht nur etwas erklärt, sondern die Idee direkt zeigt: Navigation und Gespräch fallen bewusst zusammen."
@@ -593,6 +660,8 @@ responses:
           payload: "/project_goal"
         - title: "Wie wäre das im Unternehmen?"
           payload: "/project_business_use"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_project_audience:
     - text: "Gedacht ist das vor allem für potenzielle Praxisstellen, aber auch als persönliches Projekt, um Konzept, Dialog und Umsetzung weiterzudenken."
@@ -623,6 +692,8 @@ responses:
           payload: "/project_why_chatbot"
         - title: "Wie wäre das im Unternehmen?"
           payload: "/project_business_use"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_project_business_use:
     - text: "Im Unternehmen könnte so ein Bot Orientierung geben, Fragen vorstrukturieren und Inhalte gezielter zugänglich machen, ohne Nutzer erst durch viele Menüs zu schicken."
@@ -633,6 +704,8 @@ responses:
           payload: "/project_unique"
         - title: "Zeig mir die Technik 🛠️"
           payload: "/tech_impl"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_project_where:
     - text: "Genau hier: Diese Seite ist das Projekt."
@@ -653,6 +726,8 @@ responses:
           payload: "/person_development"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_project_duration:
     - text: "Ich habe Anfang 2026 mit dem Bot hier angefangen."
@@ -674,6 +749,16 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
+  utter_project_menu_meta:
+    - text: "Die Navigation hat hier beschlossen, ein Gespräch zu werden."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Warum gerade ein Chatbot?"
+          payload: "/project_why_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
+
   utter_person_sports:
     - text: "Ich habe lange aktiv Fußball gespielt — Mittelstürmer — heute eher als Zuschauer bei Rot‑Weiss Essen 🔴⚪"
       custom:
@@ -685,7 +770,7 @@ responses:
           payload: "/project_chatbot"
 
   utter_person_collab:
-    - text: "Mir sind klare Kommunikation und eine gemeinsame Vision wichtig."
+    - text: "Ich bringe Struktur und Verlässlichkeit mit, denke aber oft auch noch einmal um die Ecke. Mich interessiert nicht nur, ob etwas funktioniert, sondern ob man es noch klarer, interessanter oder stimmiger lösen kann."
       custom:
         idle_followup: true
       buttons:
@@ -693,6 +778,8 @@ responses:
           payload: "/praxisphase_info"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_person_next_step:
     - text: "Ich möchte nach der Praxisphase in dem Bereich weiterarbeiten und das, was ich hier andeute, in echten Projekten weiter ausbauen."
@@ -715,7 +802,7 @@ responses:
           payload: "/person_motivation"
 
   utter_person_development:
-    - text: "Fachlich möchte ich die Verbindung aus Konzeption, UX und KI-nahen Systemen weiter vertiefen und in der Umsetzung Schritt für Schritt sicherer werden."
+    - text: "Ich möchte vor allem die Verbindung aus Konzeption, UX und technischer Umsetzung weiter vertiefen. Gleichzeitig finde ich es spannend, an aktuellen Themen zu arbeiten und mich fachlich ständig weiterzuentwickeln."
       custom:
         idle_followup: true
       buttons:
@@ -723,9 +810,11 @@ responses:
           payload: "/person_motivation"
         - title: "Erzähl mir was zur Praxisphase 📌"
           payload: "/praxisphase_info"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_person_unwind:
-    - text: "Zum Abschalten hilft mir ein gutes Buch oder eine Runde Sport."
+    - text: "Zum Abschalten beschäftige ich mich am liebsten mit Dingen, die nicht blinken: Schallplatten, Garten, Zeichnen oder Lesen."
       custom:
         idle_followup: true
       buttons:
@@ -733,6 +822,32 @@ responses:
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
+
+  utter_person_outside_work:
+    - text: "Meistens irgendwas ohne Bildschirm: Schallplatten, Garten, Zeichnen oder Lesen."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt"
+          payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
+
+  utter_person_records_followup:
+    - text: "Darüber könnte ich ehrlich gesagt schreiben, bis mein Speicher voll ist. Vielleicht eher persönlich, bevor das hier noch zum Vinyl-Deep-Dive wird."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Kontakt herstellen"
+          payload: "/contact_email"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   # --- Erfahrung / Status ---
   utter_experience_summary:
@@ -766,7 +881,7 @@ responses:
           payload: "/origin_overview"
 
   utter_strengths_tasks:
-    - text: "Am liebsten arbeite ich an der Schnittstelle von Idee, Struktur und Umsetzung — kreativ, aber trotzdem klar strukturiert."
+    - text: "Am liebsten sind mir Aufgaben, bei denen man Ideen spinnen, weiterdenken und am Ende etwas Stimmiges daraus machen kann."
       custom:
         idle_followup: true
       buttons:
@@ -774,6 +889,8 @@ responses:
           payload: "/praxisphase_info"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_praxisphase_why_company:
     - text: "Weil ich in einem echten Team lernen will, wie gute digitale Produkte entstehen."

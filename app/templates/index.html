@@ -149,12 +149,54 @@
       let contactGuideResetTimer = null;
       const defaultContactCopyStatus = contactCopyStatus?.textContent?.trim() || "Klick zum Kopieren";
 
-      const playgroundButtons = [
-        { title: "Kaffee oder Tee?", payload: "/playground_coffee_tea" },
-        { title: "Bist du eher kreativ oder strukturiert?", payload: "/playground_structure_creativity" },
-        { title: "Frühaufsteher oder Nachteule?", payload: "/playground_early_bird" },
-        { title: "Kennst du einen guten Witz?", payload: "Kennst du einen guten Witz?" },
+      const playgroundButtonSets = [
+        [
+          { title: "Warum gerade ein Chatbot?", payload: "/project_why_chatbot", kind: "playground" },
+          { title: "Was erwartest du dir von einer Praxisphase?", payload: "/application_details", kind: "playground" },
+          { title: "Kaffee oder Tee?", payload: "/playground_coffee_tea", kind: "playground" },
+        ],
+        [
+          { title: "Was motiviert dich?", payload: "/person_motivation", kind: "playground" },
+          { title: "Was bringst du in ein Team mit?", payload: "/person_collab", kind: "playground" },
+          { title: "Kennst du einen guten Witz?", payload: "Kennst du einen guten Witz?", kind: "playground" },
+        ],
+        [
+          { title: "Was möchtest du fachlich vertiefen?", payload: "/person_development", kind: "playground" },
+          { title: "Welche Aufgaben liegen dir?", payload: "/strengths_tasks", kind: "playground" },
+          { title: "Frühaufsteher oder Nachteule?", payload: "/playground_early_bird", kind: "playground" },
+        ],
+        [
+          { title: "Was machst du zum Abschalten?", payload: "/person_unwind", kind: "playground" },
+          { title: "Was machst du gern außerhalb der Arbeit?", payload: "/person_outside_work", kind: "playground" },
+          { title: "Frühaufsteher oder Nachteule?", payload: "/playground_early_bird", kind: "playground" },
+        ],
       ];
+      const playgroundPromptTexts = [
+        "Schreib einfach drauflos oder probier eine dieser Fragen aus:",
+        "Du kannst direkt etwas Eigenes fragen oder mit einer dieser Fragen einsteigen:",
+        "Wenn du magst, nimm eine dieser Fragen als Einstieg oder schreib direkt los:",
+        "Frag einfach drauflos oder nimm eine dieser Fragen als Startpunkt:",
+      ];
+      let lastPlaygroundButtonSetIndex = -1;
+      let lastPlaygroundPromptIndex = -1;
+      const getPlaygroundButtons = () => {
+        if (playgroundButtonSets.length === 1) return playgroundButtonSets[0];
+        let index = Math.floor(Math.random() * playgroundButtonSets.length);
+        if (index === lastPlaygroundButtonSetIndex) {
+          index = (index + 1) % playgroundButtonSets.length;
+        }
+        lastPlaygroundButtonSetIndex = index;
+        return playgroundButtonSets[index];
+      };
+      const getPlaygroundPromptText = () => {
+        if (playgroundPromptTexts.length === 1) return playgroundPromptTexts[0];
+        let index = Math.floor(Math.random() * playgroundPromptTexts.length);
+        if (index === lastPlaygroundPromptIndex) {
+          index = (index + 1) % playgroundPromptTexts.length;
+        }
+        lastPlaygroundPromptIndex = index;
+        return playgroundPromptTexts[index];
+      };
 
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
@@ -290,30 +332,220 @@
         }, 450);
       };
 
-      const appendMessage = (label, message, variant = "bot", buttons = []) => {
+      const buildCoffeeStatsCard = (stats) => {
+        if (!stats || !Array.isArray(stats.items) || stats.items.length === 0) return null;
+        const card = document.createElement("div");
+        card.className = "chat-stats-card";
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("aria-label", "Kaffee-Status einblenden");
+        card.setAttribute("aria-expanded", "false");
+
+        const heading = document.createElement("div");
+        heading.className = "chat-stats-heading";
+        heading.textContent = stats.title || "Aktueller Stand der Woche";
+        card.appendChild(heading);
+
+        const maxValue = stats.items.reduce((max, item) => Math.max(max, Number(item?.value) || 0), 0) || 1;
+        stats.items.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "chat-stats-row";
+
+          const meta = document.createElement("div");
+          meta.className = "chat-stats-meta";
+
+          const label = document.createElement("span");
+          label.className = "chat-stats-label";
+          label.textContent = item.label || "Wert";
+
+          const value = document.createElement("span");
+          value.className = "chat-stats-value";
+          value.textContent = item.display || "";
+
+          meta.append(label, value);
+
+          const track = document.createElement("div");
+          track.className = "chat-stats-track";
+
+          const bar = document.createElement("div");
+          bar.className = "chat-stats-bar";
+          const width = Math.max(8, Math.round(((Number(item.value) || 0) / maxValue) * 100));
+          bar.style.width = `${width}%`;
+          if (item.tone === "muted") {
+            bar.classList.add("is-muted");
+          }
+
+          track.appendChild(bar);
+          row.append(meta, track);
+          card.appendChild(row);
+        });
+
+        const statusMessages = [
+          "Wochentrend stabil.",
+          "Keine überraschenden Ausschläge.",
+          "Datengrundlage: subjektiv, aber eindeutig."
+        ];
+
+        const toggleStatsHint = () => {
+          const existingHint = card.querySelector(".chat-stats-hint");
+          const isExpanded = card.getAttribute("aria-expanded") === "true";
+
+          if (existingHint && isExpanded) {
+            existingHint.classList.remove("is-visible");
+            card.setAttribute("aria-expanded", "false");
+            window.setTimeout(() => existingHint.remove(), 180);
+            return;
+          }
+
+          if (existingHint) {
+            existingHint.remove();
+          }
+
+          const hint = document.createElement("div");
+          hint.className = "chat-stats-hint";
+          hint.textContent = statusMessages[Math.floor(Math.random() * statusMessages.length)];
+          card.appendChild(hint);
+          card.setAttribute("aria-expanded", "true");
+
+          window.setTimeout(() => {
+            hint.classList.add("is-visible");
+          }, 10);
+        };
+
+        card.addEventListener("click", toggleStatsHint);
+        card.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          toggleStatsHint();
+        });
+
+        return card;
+      };
+
+      const toggleBadgeHint = (badge, message) => {
+        const parent = badge.parentElement;
+        if (!parent) return;
+
+        const existingHint = badge.querySelector(".chat-inline-hint");
+        const isExpanded = badge.getAttribute("aria-expanded") === "true";
+
+        if (existingHint && isExpanded) {
+          existingHint.classList.remove("is-visible");
+          badge.setAttribute("aria-expanded", "false");
+          window.setTimeout(() => existingHint.remove(), 180);
+          return;
+        }
+
+        if (existingHint) {
+          existingHint.remove();
+        }
+
+        const hint = document.createElement("div");
+        hint.className = "chat-inline-hint";
+        hint.textContent = message;
+        badge.appendChild(hint);
+        badge.setAttribute("aria-expanded", "true");
+
+        window.setTimeout(() => {
+          hint.classList.add("is-visible");
+        }, 10);
+      };
+
+      const attachInlineHintBadge = (badge, hintText) => {
+        if (!badge || !hintText || badge.dataset.hintBound === "true") return;
+        badge.dataset.hintBound = "true";
+        badge.classList.add("has-inline-hint");
+        badge.setAttribute("role", "button");
+        badge.setAttribute("tabindex", "0");
+        badge.setAttribute("aria-label", badge.dataset.inlineHintLabel || "Hinweis anzeigen");
+        badge.setAttribute("aria-expanded", "false");
+        badge.addEventListener("click", () => toggleBadgeHint(badge, hintText));
+        badge.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          toggleBadgeHint(badge, hintText);
+        });
+      };
+
+      const initInlineHintBadges = (root) => {
+        if (!root) return;
+        root.querySelectorAll("[data-inline-hint-badge]").forEach((badge) => {
+          attachInlineHintBadge(badge, badge.dataset.inlineHint || "");
+        });
+      };
+
+      const appendHighlightedMessageText = (container, message) => {
+        const highlight = "be-serious-filter";
+        const lowerMessage = message.toLowerCase();
+        const matchIndex = lowerMessage.indexOf(highlight);
+        if (matchIndex === -1) {
+          container.textContent = message;
+          return;
+        }
+
+        const before = message.slice(0, matchIndex);
+        const matchedText = message.slice(matchIndex, matchIndex + highlight.length);
+        const after = message.slice(matchIndex + highlight.length);
+
+        if (before) {
+          container.appendChild(document.createTextNode(before));
+        }
+
+        const badge = document.createElement("span");
+        badge.className = "chat-inline-badge";
+        badge.textContent = matchedText.toUpperCase();
+        const hintText = "Schützt in verdächtig lockeren Momenten die nötige Rest-Seriosität.";
+        badge.dataset.inlineHintBadge = "true";
+        badge.dataset.inlineHint = hintText;
+        attachInlineHintBadge(badge, hintText);
+        container.appendChild(badge);
+
+        if (after) {
+          container.appendChild(document.createTextNode(after));
+        }
+      };
+
+      const appendMessage = (label, message, variant = "bot", buttons = [], custom = null) => {
         const wrapper = document.createElement("div");
         wrapper.className = `chat-message ${variant}`;
         const title = document.createElement("strong");
         title.textContent = label;
         const bubble = document.createElement("div");
         bubble.className = "chat-bubble";
+        const isHumorFinalMessage =
+          typeof message === "string" &&
+          message.includes("BE-SERIOUS-FILTER") &&
+          message.includes("Schade eigentlich.");
+        const isEarlyBirdMessage =
+          typeof message === "string" &&
+          message.includes("Leider auch am Wochenende.");
         if (message) {
           const text = document.createElement("div");
-          text.textContent = message;
+          appendHighlightedMessageText(text, message);
           if (/^[\s█▓▒░.]+$/.test(message)) {
             text.classList.add("chat-censored-text");
           }
           bubble.appendChild(text);
         }
+        const coffeeStatsCard = buildCoffeeStatsCard(custom?.coffee_stats);
+        if (coffeeStatsCard) {
+          bubble.appendChild(coffeeStatsCard);
+        }
         if (Array.isArray(buttons) && buttons.length > 0) {
           const buttonRow = document.createElement("div");
           buttonRow.className = "chat-buttons";
+          if (isHumorFinalMessage || isEarlyBirdMessage) {
+            buttonRow.classList.add("chat-buttons-spaced");
+          }
           buttons.forEach((btn) => {
             const button = document.createElement("button");
             button.type = "button";
             button.className = "chat-button";
             button.textContent = btn.title || "Option";
             const payload = btn.payload || btn.title || "";
+            if (btn.kind === "playground") {
+              button.classList.add("chat-button-playground");
+            }
             if (payload === "/show_playground_questions") {
               button.classList.add("chat-button-secondary");
             }
@@ -324,7 +556,8 @@
               cancelCustomFollowups();
               if (payload === "/show_playground_questions") {
                 appendMessage("Du", btn.title || "Frag mich was", "user");
-                const promptText = "Schreib einfach drauflos oder probier eine dieser Fragen aus:";
+                const promptText = getPlaygroundPromptText();
+                const playgroundButtons = getPlaygroundButtons();
                 const typingMessage = showTypingIndicator();
                 chatStatus.textContent = "Assistent tippt...";
                 window.setTimeout(() => {
@@ -477,6 +710,7 @@
           stageProjectDetail.innerHTML = content.trim();
           stageProjectDetail.hidden = false;
           fadeOutStageIntro();
+          initInlineHintBadges(stageProjectDetail);
           initStageReveals(stageProjectDetail);
           if (typeof url === "string" && url.includes("praxisphase.html")) {
             enableContactPrompt();
@@ -511,6 +745,7 @@
           stageProjectDetail.appendChild(wrapper.firstElementChild);
           stageProjectDetail.hidden = false;
           fadeOutStageIntro();
+          initInlineHintBadges(stageProjectDetail);
         } catch (error) {
           appendMessage("Assistent", "Konnte den Abschnitt gerade nicht laden.", "bot");
         }
@@ -621,7 +856,7 @@
                   chatStatus.textContent = "";
                   return;
                 }
-                appendMessage("Assistent", followup.text || "", "bot", followup.buttons || []);
+                appendMessage("Assistent", followup.text || "", "bot", followup.buttons || [], followup.custom || null);
                 if (followup.stage) {
                   pendingStageUrl = resolveStageUrl(followup.stage);
                   pendingStageMessage = followup.stageMessage || null;
@@ -960,8 +1195,10 @@
                 if (suppressBotReply) return;
                 const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
                 const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
-                if (hasText || hasButtons) {
-                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+                const hasCoffeeStats =
+                  Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
+                if (hasText || hasButtons || hasCoffeeStats) {
+                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });
               if (stageUpdate && data.messages[0].text) {
@@ -1023,7 +1260,7 @@
                 const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
                 const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
                 if (hasText || hasButtons) {
-                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || []);
+                  appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });
               if (stageUpdate && data.messages[0].text) {

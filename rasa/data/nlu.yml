@@ -427,6 +427,9 @@ nlu:
       - welche rolle passt zu dir
       - wonach suchst du konkret
       - was suchst du ganz konkret
+      - was erwartest du dir von einer praxisphase
+      - was erwartest du von einer praxisphase
+      - was erwartest du dir für die praxisphase
 
   - intent: links_portfolio
     examples: |
@@ -542,6 +545,26 @@ nlu:
       - hau einen witz raus
       - erzähl mal was lustiges
 
+  - intent: smalltalk_time_meta
+    examples: |
+      - wie spät ist es
+      - wie spaet ist es
+      - arbeitest du nachts
+      - bist du nachts da
+      - schläfst du eigentlich nie
+      - schlaefst du eigentlich nie
+      - hast du eigentlich uhrzeiten
+
+  - intent: smalltalk_why_so
+    examples: |
+      - warum so
+      - wieso so
+      - warum eigentlich so
+      - wieso eigentlich so
+      - wie kommst du darauf
+      - warum diese antwort
+      - warum so formuliert
+
   - intent: smalltalk_coffee
     examples: |
       - kaffee
@@ -578,12 +601,30 @@ nlu:
       - struktur oder kreativität
       - eher struktur oder kreativität
       - bist du eher struktur oder kreativität
+      - bist du eher kreativ oder strukturiert
+      - kreativ oder strukturiert
+      - eher kreativ oder strukturiert
 
   - intent: playground_early_bird
     examples: |
       - frühaufsteher oder nachteule
       - eher frühaufsteher oder nachteule
       - bist du frühaufsteher oder nachteule
+      - bist du eher frühaufsteher oder nachteule
+      - eher frühaufsteher oder nachteule?
+      - frühaufsteher oder nachteule?
+
+  - intent: project_menu_meta
+    examples: |
+      - gibt es hier kein menü
+      - gibt's hier kein menü
+      - gibt es hier kein menu
+      - gibt's hier kein menu
+      - warum gibt es kein menü
+      - warum gibt es kein menu
+      - ist das keine klassische website
+      - warum keine klassische website
+      - wo ist das menü
 
 # ---- Personenname ----
   - intent: person_name_opinion
@@ -631,6 +672,8 @@ nlu:
 
   - intent: person_motivation
     examples: |
+      - was motiviert dich
+      - was motiviert dich?
       - warum interessiert dich ki
       - was motiviert dich an dem thema
       - was reizt dich an ux
@@ -719,6 +762,8 @@ nlu:
 
   - intent: person_development
     examples: |
+      - was möchtest du fachlich noch vertiefen
+      - was möchtest du fachlich noch vertiefen?
       - wie entwickelst du dich fachlich weiter
       - woran willst du dich noch entwickeln
       - was lernst du gerade dazu
@@ -740,8 +785,37 @@ nlu:
       - wie kommst du runter
       - was machst du zum runterkommen
       - was machst du in deiner freizeit
-      - was machst du außerhalb der arbeit
       - was machst du nebenbei zum ausgleich
+
+  - intent: person_outside_work
+    examples: |
+      - was machst du außerhalb der arbeit
+      - was machst du ausserhalb der arbeit
+      - was machst du gern außerhalb der arbeit
+      - was machst du gern ausserhalb der arbeit
+      - was machst du außerhalb vom job
+      - was machst du außerhalb deines jobs
+      - was machst du so außerhalb der arbeit
+
+  - intent: person_records_followup
+    examples: |
+      - wie viele schallplatten hast du
+      - wie viele platten hast du
+      - wie groß ist deine sammlung
+      - welche schallplatte war deine letzte
+      - welche platte war deine letzte
+      - welche hast du zuletzt gekauft
+      - was war dein letzter vinyl kauf
+      - was hörst du auf schallplatte
+      - was sammelst du da so
+      - welche musik hast du auf vinyl
+      - hast du eine lieblingsplatte
+      - welche platte magst du am meisten
+      - vinyl?
+      - schallplatte?
+      - platten?
+      - erzähl mehr über deine schallplatten
+      - was für schallplatten sammelst du
 
   - intent: experience_summary
     examples: |
@@ -801,6 +875,8 @@ nlu:
 
   - intent: strengths_tasks
     examples: |
+      - welche aufgaben liegen dir
+      - welche aufgaben liegen dir?
       - was sind deine stärken
       - welche stärken hast du
       - worin bist du gut

@@ -246,6 +246,29 @@ NORMALIZATION_RULES = [
         },
     },
     {
+        "payload": "/smalltalk_time_meta",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "wie spät ist es",
+            "wie spaet ist es",
+            "arbeitest du nachts",
+            "bist du nachts da",
+            "schläfst du eigentlich nie",
+            "schlaefst du eigentlich nie",
+        },
+    },
+    {
+        "payload": "/smalltalk_why_so",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "warum so",
+            "wieso so",
+            "warum eigentlich so",
+            "wieso eigentlich so",
+            "warum diese antwort",
+        },
+    },
+    {
         "payload": "/current_status",
         "match": MATCH_CONTAINS,
         "aliases": {
@@ -291,6 +314,7 @@ NORMALIZATION_RULES = [
             "was machst du am liebsten",
             "worin bist du gut",
             "welche aufgaben liegen dir",
+            "welche aufgaben liegen dir?",
             "welche aufgaben magst du",
             "was sind deine stärken",
             "was sind deine fachlichen stärken",
@@ -350,6 +374,18 @@ NORMALIZATION_RULES = [
         },
     },
     {
+        "payload": "/project_why_chatbot",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "warum gerade ein chatbot",
+            "warum ein chatbot",
+            "warum chatbot",
+            "warum dialog statt navigation",
+            "warum keine navigation",
+            "warum keine menüs",
+        },
+    },
+    {
         "payload": "/project_chatbot",
         "match": MATCH_CONTAINS,
         "aliases": {
@@ -390,17 +426,78 @@ NORMALIZATION_RULES = [
             "wonach suchst du konkret",
             "was suchst du ganz konkret",
             "welche rolle passt zu dir",
+            "was erwartest du dir von einer praxisphase",
+            "was erwartest du von einer praxisphase",
         },
     },
     {
-        "payload": "/project_why_chatbot",
+        "payload": "/person_motivation",
         "match": MATCH_CONTAINS,
         "aliases": {
-            "warum ein chatbot",
-            "warum chatbot",
-            "warum dialog statt navigation",
-            "warum keine navigation",
-            "warum keine menüs",
+            "was motiviert dich",
+        },
+    },
+    {
+        "payload": "/person_development",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was möchtest du fachlich noch vertiefen",
+        },
+    },
+    {
+        "payload": "/person_outside_work",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was machst du gern außerhalb der arbeit",
+            "was machst du gern ausserhalb der arbeit",
+            "was machst du außerhalb der arbeit",
+            "was machst du ausserhalb der arbeit",
+        },
+    },
+    {
+        "payload": "/person_records_followup",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "wie viele schallplatten hast du",
+            "wie viele platten hast du",
+            "welche schallplatte war deine letzte",
+            "welche platte war deine letzte",
+            "was war dein letzter vinyl kauf",
+            "hast du eine lieblingsplatte",
+            "schallplatte",
+            "platten",
+            "vinyl",
+        },
+    },
+    {
+        "payload": "/playground_structure_creativity",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "bist du eher kreativ oder strukturiert",
+            "kreativ oder strukturiert",
+        },
+    },
+    {
+        "payload": "/playground_early_bird",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "frühaufsteher oder nachteule",
+            "bist du eher frühaufsteher oder nachteule",
+        },
+    },
+    {
+        "payload": "/project_menu_meta",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "gibt es hier kein menü",
+            "gibt's hier kein menü",
+            "gibt es hier kein menu",
+            "gibt's hier kein menu",
+            "warum gibt es kein menü",
+            "warum gibt es kein menu",
+            "wo ist das menü",
+            "ist das keine klassische website",
+            "warum keine klassische website",
         },
     },
     {

@@ -82,6 +82,16 @@ rules:
       - intent: smalltalk_what_can_you_do
       - action: utter_smalltalk_what_can_you_do
 
+  - rule: smalltalk time meta
+    steps:
+      - intent: smalltalk_time_meta
+      - action: utter_smalltalk_time_meta
+
+  - rule: smalltalk why so
+    steps:
+      - intent: smalltalk_why_so
+      - action: utter_smalltalk_why_so
+
   - rule: smalltalk compliment
     steps:
       - intent: smalltalk_compliment
@@ -132,6 +142,11 @@ rules:
     steps:
       - intent: project_why_chatbot
       - action: utter_project_why_chatbot
+
+  - rule: project menu meta
+    steps:
+      - intent: project_menu_meta
+      - action: utter_project_menu_meta
 
   - rule: project audience
     steps:
@@ -213,6 +228,16 @@ rules:
     steps:
       - intent: person_unwind
       - action: utter_person_unwind
+
+  - rule: person outside work
+    steps:
+      - intent: person_outside_work
+      - action: utter_person_outside_work
+
+  - rule: person records followup
+    steps:
+      - intent: person_records_followup
+      - action: utter_person_records_followup
 
   # experience / status
   - rule: experience summary
