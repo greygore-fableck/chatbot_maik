@@ -364,7 +364,7 @@ responses:
 
   # --- Maik: Ursprung / Werdegang ---
   utter_origin_overview:
-    - text: "Hier ein kurzer Einblick, wie mein Interesse an Systemen und Technik entstanden ist 💾. Ich halte es kurz — die Ausführung steht auf der Seite."
+    - text: "Wenn du wissen willst, woher meine Begeisterung für Technik und Systeme kommt, erzähle ich hier, wie alles angefangen hat."
       custom:
         stage: "origin"
         followups:
@@ -584,7 +584,7 @@ responses:
               tone: "muted"
         followups:
           - delay: 1200
-            text: "Die Datenlage spricht wohl für sich. ☕"
+            text: "Da spielen wir wohl im selben Team. ☕"
             buttons:
               - title: "Erzähl mir mehr über Maik"
                 payload: "/origin_overview"
@@ -608,7 +608,7 @@ responses:
               tone: "muted"
         followups:
           - delay: 1200
-            text: "Ich glaube, ich habe eine Präferenz."
+            text: "Tee ist meine zweie Präferenz."
             buttons:
               - title: "Erzähl mir mehr über Maik"
                 payload: "/origin_overview"
