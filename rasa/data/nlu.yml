@@ -20,7 +20,7 @@ nlu:
       - tschüss
       - tschuess
       - tschau
-      - tschau
+      - tschö
       - bye
       - bis bald
       - bis dann
@@ -29,6 +29,8 @@ nlu:
       - mach's gut
       - machs gut
       - auf wiedersehen
+      - hau rein
+      - see you
 
   - intent: affirm
     examples: |
@@ -44,6 +46,10 @@ nlu:
       - ok
       - passt
       - gerne
+      - sicher
+      - sia
+      - si
+      
 
   - intent: deny
     examples: |
@@ -55,6 +61,8 @@ nlu:
       - eher nicht
       - nicht so
       - nein danke
+      - ne
+      - nä
 
   - intent: thanks
     examples: |
@@ -66,10 +74,10 @@ nlu:
       - super, danke
       - top danke
       - danke dir
-      
+      - besten dank
       
 
-# ---- Chatbot ----
+# ---- Navigation / Hauptseiten ----
   - intent: project_chatbot
     examples: |
       - chatbot
@@ -115,7 +123,126 @@ nlu:
       - worum geht es auf der website
       - was ist das für eine website
       - was kannst du mir über die bachelorarbeit sagen
+      - was ist dein aktuelles projekt
+      - was ist gerade dein projekt
+      - an welchem projekt arbeitest du
+      - woran arbeitest du gerade für ein projekt
+      - ist das hier dein aktuelles projekt
 
+  - intent: tech_impl
+    examples: |
+      - technische umsetzung
+      - technik
+      - tech
+      - wie ist das technisch umgesetzt
+      - python und rasa?
+      - ist das rasa?
+      - nutzt du python?
+      - welche technik steckt dahinter
+      - wie ist das technisch gebaut
+      - was nutzt du technisch
+      - wie sieht die technische umsetzung aus
+      - stack?
+
+  - intent: system_architecture
+    examples: |
+      - architektur
+      - system
+      - struktur
+      - system architektur
+      - systemarchitektur
+      - wie ist das system aufgebaut
+      - wie ist die struktur
+      - wie sieht der aufbau aus
+      - modularität
+      - modularer aufbau
+      - wie hängt das zusammen
+      - aufbau vom bot
+      - wie ist der bot aufgebaut
+      - wie ist das ganze aufgebaut
+      - systemstruktur
+      - zeig mir die architektur
+
+  - intent: origin_overview
+    examples: |
+      - wer ist maik
+      - wer ist maik eigentlich
+      - ursprung von maik
+      - wie hat alles angefangen
+      - erzähl mir etwas über maik
+      - erzähl mir was über maik
+      - was kannst du mir über maik sagen
+      - sag mir was über maik
+      - mehr über maik
+      - über maik
+      - was ist dein hintergrund
+      - erzähl mir was über deinen hintergrund
+      - wie bist du dazu gekommen
+      - wie hat es angefangen
+      - wie kam es zu deinem interesse
+      - woher kommst du
+
+  - intent: werdegang_overview
+    examples: |
+      - werdegang
+      - laufbahn
+      - was hast du gemacht
+      - wie ist dein werdegang
+      - wo kommst du her beruflich
+      - was ist dein weg gewesen
+      - wie war dein verlauf
+      - was hast du vorher gemacht
+      - was hast du so gemacht
+      - hast du studiert
+      - ausbildung
+      - aubildung
+      - ausbiildung
+      - ausbildun
+      - ausbilung
+      - ausbuldung
+      - ausbuidlung
+      - ausbildung?
+      - hast du eine ausbildung
+      - hast du eine aubildung
+      - hast du eine ausbildung gemacht
+      - welche ausbildung hast du
+      - was für eine ausbildung hast du
+      - bist du ausgebildet
+      - hast du eine berufsausbildung
+      - hast du eine ausbildung oder ein studium
+
+  - intent: praxisphase_info
+    examples: |
+      - praxisphase
+      - praxis
+      - praxissemester
+      - praktikum
+      - stelle
+      - suchst du eine praxisphase
+      - bist du auf der suche nach einem praktikum
+      - suchst du ein praktikum
+      - suchst du aktuell eher praxis oder stelle
+      - suchst du ein praxisunternehmen
+      - was ist gerade aktuell
+      - was ist aktuell
+      - was ist bei dir aktuell
+      - was läuft gerade
+      - was läuft aktuell
+      - was geht aktuell
+      - was suchst du
+      - was suchst du gerade
+      - was suchst du eigentlich
+      - wonach suchst du
+      - wonach suchst du gerade
+      - was willst du
+      - was willst du gerade
+      - was willst du aktuell
+      - was ist dir gerade wichtig
+      - was suchst du im moment
+      - arbeitest du gerade
+      - kann man dir helfen
+
+# ---- Chat-FAQ / kurze Antworten ----
   - intent: project_goal
     examples: |
       - was ist das ziel des projekts
@@ -219,93 +346,6 @@ nlu:
       - wann hast du damit angefangen
       - wann hast du den bot gestartet
 
-  - intent: tech_impl
-    examples: |
-      - technische umsetzung
-      - technik
-      - tech
-      - wie ist das technisch umgesetzt
-      - python und rasa?
-      - ist das rasa?
-      - nutzt du python?
-      - welche technik steckt dahinter
-      - wie ist das technisch gebaut
-      - was nutzt du technisch
-      - wie sieht die technische umsetzung aus
-      - stack?
-
-  - intent: system_architecture
-    examples: |
-      - architektur
-      - system
-      - struktur
-      - system architektur
-      - systemarchitektur
-      - wie ist das system aufgebaut
-      - wie ist die struktur
-      - wie sieht der aufbau aus
-      - modularität
-      - modularer aufbau
-      - wie hängt das zusammen
-      - aufbau vom bot
-      - wie ist der bot aufgebaut
-      - wie ist das ganze aufgebaut
-      - systemstruktur
-      - zeig mir die architektur
-
-
-
-# ---- Ursprung / Werdegang (maik) ----
-  - intent: origin_overview
-    examples: |
-      - wer ist maik
-      - wer ist maik eigentlich
-      - ursprung von maik
-      - wie hat alles angefangen
-      - erzähl mir etwas über maik
-      - erzähl mir was über maik
-      - was kannst du mir über maik sagen
-      - sag mir was über maik
-      - mehr über maik
-      - über maik
-      - was ist dein hintergrund
-      - erzähl mir was über deinen hintergrund
-      - wie bist du dazu gekommen
-      - wie hat es angefangen
-      - wie kam es zu deinem interesse
-      - woher kommst du
-
-  - intent: werdegang_overview
-    examples: |
-      - werdegang
-      - laufbahn
-      - was hast du gemacht
-      - wie ist dein werdegang
-      - wo kommst du her beruflich
-      - was ist dein weg gewesen
-      - wie war dein verlauf
-      - was hast du vorher gemacht
-      - was hast du so gemacht
-      - hast du studiert
-      - ausbildung
-      - aubildung
-      - ausbiildung
-      - ausbildun
-      - ausbilung
-      - ausbuldung
-      - ausbuidlung
-      - ausbildung?
-      - hast du eine ausbildung
-      - hast du eine aubildung
-      - hast du eine ausbildung gemacht
-      - welche ausbildung hast du
-      - was für eine ausbildung hast du
-      - bist du ausgebildet
-      - hast du eine berufsausbildung
-      - hast du eine ausbildung oder ein studium
-      
-  
-
 # ---- Start / Begrüßung (maik) ----
   - intent: start_prompt
     examples: |
@@ -317,33 +357,6 @@ nlu:
       - wie geht es los
       - was zuerst
       - start
-
-
-
-# ---- Praxisphase ----
-  - intent: praxisphase_info
-    examples: |
-      - praxisphase
-      - praxis
-      - praxissemester
-      - praktikum
-      - stelle
-      - suchst du eine praxisphase
-      - bist du auf der suche nach einem praktikum
-      - suchst du ein praktikum
-      - suchst du aktuell eher praxis oder stelle
-      - suchst du ein praxisunternehmen
-      - was ist gerade aktuell
-      - was ist aktuell
-      - was ist bei dir aktuell
-      - was läuft gerade
-      - was läuft aktuell
-      - was geht aktuell
-      - was suchst du
-      - arbeitest du gerade
-      - kann man dir helfen
- 
-
 
 # ---- Kontakt ----
   - intent: contact_email
@@ -375,6 +388,9 @@ nlu:
       - wann könntest du starten
       - was stellst du dir für die praxisphase vor
       - was ist dir für die praxisphase wichtig
+      - welche rolle passt zu dir
+      - wonach suchst du konkret
+      - was suchst du ganz konkret
 
   - intent: links_portfolio
     examples: |
@@ -384,6 +400,9 @@ nlu:
       - hast du linkedin
       - hast du einen lebenslauf
       - kann ich deinen cv sehen
+      - kann ich deinen lebenslauf sehen
+      - hast du unterlagen
+      - hast du bewerbungsunterlagen
       - hast du ein portfolio
       - wo finde ich mehr von dir
       - gibt es weitere unterlagen
@@ -544,6 +563,9 @@ nlu:
       - worauf legst du im team wert
       - wie sieht gute zusammenarbeit aus
       - wie tickst du im team
+      - warum passt du in ein team
+      - was macht dich angenehm in der zusammenarbeit
+      - wie arbeitest du mit anderen
 
   - intent: person_next_step
     examples: |
@@ -586,7 +608,13 @@ nlu:
       - kannst du dein profil kurz zusammenfassen
       - wie würdest du dich kurz beschreiben
       - was bringst du mit
+      - was bringst du konkret mit
+      - was bringst du fachlich mit
       - was ist dein skillset
+      - was kannst du fachlich
+      - was kannst du schon
+      - warum sollte man mit dir sprechen
+      - warum bist du interessant
       - erfahrung im überblick
       - welche erfahrung hast du
 
@@ -599,7 +627,6 @@ nlu:
       - bist du gerade angestellt
       - was ist gerade dein fokus
       - was machst du aktuell beruflich
-      - was ist dein aktuelles projekt
       - bist du gerade im studium
       - was ist dein momentaner stand
       - woran arbeitest du dich gerade ein
@@ -612,6 +639,8 @@ nlu:
       - welche projekte hast du gemacht
       - woran hast du gearbeitet
       - hast du praktische erfahrung
+      - hast du schon praktische erfahrung
+      - wie viel praktische erfahrung hast du
       - welche praktischen erfahrungen hast du
       - hast du referenzen
       - hast du bereits projekte
@@ -627,6 +656,7 @@ nlu:
       - welche stärken hast du
       - worin bist du gut
       - was kannst du besonders gut
+      - was kannst du richtig gut
       - was machst du am liebsten
       - welche aufgaben machen dir am meisten spaß
       - was macht dir am meisten spaß
@@ -640,6 +670,7 @@ nlu:
       - welche art aufgaben machen dir spaß
       - wo liegen deine stärken
       - worauf bist du spezialisiert
+      - was sind deine fachlichen stärken
 
   - intent: praxisphase_why_company
     examples: |

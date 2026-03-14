@@ -216,6 +216,7 @@ responses:
   # --- Projekt ---
   utter_project_chatbot:
     - text: |
+        Aktuell arbeite ich an diesem Projekt hier:
         Der Chatbot ersetzt die klassische Navigation
         und führt dialogisch durch die Inhalte.
         Hier bekommst du einen Einblick,
@@ -534,7 +535,7 @@ responses:
           payload: "/project_chatbot"
 
   utter_person_collab:
-    - text: "Mir sind klare Kommunikation und eine gemeinsame Vision wichtig. Dann läuft die Zusammenarbeit richtig rund."
+    - text: "Mir sind klare Kommunikation und eine gemeinsame Vision wichtig."
       custom:
         idle_followup: true
       buttons:
@@ -585,7 +586,7 @@ responses:
           payload: "/praxisphase_info"
 
   utter_current_status:
-    - text: "Aktuell studiere ich Medieninformatik, suche eine Praxisphase und beschäftige mich viel mit KI‑nahen Systemen."
+    - text: "Aktuell studiere ich Medieninformatik, suche eine Praxisphase und beschäftige mich mit KI‑nahen Systemen."
       custom:
         idle_followup: true
       buttons:
