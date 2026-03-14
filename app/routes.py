@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, send_from_directory
 import random
+import re
 import requests
 
 from .services.rasa_client import send_message
@@ -468,6 +469,53 @@ def build_default_fallback_response():
     }
 
 
+def build_person_name_opinion_response(message: str):
+    cleaned = (message or "").strip()
+    patterns = [
+        r"was h[äa]ltst du von\s+([A-Za-zÄÖÜäöüß-]+)\??",
+        r"was ist mit\s+([A-Za-zÄÖÜäöüß-]+)\??",
+        r"wie findest du\s+([A-Za-zÄÖÜäöüß-]+)\??",
+    ]
+    name = None
+    for pattern in patterns:
+        match = re.search(pattern, cleaned, flags=re.IGNORECASE)
+        if match:
+            name = match.group(1)
+            break
+
+    if not name:
+        return None
+
+    normalized = re.sub(r"[^A-Za-zÄÖÜäöüß-]", "", name).lower()
+    known_names = {"sanja", "axel", "rita", "roland", "sarah"}
+
+    if normalized in known_names:
+        text = f"{name}: Super Mensch, aber lass uns doch lieber wieder über das Projekt sprechen :)"
+        buttons = [
+            {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
+            {"title": "Erzähl mir was zur Praxisphase", "payload": "/praxisphase_info"},
+        ]
+    else:
+        text = (
+            "Der Name sagt mir jetzt gerade nichts, aber vielleicht kann sich das ja noch ändern. "
+            "Schreib mir doch einfach eine Mail."
+        )
+        buttons = [
+            {"title": "Kontakt per Mail ✉️", "payload": "/contact_email"},
+            {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
+        ]
+
+    return {
+        "response": text,
+        "messages": [
+            {
+                "text": text,
+                "buttons": buttons,
+            }
+        ],
+    }
+
+
 def matches_alias(cleaned: str, aliases: set[str], match_mode: str) -> bool:
     if match_mode == MATCH_EXACT:
         return cleaned in aliases
@@ -516,6 +564,10 @@ def webhook():
                 "response": "Bitte schick mir eine kurze Nachricht, dann helfe ich dir gern weiter 🙂",
             }
         )
+
+    direct_person_name_opinion = build_person_name_opinion_response(message)
+    if direct_person_name_opinion is not None:
+        return jsonify(direct_person_name_opinion)
 
     try:
         data = send_message(normalize_user_message(message), sender=sender)
