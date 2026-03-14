@@ -55,8 +55,10 @@ case "$SERVICE" in
 
     PORT="${PORT:-5005}"
     HOST="${RASA_HOST:-0.0.0.0}"
+    ACTIONS_PORT="${RASA_ACTIONS_PORT:-5056}"
+    ACTION_ENDPOINT="${RASA_ACTION_ENDPOINT:-http://127.0.0.1:${ACTIONS_PORT}/webhook}"
     cd "$RASA_DIR"
-    exec "$RASA" run --port "$PORT" --enable-api --cors "*" --model "$MODEL_PATH" --interface "$HOST"
+    RASA_ACTION_ENDPOINT="$ACTION_ENDPOINT" exec "$RASA" run --port "$PORT" --enable-api --cors "*" --model "$MODEL_PATH" --interface "$HOST"
     ;;
 
   actions)

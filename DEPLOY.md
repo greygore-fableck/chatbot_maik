@@ -16,7 +16,7 @@ This repo is deployed as three separate Railway services:
 ### Rasa server
 Build command:
 ```
-# leer lassen (kein Training beim Start/Build)
+./build_rasa_model.sh
 ```
 Start command:
 ```
@@ -38,5 +38,8 @@ CHATBOT_SERVICE=flask ./run_chatbot.sh
 ## Notes
 - Keep Rasa config/domain/data under rasa/.
 - Use a fixed model file path in production (`/app/rasa/models/latest.tar.gz`).
-- Ensure `latest.tar.gz` points to your intended trained model before deploy.
+- The build step must create and refresh `latest.tar.gz` before the Rasa service starts.
+- Set `RASA_ACTION_ENDPOINT` per environment:
+  - local: `http://127.0.0.1:5056/webhook`
+  - Railway Rasa service: URL of the Railway actions service, e.g. `https://<your-actions-service>/webhook`
 - If you move files, update the commands above.
