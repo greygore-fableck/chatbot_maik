@@ -24,10 +24,12 @@ intents:
   - links_portfolio
 
   - smalltalk_how_are_you
+  - smalltalk_day
   - smalltalk_who_are_you
   - smalltalk_what_can_you_do
   - smalltalk_compliment
   - smalltalk_humor
+  - smalltalk_coffee
   - project_goal
   - project_why_chatbot
   - project_audience
@@ -381,6 +383,14 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
+  utter_smalltalk_day:
+    - text: "Ganz ordentlich bisher 🙂 Und selbst?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
   utter_smalltalk_who_are_you:
     - text: "Ich bin Maiks digitaler Assistent — eine dialogische Visitenkarte. Womit soll ich anfangen?"
       buttons:
@@ -417,6 +427,14 @@ responses:
 
   utter_smalltalk_humor:
     - text: "Ich bin eher der klare Typ 😄 Projekt oder Praxisphase?"
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was zur Praxisphase"
+          payload: "/praxisphase_info"
+
+  utter_smalltalk_coffee:
+    - text: "Kaffee ist immer eine gute Idee ☕"
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -495,7 +513,7 @@ responses:
           payload: "/project_why_chatbot"
 
   utter_project_improve:
-    - text: "Als Nächstes würde ich den Dialog weiter ausbauen und schauen, was noch fehlt oder sich verbessern lässt."
+    - text: "Als Nächstes würde ich vor allem die Intents und Gesprächswege weiter ausbauen, damit der Bot noch natürlicher reagiert und bei freien Fragen seltener ins Leere läuft."
       custom:
         idle_followup: true
       buttons:

@@ -327,6 +327,8 @@ nlu:
     examples: |
       - was würdest du als nächstes verbessern
       - was würdest du verbessern
+      - was kannst du noch verbessern
+      - was könntest du noch verbessern
       - was würdest du am bot ändern
       - was ist der nächste schritt am projekt
       - was willst du als nächstes machen
@@ -429,6 +431,19 @@ nlu:
       - was geht?
       - was geht
 
+  - intent: smalltalk_day
+    examples: |
+      - wie läuft dein tag
+      - wie läuft dein tag so
+      - hast du einen guten tag
+      - hast du heute einen guten tag
+      - guten tag gehabt
+      - läuft dein tag gut
+      - wie ist dein tag
+      - na alles gut heute
+      - wie läufts heute
+      - wie läuft dein tag heute
+
   - intent: smalltalk_who_are_you
     examples: |
       - wer bist du?
@@ -484,6 +499,19 @@ nlu:
       - haha
       - lol
       - witzig
+
+  - intent: smalltalk_coffee
+    examples: |
+      - kaffee
+      - kaffee?
+      - brauchst du kaffee
+      - willst du kaffee
+      - ohne kaffee läuft nichts
+      - erstmal kaffee
+      - zeit für kaffee
+      - ich glaube du brauchst kaffee
+      - kaffee ist immer gut
+      - noch einen kaffee
 
 # ---- Personenname ----
   - intent: person_name_opinion

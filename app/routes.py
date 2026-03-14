@@ -205,6 +205,29 @@ NORMALIZATION_RULES = [
             "was geht",
         },
     },
+    {
+        "payload": "/smalltalk_day",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "wie läuft dein tag",
+            "hast du einen guten tag",
+            "hast du heute einen guten tag",
+            "guten tag gehabt",
+            "läuft dein tag gut",
+            "wie ist dein tag",
+            "na alles gut heute",
+            "wie läufts heute",
+        },
+    },
+    {
+        "payload": "/project_improve",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was kannst du noch verbessern",
+            "was könntest du noch verbessern",
+            "was würdest du noch verbessern",
+        },
+    },
     # General capability and topic entry points.
     {
         "payload": "/smalltalk_what_can_you_do",
@@ -286,6 +309,19 @@ NORMALIZATION_RULES = [
             "haha",
             "lol",
             "witzig",
+        },
+    },
+    {
+        "payload": "/smalltalk_coffee",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "kaffee",
+            "brauchst du kaffee",
+            "willst du kaffee",
+            "ohne kaffee läuft nichts",
+            "erstmal kaffee",
+            "zeit für kaffee",
+            "noch einen kaffee",
         },
     },
     {

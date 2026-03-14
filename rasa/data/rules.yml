@@ -67,6 +67,11 @@ rules:
       - intent: smalltalk_how_are_you
       - action: utter_smalltalk_how_are_you
 
+  - rule: smalltalk day
+    steps:
+      - intent: smalltalk_day
+      - action: utter_smalltalk_day
+
   - rule: smalltalk who are you
     steps:
       - intent: smalltalk_who_are_you
@@ -86,6 +91,11 @@ rules:
     steps:
       - intent: smalltalk_humor
       - action: utter_smalltalk_humor
+
+  - rule: smalltalk coffee
+    steps:
+      - intent: smalltalk_coffee
+      - action: utter_smalltalk_coffee
 
   # project faq
   - rule: project goal
