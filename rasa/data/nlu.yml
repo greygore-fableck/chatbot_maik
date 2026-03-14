@@ -247,6 +247,10 @@ nlu:
     examples: |
       - was ist das ziel des projekts
       - was ist das ziel vom projekt
+      - was ist dein ziel mit dem projekt
+      - was ist dein ziel mit diesem projekt
+      - welches ziel verfolgst du mit dem projekt
+      - was willst du mit diesem projekt erreichen
       - wozu ist das projekt
       - warum hast du das projekt gemacht
       - wofür ist der bot gedacht
@@ -604,6 +608,19 @@ nlu:
       - wie geht es nach dem studium weiter
       - was planst du als nächstes
       - wohin willst du dich entwickeln
+
+  - intent: person_future_vision
+    examples: |
+      - wo siehst du dich in einem jahr
+      - wo siehst du dich in 1 jahr
+      - wo siehst du dich in drei jahren
+      - wo siehst du dich in 3 jahren
+      - wo siehst du dich in fünf jahren
+      - wo siehst du dich in 5 jahren
+      - wo siehst du dich in ein paar jahren
+      - wo willst du in ein paar jahren stehen
+      - wie sieht deine zukunft aus
+      - wo willst du langfristig hin
 
   - intent: person_development
     examples: |

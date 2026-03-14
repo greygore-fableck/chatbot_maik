@@ -45,6 +45,7 @@ intents:
   - person_sports
   - person_collab
   - person_next_step
+  - person_future_vision
   - person_development
   - person_unwind
 
@@ -571,6 +572,16 @@ responses:
           payload: "/praxisphase_info"
         - title: "Erzähl mir kurz was zu dir"
           payload: "/origin_overview"
+
+  utter_person_future_vision:
+    - text: "In den nächsten Jahren sehe ich mich klar in der Entwicklung digitaler Produkte — besonders dort, wo Konzeption, UX und KI-nahe Systeme zusammenkommen."
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Was motiviert dich?"
+          payload: "/person_motivation"
 
   utter_person_development:
     - text: "Fachlich möchte ich die Verbindung aus Konzeption, UX und KI-nahen Systemen weiter vertiefen und in der Umsetzung Schritt für Schritt sicherer werden."

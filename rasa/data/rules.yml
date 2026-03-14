@@ -174,6 +174,11 @@ rules:
       - intent: person_next_step
       - action: utter_person_next_step
 
+  - rule: person future vision
+    steps:
+      - intent: person_future_vision
+      - action: utter_person_future_vision
+
   - rule: person development
     steps:
       - intent: person_development

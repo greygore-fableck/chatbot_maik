@@ -306,6 +306,18 @@ NORMALIZATION_RULES = [
         },
     },
     {
+        "payload": "/person_future_vision",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "wo siehst du dich in 1 jahr",
+            "wo siehst du dich in 3 jahren",
+            "wo siehst du dich in 5 jahren",
+            "wo willst du in ein paar jahren stehen",
+            "wie sieht deine zukunft aus",
+            "wo willst du langfristig hin",
+        },
+    },
+    {
         "payload": "/smalltalk_humor",
         "match": MATCH_EXACT,
         "aliases": {
@@ -379,6 +391,16 @@ NORMALIZATION_RULES = [
             "warum dialog statt navigation",
             "warum keine navigation",
             "warum keine menüs",
+        },
+    },
+    {
+        "payload": "/project_goal",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was ist dein ziel mit dem projekt",
+            "was ist dein ziel mit diesem projekt",
+            "welches ziel verfolgst du mit dem projekt",
+            "was willst du mit diesem projekt erreichen",
         },
     },
     {
