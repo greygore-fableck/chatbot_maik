@@ -67,7 +67,7 @@ responses:
   # --- Einstieg ---
   utter_greet:
     - text: |
-        Schön, dass du vorbeischaust. 👋
+        Oh, ein Mensch! Willkommen. 🙂
       custom:
         followups:
           - delay: 3000
@@ -88,14 +88,57 @@ responses:
                 payload: "/praxisphase_info"
 
     - text: |
+        Oh, du bist neugierig. Gute Entscheidung. 👋
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Fragst du dich gerade, was das hier eigentlich ist?
+
+              Ich geb dir kurz einen Überblick
+              über mich und dieses Projekt.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über dich"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+
+    - text: |
+        Willkommen – ich habe schon auf dich gewartet. 🙂
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Vielleicht denkst du gerade: „Okay… was genau ist das hier?“
+
+              Ich kann dir kurz erklären,
+              wer ich bin und worum es hier eigentlich geht.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über dich"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+
+    - text: |
         Freut mich, dass du hier gelandet bist. 👋
       custom:
         followups:
           - delay: 3000
             text: |
-              Wenn du dich gerade fragst: „Alles klar… und was passiert hier?“
+              Fragst du dich gerade: „Okay… und jetzt?“
 
-              Ich kann dir kurz zeigen, wer ich bin und warum diese Seite als Einstieg in ein mögliches Gespräch gedacht ist.
+              Ich zeige dir kurz,
+              wer ich bin und was dieses Projekt eigentlich macht.
           - delay: 10000
             text: "Womit soll ich starten?"
             buttons:
@@ -112,9 +155,10 @@ responses:
         followups:
           - delay: 3000
             text: |
-              Wenn du dich gerade fragst: „Alles klar… und was passiert hier?“
+              Du denkst dir vielleicht: „Alles klar… und jetzt?“
 
-              Ich kann dir kurz zeigen, wer ich bin und warum diese Seite als Einstieg in ein mögliches Gespräch gedacht ist.
+              Kein Problem — ich erklär dir kurz,
+              wer ich bin und worum es hier geht.
           - delay: 10000
             text: "Womit soll ich starten?"
             buttons:
@@ -144,10 +188,10 @@ responses:
 
   utter_goodbye:
     - text: |
-        Schön, dass du dir die Seite angeschaut hast.
+        Schön, dass du hier vorbeigeschaut hast. 👋
 
-        Wenn du das Gespräch noch etwas fortsetzen möchtest, können wir hier gern weitermachen.
-        Oder du meldest dich einfach per Mail.
+        Wenn du noch Fragen hast, bleibe ich gern noch im Chat.
+        Oder du schreibst mir einfach eine Mail – ich antworte dann persönlich.
       buttons:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
@@ -155,8 +199,8 @@ responses:
     - text: |
         Danke, dass du dir die Zeit für meine Seite genommen hast.
 
-        Wenn du möchtest, erzähle ich dir gern noch mehr über das Projekt.
-        Oder wir setzen das Gespräch einfach per Mail fort.
+        Wenn du noch mehr über das Projekt wissen willst, erzähle ich dir gern noch etwas.
+        Oder wir wechseln einfach zu E-Mail – ganz ohne Chatblase.
       buttons:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
@@ -171,7 +215,7 @@ responses:
           payload: "/contact_email"
 
   utter_fallback:
-    - text: "Ich bin mir gerade nicht ganz sicher, wie ich das einordnen soll. Vielleicht hilft dir einer dieser Einstiege:"
+    - text: "Ich bin mir gerade nicht ganz sicher, was du genau meinst. Vielleicht hilft dir einer dieser Einstiege:"
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -180,7 +224,7 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
-    - text: "Das war für mich gerade nicht ganz eindeutig. Ich kann dir aber direkt etwas über das Projekt, über mich oder über die Praxisphase zeigen."
+    - text: "Das ist für mich nicht ganz eindeutig. Ich kann dir aber etwas über das Projekt, über mich oder über die Praxisphase zeigen."
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -189,7 +233,7 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
-    - text: "Ich bin mir gerade nicht ganz sicher, worauf du hinauswillst. Wenn du magst, steigen wir direkt bei einem der Kernthemen ein."
+    - text: "Ich bin mir nicht ganz sicher, worauf du hinauswillst. Wenn du magst, steigen wir direkt bei einem der Kernthemen ein."
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -207,7 +251,7 @@ responses:
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
 
-    - text: "Ich bin mir gerade nicht ganz sicher, wie ich darauf antworten soll. Aber wir können gern bei einem dieser Themen weitermachen:"
+    - text: "Mhh. Ich bin mir gerade nicht ganz sicher, wie ich darauf antworten soll. Aber wir können gern bei einem dieser Themen weitermachen:"
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -347,11 +391,11 @@ responses:
   # --- Kontakt ---
   utter_contact_email:
     - text: |
-        Sehr gerne.
+        Per Mail erreichst du mich am besten wie folgt:
       custom:
         stage: "contact"
     - text: |
-        Klar doch.
+        Ich freue mich auf Post
       custom:
         stage: "contact"
 
@@ -368,7 +412,7 @@ responses:
   utter_links_portfolio:
     - text: |
         Diese Seite ist die direkte Live-Demo des Projekts.
-        Für weitere Unterlagen oder Links können wir gerne direkt per Mail weitermachen.
+        Für weitere Unterlagen können wir gerne direkt per Mail weitermachen.
       buttons:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
@@ -393,7 +437,7 @@ responses:
           payload: "/praxisphase_info"
 
   utter_smalltalk_who_are_you:
-    - text: "Ich bin Maiks digitaler Assistent — eine dialogische Visitenkarte. Womit soll ich anfangen?"
+    - text: "Ich bin als moderne Navigation gedacht. Womit soll ich anfangen?"
       buttons:
         - title: "Erzähl mir kurz was zu dir"
           payload: "/origin_overview"
@@ -427,7 +471,7 @@ responses:
           payload: "/origin_overview"
 
   utter_smalltalk_humor:
-    - text: "Ich bin eher der klare Typ 😄 Projekt oder Praxisphase?"
+    - text: "Puh, schwierig. Habe ich gerade nichts auf Lager 😄 Frag einfach später nochmal, ich lasse mir was einfallen."
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"

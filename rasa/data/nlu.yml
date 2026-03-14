@@ -75,6 +75,10 @@ nlu:
       - top danke
       - danke dir
       - besten dank
+      - lieben dank
+      - danke dir vielmals
+      - danke für die info
+      - danke, das hilft
       
 
 # ---- Navigation / Hauptseiten ----
@@ -282,6 +286,10 @@ nlu:
       - wer soll damit was anfangen
       - für wen ist das hier
       - wer ist hier die zielgruppe
+      - an wen richtet sich der chatbot
+      - wer würde den bot benutzen
+      - für wen hast du das gebaut
+      - welche leute sollen das nutzen
 
   - intent: project_tech
     examples: |
@@ -293,6 +301,10 @@ nlu:
       - womit hast du das gebaut
       - welche sprache und framework
       - was läuft da im hintergrund
+      - welche technik nutzt du dafür
+      - mit welchem stack hast du das gebaut
+      - welche frameworks stecken drin
+      - auf welcher technischen basis läuft das
 
   - intent: project_unique
     examples: |
@@ -303,6 +315,10 @@ nlu:
       - was ist hier anders als sonst
       - warum braucht man den bot
       - was kann der besser
+      - was ist daran besonders
+      - was macht das projekt speziell
+      - warum hebt sich der bot ab
+      - was ist der unique punkt hier
 
   - intent: project_business_use
     examples: |
@@ -326,6 +342,10 @@ nlu:
       - kann ich das irgendwo testen
       - wo kann ich mir das anschauen
       - gibt es einen link zur demo
+      - kann man den bot live testen
+      - wo ist die demo
+      - hast du einen link zum projekt
+      - wo kann ich den chatbot ausprobieren
 
   - intent: project_improve
     examples: |
@@ -351,6 +371,12 @@ nlu:
       - seit wann arbeitest du daran
       - wann hast du damit angefangen
       - wann hast du den bot gestartet
+      - wie lange lief das projekt bisher
+      - wie lange geht das projekt schon
+      - seit wann läuft das projekt
+      - wann hat das projekt angefangen
+      - wie viel zeit steckt bisher drin
+      - wie lange arbeitest du schon an dem projekt
 
 # ---- Start / Begrüßung (maik) ----
   - intent: start_prompt
@@ -363,6 +389,10 @@ nlu:
       - wie geht es los
       - was zuerst
       - start
+      - womit soll ich anfangen
+      - was kann ich dich zuerst fragen
+      - wie starten wir am besten
+      - gib mir einen einstieg
 
 # ---- Kontakt ----
   - intent: contact_email
@@ -491,6 +521,10 @@ nlu:
       - starker bot
       - sehr clean
       - sehr schön
+      - echt gut gemacht
+      - sieht stark aus
+      - gefällt mir richtig gut
+      - sauber umgesetzt
 
   - intent: smalltalk_humor
     examples: |
@@ -503,6 +537,10 @@ nlu:
       - haha
       - lol
       - witzig
+      - kennst du einen guten witz
+      - bring mich zum lachen
+      - hau einen witz raus
+      - erzähl mal was lustiges
 
   - intent: smalltalk_coffee
     examples: |
@@ -570,11 +608,29 @@ nlu:
       - warum findest du das thema spannend
       - was treibt dich da an
       - was findest du an ki so interessant
+      - warum begeistert dich das thema
+      - was fasziniert dich an ki
+      - warum machst du das überhaupt
+      - was motiviert dich an dem bereich
+      - warum beschäftigst du dich damit
+      - was reizt dich daran überhaupt
+      - warum ist dir das thema wichtig
+      - warum steckst du da so viel rein
 
   - intent: person_sports
     examples: |
       - hast du einen lieblingsverein
       - für welchen verein bist du
+      - welchen verein supportest du
+      - welches team unterstützt du
+      - welcher verein ist dein verein
+      - welchen club feierst du
+      - welchen fußballverein magst du
+      - bist du fan von einem verein
+      - hast du einen lieblingsclub
+      - für wen bist du im fußball
+      - wen supportest du im fußball
+      - welcher fußballverein ist dein favorit
       - bist du fußballfan
       - fussball
       - fußball
@@ -582,6 +638,9 @@ nlu:
       - guckst du fußball
       - hast du früher fußball gespielt
       - hast du einen verein
+      - was ist dein lieblingsverein
+      - was ist dein lieblingsclub
+      - was für einen verein findest du gut
       - rot weiss essen
       - rot-weiss essen
       - rwe
@@ -608,6 +667,12 @@ nlu:
       - wie geht es nach dem studium weiter
       - was planst du als nächstes
       - wohin willst du dich entwickeln
+      - was kommt für dich als nächstes
+      - was ist bei dir als nächstes geplant
+      - wie sieht dein nächster schritt aus
+      - was machst du als nächstes nach dem studium
+      - wo soll es für dich als nächstes hingehen
+      - wie geht es für dich als nächstes weiter
 
   - intent: person_future_vision
     examples: |
@@ -641,6 +706,12 @@ nlu:
       - wie schaltest du ab
       - was machst du zum abschalten
       - was machst du wenn du frei hast
+      - was machst du zum ausgleich
+      - wie kommst du runter
+      - was machst du zum runterkommen
+      - was machst du in deiner freizeit
+      - was machst du außerhalb der arbeit
+      - was machst du nebenbei zum ausgleich
 
   - intent: experience_summary
     examples: |
@@ -729,6 +800,12 @@ nlu:
       - warum unser team
       - warum möchtest du bei uns arbeiten
       - was erwartest du von der praxisphase bei uns
+      - warum ausgerechnet diese firma
+      - wieso willst du ausgerechnet zu uns
+      - weshalb gerade unser unternehmen
+      - warum genau wir
+      - was findest du an unserer firma spannend
+      - warum möchtest du ausgerechnet hier hin
 
 
 
@@ -744,6 +821,10 @@ nlu:
       - kannst du das wiederholen
       - ich bin noch nicht ganz mitgekommen
       - das hilft mir noch nicht
+      - kannst du das nochmal anders formulieren
+      - ich habs noch nicht ganz verstanden
+      - kannst du das verständlicher sagen
+      - sag das bitte nochmal einfacher
 
   - intent: meta_privacy
     examples: |
@@ -755,6 +836,10 @@ nlu:
       - trackst du mich?
       - ist das anonym?
       - cookies?
+      - werden meine nachrichten gespeichert
+      - sammelst du persönliche daten
+      - wie gehst du mit daten um
+      - wird hier irgendwas getrackt
 
   - intent: english_fallback
     examples: |

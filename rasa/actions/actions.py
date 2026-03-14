@@ -97,6 +97,46 @@ class ActionSmartFallback(Action):
                 "stelle": 2,
             },
         },
+        {
+            "response": "utter_praxisphase_why_company",
+            "keywords": {
+                "bei uns": 3,
+                "zu uns": 3,
+                "unser unternehmen": 4,
+                "unsere firma": 4,
+                "unser team": 4,
+                "warum wir": 4,
+                "warum genau wir": 5,
+                "ausgerechnet diese firma": 5,
+                "ausgerechnet hier": 4,
+            },
+        },
+        {
+            "response": "utter_person_sports",
+            "keywords": {
+                "verein": 3,
+                "lieblingsverein": 3,
+                "club": 2,
+                "lieblingsclub": 3,
+                "fussball": 3,
+                "fußball": 3,
+                "fan": 2,
+                "rwe": 3,
+                "rot weiss essen": 4,
+                "rot-weiss essen": 4,
+            },
+        },
+        {
+            "response": "utter_person_unwind",
+            "keywords": {
+                "abschalten": 4,
+                "ausgleich": 3,
+                "freizeit": 3,
+                "runterkommen": 4,
+                "entspannen": 3,
+                "entspannst": 3,
+            },
+        },
     ]
 
     def name(self) -> Text:

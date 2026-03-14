@@ -489,7 +489,15 @@ def index():
 
 @bp.route("/favicon.ico")
 def favicon():
-    return send_from_directory(bp.root_path + "/static", "favicon.ico")
+    response = send_from_directory(
+        bp.root_path + "/static",
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 
 @bp.route("/health", methods=["GET"])
