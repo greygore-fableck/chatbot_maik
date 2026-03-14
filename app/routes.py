@@ -40,12 +40,12 @@ DEFAULT_FALLBACK_TEXTS = [
 DEFAULT_FALLBACK_BUTTON_SETS = [
     [
         {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
-        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
         {"title": "Mehr zur Praxisphase", "payload": "/praxisphase_info"},
     ],
     [
         {"title": "Zum Projekt", "payload": "/project_chatbot"},
-        {"title": "Über dich", "payload": "/origin_overview"},
+        {"title": "Über Maik", "payload": "/origin_overview"},
         {"title": "Zur Praxisphase", "payload": "/praxisphase_info"},
     ],
     [
@@ -54,16 +54,16 @@ DEFAULT_FALLBACK_BUTTON_SETS = [
         {"title": "Praxisphase", "payload": "/praxisphase_info"},
     ],
     [
-        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
         {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
         {"title": "Praxisphase", "payload": "/praxisphase_info"},
     ],
     [
         {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
-        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
     ],
     [
-        {"title": "Erzähl mir was über dich", "payload": "/origin_overview"},
+        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
         {"title": "Praxisphase", "payload": "/praxisphase_info"},
     ],
     [
@@ -325,6 +325,15 @@ NORMALIZATION_RULES = [
             "haha",
             "lol",
             "witzig",
+        },
+    },
+    {
+        "payload": "/playground_coffee_tea",
+        "match": MATCH_EXACT,
+        "aliases": {
+            "kaffee oder tee",
+            "lieber kaffee oder tee",
+            "bist du team kaffee oder tee",
         },
     },
     {

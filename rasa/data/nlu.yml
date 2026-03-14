@@ -561,6 +561,18 @@ nlu:
       - lieber kaffee oder tee
       - bist du team kaffee oder tee
 
+  - intent: playground_pick_coffee
+    examples: |
+      - ich nehme kaffee
+      - dann eher kaffee
+      - okay, team kaffee
+
+  - intent: playground_pick_tea
+    examples: |
+      - ich nehme tee
+      - dann eher tee
+      - okay, team tee
+
   - intent: playground_structure_creativity
     examples: |
       - struktur oder kreativität

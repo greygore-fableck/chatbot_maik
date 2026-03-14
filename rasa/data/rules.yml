@@ -102,6 +102,16 @@ rules:
       - intent: playground_coffee_tea
       - action: utter_playground_coffee_tea
 
+  - rule: playground pick coffee
+    steps:
+      - intent: playground_pick_coffee
+      - action: utter_playground_pick_coffee
+
+  - rule: playground pick tea
+    steps:
+      - intent: playground_pick_tea
+      - action: utter_playground_pick_tea
+
   - rule: playground structure creativity
     steps:
       - intent: playground_structure_creativity

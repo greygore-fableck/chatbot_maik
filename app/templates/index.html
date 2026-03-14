@@ -151,9 +151,9 @@
 
       const playgroundButtons = [
         { title: "Kaffee oder Tee?", payload: "/playground_coffee_tea" },
-        { title: "Struktur oder Kreativität?", payload: "/playground_structure_creativity" },
+        { title: "Bist du eher kreativ oder strukturiert?", payload: "/playground_structure_creativity" },
         { title: "Frühaufsteher oder Nachteule?", payload: "/playground_early_bird" },
-        { title: "Erzähl einen Witz", payload: "Erzähl einen Witz" },
+        { title: "Kennst du einen guten Witz?", payload: "Kennst du einen guten Witz?" },
       ];
 
       const syncChatToggleState = () => {
@@ -241,7 +241,7 @@
         {
           text: "Wenn du noch Fragen hast, sag gern Bescheid.",
           buttons: [
-            { title: "Erzähl mir kurz was zu dir", payload: "/origin_overview" },
+            { title: "Erzähl mir kurz was über Maik", payload: "/origin_overview" },
             { title: "Zeig mir das Projekt", payload: "/project_chatbot" },
           ],
         },
@@ -249,7 +249,7 @@
           text: "Magst du noch etwas wissen?",
           buttons: [
             { title: "Erzähl mir was zur Praxisphase", payload: "/praxisphase_info" },
-            { title: "Erzähl mir kurz was zu dir", payload: "/origin_overview" },
+            { title: "Erzähl mir kurz was über Maik", payload: "/origin_overview" },
           ],
         },
       ];
@@ -300,6 +300,9 @@
         if (message) {
           const text = document.createElement("div");
           text.textContent = message;
+          if (/^[\s█▓▒░.]+$/.test(message)) {
+            text.classList.add("chat-censored-text");
+          }
           bubble.appendChild(text);
         }
         if (Array.isArray(buttons) && buttons.length > 0) {
@@ -321,7 +324,14 @@
               cancelCustomFollowups();
               if (payload === "/show_playground_questions") {
                 appendMessage("Du", btn.title || "Frag mich was", "user");
-                appendMessage("Assistent", "Klar. Probier zum Beispiel eine von diesen Fragen aus:", "bot", playgroundButtons);
+                const promptText = "Schreib einfach drauflos oder probier eine dieser Fragen aus:";
+                const typingMessage = showTypingIndicator();
+                chatStatus.textContent = "Assistent tippt...";
+                window.setTimeout(() => {
+                  removeTypingIndicator(typingMessage);
+                  appendMessage("Assistent", promptText, "bot", playgroundButtons);
+                  chatStatus.textContent = "";
+                }, getFollowupTypingDelayMs(promptText));
                 return;
               }
               if (btn.action === "open_stage" && btn.stageUrl) {
@@ -942,6 +952,11 @@
               data.messages.forEach((msg) => {
                 handleStageCustom(msg.custom);
                 handleIdleFollowup(msg.custom);
+                const hasQueuedFollowups =
+                  Array.isArray(msg.custom?.followups) && msg.custom.followups.length > 0;
+                if (hasQueuedFollowups) {
+                  userTypedSinceLastBot = false;
+                }
                 if (suppressBotReply) return;
                 const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
                 const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;

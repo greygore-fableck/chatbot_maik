@@ -1045,6 +1045,13 @@ body.is-detail {
   border-color: rgba(31, 79, 69, 0.2);
 }
 
+.chat-censored-text {
+  color: rgba(31, 79, 69, 0.58);
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 10px rgba(31, 79, 69, 0.06);
+}
+
 .typing-dots {
   display: inline-flex;
   gap: 4px;

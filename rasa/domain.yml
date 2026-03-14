@@ -31,6 +31,8 @@ intents:
   - smalltalk_humor
   - smalltalk_coffee
   - playground_coffee_tea
+  - playground_pick_coffee
+  - playground_pick_tea
   - playground_structure_creativity
   - playground_early_bird
   - project_goal
@@ -234,7 +236,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -243,7 +245,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -252,7 +254,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -261,7 +263,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -270,7 +272,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -321,7 +323,7 @@ responses:
             buttons:
               - title: "Erzähl mir was zur Praxisphase 📌"
                 payload: "/praxisphase_info"
-              - title: "Erzähl mir kurz was zu dir"
+              - title: "Erzähl mir kurz was über Maik"
                 payload: "/origin_overview"
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
@@ -389,7 +391,7 @@ responses:
             buttons:
               - title: "Gerne, zeig mir den Kontakt ✉️"
                 payload: "/contact_email"
-              - title: "Erzähl mir kurz was zu dir"
+              - title: "Erzähl mir kurz was über Maik"
                 payload: "/origin_overview"
     - text: "Ich suche eine Praxisphase im Studium – Fokus: Konzept, UX/Interaction und KI‑nahe Systeme."
       custom:
@@ -400,7 +402,7 @@ responses:
             buttons:
               - title: "Kontakt öffnen ✉️"
                 payload: "/contact_email"
-              - title: "Erzähl mir kurz was zu dir"
+              - title: "Erzähl mir kurz was über Maik"
                 payload: "/origin_overview"
 
   # --- Kontakt ---
@@ -462,7 +464,7 @@ responses:
   utter_person_age:
     - text: "Ich wurde 1988 geboren."
       buttons:
-        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
           payload: "/origin_overview"
         - title: "Zeig mir den Werdegang"
           payload: "/werdegang_overview"
@@ -486,25 +488,71 @@ responses:
           payload: "/origin_overview"
 
   utter_smalltalk_humor:
-    - text: "Puh, schwierig. Habe ich gerade nichts auf Lager 😄 Frag einfach später nochmal, ich lasse mir was einfallen."
-      buttons:
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+    - text: ""
+      custom:
+        followups:
+          - delay: 1400
+            text: "▒▒▒ ▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒ ▒▒▒▒ ▒▒▒▒▒▒▒."
+          - delay: 4600
+            text: |
+              Ich hätte einen guten Witz erzählt.
+
+              Aber mein Humor-Algorithmus hat ihn vorsorglich blockiert.
+              Schade eigentlich.
+
+              Vielleicht war er nicht chatbot-tauglich.
+            buttons:
+              - title: "Kontakt per E-Mail"
+                payload: "/contact_email"
+              - title: "Erzähl mir was zur Praxisphase"
+                payload: "/praxisphase_info"
 
   utter_smalltalk_coffee:
-    - text: "Kaffee ist immer eine gute Idee ☕"
+    - text: |
+          Bist du eher Team Kaffee oder Team Tee?
       buttons:
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+        - title: "Kaffee"
+          payload: "/playground_pick_coffee"
+        - title: "Tee"
+          payload: "/playground_pick_tea"
+        - title: "Egal, zeig mir lieber was anderes"
+          payload: "/show_playground_questions"
 
   utter_playground_coffee_tea:
-    - text: "Ganz klar Kaffee. Ziemlich eindeutig sogar."
+    - text: |
+          Bist du eher Team Kaffee oder Team Tee?
       buttons:
-        - title: "Erzähl mir was über Maik"
+        - title: "Kaffee"
+          payload: "/playground_pick_coffee"
+        - title: "Tee"
+          payload: "/playground_pick_tea"
+        - title: "Egal, zeig mir lieber was anderes"
+          payload: "/show_playground_questions"
+
+  utter_playground_pick_coffee:
+    - text: |
+          Ah, stark. Team Kaffee also. ☕
+
+          Meine Statistik von letzter Woche:
+
+          6,2 Liter Kaffee und 1,4 Liter Tee.
+          Die Tendenz ist eindeutig.
+      buttons:
+        - title: "Erzähl mir mehr über Maik"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+
+  utter_playground_pick_tea:
+    - text: |
+          Verstehe. Also eher Team Tee. 🍵
+
+          Meine Statistik von letzter Woche:
+
+          6,2 Liter Kaffee und 1,4 Liter Tee.
+          Daher eher team Kaffee.
+      buttons:
+        - title: "Erzähl mir mehr über Maik"
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -631,7 +679,7 @@ responses:
       custom:
         idle_followup: true
       buttons:
-        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -653,7 +701,7 @@ responses:
       buttons:
         - title: "Erzähl mir was zur Praxisphase 📌"
           payload: "/praxisphase_info"
-        - title: "Erzähl mir kurz was zu dir"
+        - title: "Erzähl mir kurz was über Maik"
           payload: "/origin_overview"
 
   utter_person_future_vision:
@@ -681,7 +729,7 @@ responses:
       custom:
         idle_followup: true
       buttons:
-        - title: "Erzähl mir kurz was zu dir 👨‍💻"
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -714,7 +762,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir kurz was zu dir"
+        - title: "Erzähl mir kurz was über Maik"
           payload: "/origin_overview"
 
   utter_strengths_tasks:
@@ -752,13 +800,13 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
 
   utter_english_fallback:
     - text: "Aktuell antworte ich primär auf Deutsch. Wenn du magst, stelle die Frage gern auf Deutsch oder nutze direkt den Kontakt."
       buttons:
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
