@@ -149,6 +149,13 @@
       let contactGuideResetTimer = null;
       const defaultContactCopyStatus = contactCopyStatus?.textContent?.trim() || "Klick zum Kopieren";
 
+      const playgroundButtons = [
+        { title: "Kaffee oder Tee?", payload: "/playground_coffee_tea" },
+        { title: "Struktur oder Kreativität?", payload: "/playground_structure_creativity" },
+        { title: "Frühaufsteher oder Nachteule?", payload: "/playground_early_bird" },
+        { title: "Erzähl einen Witz", payload: "Erzähl einen Witz" },
+      ];
+
       const syncChatToggleState = () => {
         if (!chatWidgetButton || !chatWidget) return;
         if (chatWidget.hidden) {
@@ -304,11 +311,19 @@
             button.className = "chat-button";
             button.textContent = btn.title || "Option";
             const payload = btn.payload || btn.title || "";
+            if (payload === "/show_playground_questions") {
+              button.classList.add("chat-button-secondary");
+            }
             const url = btn.url || "";
             button.addEventListener("click", () => {
               userTypedSinceLastBot = true;
               hasUserInteracted = true;
               cancelCustomFollowups();
+              if (payload === "/show_playground_questions") {
+                appendMessage("Du", btn.title || "Frag mich was", "user");
+                appendMessage("Assistent", "Klar. Probier zum Beispiel eine von diesen Fragen aus:", "bot", playgroundButtons);
+                return;
+              }
               if (btn.action === "open_stage" && btn.stageUrl) {
                 cancelChatbotFollowup(true);
                 pendingStageUrl = null;

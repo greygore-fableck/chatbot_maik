@@ -1155,6 +1155,12 @@ body.is-detail {
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.chat-button.chat-button-secondary {
+  background: transparent;
+  border-color: rgba(31, 31, 28, 0.16);
+  color: rgba(31, 31, 28, 0.72);
+}
+
 @media (max-width: 520px) {
   .chat-buttons {
     flex-direction: column;

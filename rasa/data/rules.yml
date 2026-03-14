@@ -97,6 +97,21 @@ rules:
       - intent: smalltalk_coffee
       - action: utter_smalltalk_coffee
 
+  - rule: playground coffee tea
+    steps:
+      - intent: playground_coffee_tea
+      - action: utter_playground_coffee_tea
+
+  - rule: playground structure creativity
+    steps:
+      - intent: playground_structure_creativity
+      - action: utter_playground_structure_creativity
+
+  - rule: playground early bird
+    steps:
+      - intent: playground_early_bird
+      - action: utter_playground_early_bird
+
   # project faq
   - rule: project goal
     steps:

@@ -30,6 +30,9 @@ intents:
   - smalltalk_compliment
   - smalltalk_humor
   - smalltalk_coffee
+  - playground_coffee_tea
+  - playground_structure_creativity
+  - playground_early_bird
   - project_goal
   - project_why_chatbot
   - project_audience
@@ -82,10 +85,12 @@ responses:
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Erzähl mir was über dich"
+              - title: "Erzähl mir was über Maik"
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
     - text: |
         Oh, du bist neugierig. Gute Entscheidung. 👋
@@ -103,10 +108,12 @@ responses:
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Erzähl mir was über dich"
+              - title: "Erzähl mir was über Maik"
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
     - text: |
         Willkommen – ich habe schon auf dich gewartet. 🙂
@@ -124,10 +131,12 @@ responses:
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Erzähl mir was über dich"
+              - title: "Erzähl mir was über Maik"
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
     - text: |
         Freut mich, dass du hier gelandet bist. 👋
@@ -144,10 +153,12 @@ responses:
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Erzähl mir was über dich"
+              - title: "Erzähl mir was über Maik"
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
     - text: |
         Ah, du hast mich gefunden. Sehr gut. 🙂
@@ -164,10 +175,12 @@ responses:
             buttons:
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Erzähl mir was über dich"
+              - title: "Erzähl mir was über Maik"
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
+              - title: "Frag mich was:"
+                payload: "/show_playground_questions"
 
 
   utter_start_prompt:
@@ -175,15 +188,17 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir kurz was zu dir"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
+        - title: "Frag mich was:"
+          payload: "/show_playground_questions"
 
   utter_thanks:
     - text: "Gern 🙂 Womit soll ich weitermachen?"
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
 
   utter_goodbye:
@@ -439,7 +454,7 @@ responses:
   utter_smalltalk_who_are_you:
     - text: "Ich bin als moderne Navigation gedacht. Womit soll ich anfangen?"
       buttons:
-        - title: "Erzähl mir kurz was zu dir"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -455,7 +470,7 @@ responses:
   utter_smalltalk_what_can_you_do:
     - text: "Ich führe dich kurz durch Projekt, Hintergrund und Praxisphase. Sag einfach, was dich interessiert."
       buttons:
-        - title: "Erzähl mir was über dich"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
@@ -467,7 +482,7 @@ responses:
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Erzähl mir kurz was zu dir"
+        - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
 
   utter_smalltalk_humor:
@@ -485,6 +500,30 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
+
+  utter_playground_coffee_tea:
+    - text: "Ganz klar Kaffee. Ziemlich eindeutig sogar."
+      buttons:
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+
+  utter_playground_structure_creativity:
+    - text: "Am liebsten beides: erst die Idee, dann die Struktur, damit am Ende auch wirklich etwas Gutes daraus wird."
+      buttons:
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+
+  utter_playground_early_bird:
+    - text: "Definitiv Frühaufsteher. Meine innere Uhr ist einfach eher Team 6 Uhr als Team Mitternacht."
+      buttons:
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
 
   # --- Projekt: FAQ ---
   utter_project_goal:

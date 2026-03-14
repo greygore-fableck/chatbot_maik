@@ -555,6 +555,24 @@ nlu:
       - kaffee ist immer gut
       - noch einen kaffee
 
+  - intent: playground_coffee_tea
+    examples: |
+      - kaffee oder tee
+      - lieber kaffee oder tee
+      - bist du team kaffee oder tee
+
+  - intent: playground_structure_creativity
+    examples: |
+      - struktur oder kreativität
+      - eher struktur oder kreativität
+      - bist du eher struktur oder kreativität
+
+  - intent: playground_early_bird
+    examples: |
+      - frühaufsteher oder nachteule
+      - eher frühaufsteher oder nachteule
+      - bist du frühaufsteher oder nachteule
+
 # ---- Personenname ----
   - intent: person_name_opinion
     examples: |
