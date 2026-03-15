@@ -24,13 +24,16 @@ intents:
   - links_portfolio
   - study_details
   - study_place
+  - study_place_followup
   - study_progress
   - tech_skills
+  - tech_stack_followup
   - llm_question
   - modular_chatbots
   - scalability_question
   - react_experience
   - ai_experience
+  - ai_tools_followup
   - python_experience
   - weather_out_of_scope
   - open_followup
@@ -71,7 +74,9 @@ intents:
   - person_development
   - person_unwind
   - person_outside_work
+  - person_reading_followup
   - person_records_followup
+  - person_sports_followup
 
   - experience_summary
   - current_status
@@ -273,7 +278,7 @@ responses:
 
   utter_meta_test:
     - text: |
-        Sieht so aus, als waere ich ansprechbar.
+        Sieht so aus, als wäre ich ansprechbar.
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -520,7 +525,7 @@ responses:
 
   utter_study_place:
     - text: |
-        Ich studiere an der Westfaelischen Hochschule in Gelsenkirchen.
+        Ich studiere an der Westfälischen Hochschule in Gelsenkirchen.
         
         Dort bin ich inzwischen auf der Zielgeraden Richtung Abschluss unterwegs.
       buttons:
@@ -528,6 +533,19 @@ responses:
           payload: "/study_details"
         - title: "Erzähl mir was zur Praxisphase 📌"
           payload: "/praxisphase_info"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_study_place_followup:
+    - text: |
+        Der Tag der offenen Tür hat damals ziemlich überzeugt.
+
+        Und Hochschule statt Uni mochte ich auch, weil es oft etwas praxisnäher ist und die Nähe zu Essen für mich gut gepasst hat. Gelsenkirchen selbst gewinnt jetzt nicht jeden Schönheitswettbewerb, die Hochschule mag ich aber wirklich.
+      buttons:
+        - title: "Was studierst du genau?"
+          payload: "/study_details"
+        - title: "Wie weit bist du im Studium?"
+          payload: "/study_progress"
         - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
@@ -556,11 +574,24 @@ responses:
 
   utter_tech_skills:
     - text: |
-        Bisher vor allem: Gestaltung, HTML, CSS und ein wenig Python.
-        
-        Dazu kommt hier im Projekt noch Rasa als technischer Baustein.
+        Bisher vor allem: Gestaltung, HTML, CSS, JavaScript und inzwischen auch Python.
+
+        Java kam im Studium dazu, und hier im Projekt ist Rasa noch ein technischer Baustein obendrauf.
       buttons:
         - title: "Welche Technologien nutzt du hier?"
+          payload: "/project_tech"
+        - title: "Hast du schon mit Python gearbeitet?"
+          payload: "/python_experience"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_tech_stack_followup:
+    - text: |
+        HTML, CSS und JavaScript begleiten mich schon ziemlich lange — mal intensiver, mal mit etwas mehr Pause dazwischen.
+
+        Java war an der Hochschule gesetzt. Python ist eher die neue Liebe, aktuell noch recht am Anfang, aber genau deshalb gerade spannend.
+      buttons:
+        - title: "Wie ist der Bot technisch gebaut?"
           payload: "/project_tech"
         - title: "Hast du schon mit Python gearbeitet?"
           payload: "/python_experience"
@@ -593,7 +624,7 @@ responses:
 
   utter_modular_chatbots:
     - text: |
-        Modular heisst für mich: Ein Chatbot muss nicht immer das eine grosse System sein.
+        Modular heißt für mich: Ein Chatbot muss nicht immer das eine große System sein.
         
         Man kann ihn auch gezielt für einen klaren Kontext bauen, einzelne Teile sauber trennen und später sinnvoll erweitern.
       buttons:
@@ -612,7 +643,7 @@ responses:
       buttons:
         - title: "Zeig mir die Architektur 🧭"
           payload: "/system_architecture"
-        - title: "Was wuerdest du noch verbessern?"
+        - title: "Was würdest du noch verbessern?"
           payload: "/project_improve"
         - title: "Frag mich was ..."
           payload: "/show_playground_questions"
@@ -643,11 +674,24 @@ responses:
         - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
+  utter_ai_tools_followup:
+    - text: |
+        Bisher lief das bei mir vor allem im privaten und experimentellen Rahmen.
+
+        Dieses Projekt hier ist im Grunde auch Teil genau dieser Phase. Ich probiere aus, was sinnvoll ist und wo KI wirklich etwas besser macht. Da wird in Zukunft sicher noch deutlich mehr möglich sein.
+      buttons:
+        - title: "Ist das hier ein LLM?"
+          payload: "/llm_question"
+        - title: "Wie funktioniert der Bot?"
+          payload: "/tech_impl"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
   utter_python_experience:
     - text: |
         Ja, ein wenig — bisher eher aus eigenen Projekten heraus.
-        
-        Django fand ich dabei zum Beispiel ziemlich spannend.
+
+        Python ist bei mir gerade so etwas wie die neue Liebe. Noch nicht wahnsinnig tief, weil die stetige Praxis gefehlt hat, aber genau deshalb bleibe ich da gerade gern dran. Django fand ich zum Beispiel ziemlich spannend.
       buttons:
         - title: "Welche Technologien kannst du?"
           payload: "/tech_skills"
@@ -800,7 +844,7 @@ responses:
           payload: "/playground_pick_coffee"
         - title: "Tee 🍵"
           payload: "/playground_pick_tea"
-        - title: "Egal, zeig mir lieber was anderes"
+        - title: "Wasser. Zeig mir lieber was anderes"
           payload: "/show_playground_questions"
 
   utter_playground_coffee_tea:
@@ -811,7 +855,7 @@ responses:
           payload: "/playground_pick_coffee"
         - title: "Tee 🍵"
           payload: "/playground_pick_tea"
-        - title: "Egal, zeig mir lieber was anderes"
+        - title: "Wasser. Zeig mir lieber was anderes"
           payload: "/show_playground_questions"
 
   utter_playground_pick_coffee:
@@ -853,7 +897,7 @@ responses:
               tone: "muted"
         followups:
           - delay: 1200
-            text: "Tee ist meine zweie Präferenz."
+            text: "Tee ist sympathisch. Kaffee hat sich hier nur schon etwas zu bequem eingerichtet."
             buttons:
               - title: "Erzähl mir mehr über Maik"
                 payload: "/origin_overview"
@@ -1019,6 +1063,19 @@ responses:
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
 
+  utter_person_sports_followup:
+    - text: |
+        Selbst spiele ich schon länger nicht mehr.
+
+        Rot-Weiss Essen kam damals ziemlich klassisch: Mein Trainer hat mich als Kind mit ins Stadion genommen, und das lag von meinem Wohnort aus praktisch um die Ecke. Gespielt habe ich lange als Mittelstürmer, also ziemlich klassisch mit der 9 auf dem Rücken.
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
   utter_person_collab:
     - text: |
         Ich bringe gern Ideen ein und denke Dinge einen Schritt weiter. 
@@ -1091,8 +1148,29 @@ responses:
         - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
+  utter_person_reading_followup:
+    - text: |
+        Aktuell ist es tatsächlich:
+      custom:
+        idle_followup: true
+        book_spotlight:
+          title: "Sam Altman"
+          subtitle: "von Keach Hagey"
+      buttons:
+        - title: "Buchempfehlung"
+          payload: "__book_recommendation_prompt__"
+        - title: "Bisherige Empfehlungen"
+          payload: "__book_recommendation_list__"
+        - title: "Erzähl mir kurz was über Maik 👨‍💻"
+          payload: "/origin_overview"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
   utter_person_records_followup:
-    - text: "Darüber könnte ich ehrlich gesagt schreiben, bis mein Speicher voll ist. Vielleicht eher persönlich, bevor das hier noch zum Vinyl-Deep-Dive wird."
+    - text: |
+        Darüber könnte ich ehrlich gesagt schreiben, bis mein Speicher voll ist.
+
+        Nur die letzte Platte festzunageln ist schwierig — bis du das hier liest, hat sich das vermutlich schon wieder geändert. Vielleicht also lieber persönlich, bevor das hier noch zum Vinyl-Deep-Dive wird.
       custom:
         idle_followup: true
       buttons:

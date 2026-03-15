@@ -56,6 +56,11 @@ rules:
       - intent: study_place
       - action: utter_study_place
 
+  - rule: study place followup
+    steps:
+      - intent: study_place_followup
+      - action: utter_study_place_followup
+
   - rule: study progress
     steps:
       - intent: study_progress
@@ -65,6 +70,11 @@ rules:
     steps:
       - intent: tech_skills
       - action: utter_tech_skills
+
+  - rule: tech stack followup
+    steps:
+      - intent: tech_stack_followup
+      - action: utter_tech_stack_followup
 
   - rule: llm question
     steps:
@@ -90,6 +100,11 @@ rules:
     steps:
       - intent: ai_experience
       - action: utter_ai_experience
+
+  - rule: ai tools followup
+    steps:
+      - intent: ai_tools_followup
+      - action: utter_ai_tools_followup
 
   - rule: python experience
     steps:
@@ -274,6 +289,11 @@ rules:
       - intent: person_sports
       - action: utter_person_sports
 
+  - rule: person sports followup
+    steps:
+      - intent: person_sports_followup
+      - action: utter_person_sports_followup
+
   - rule: person collab
     steps:
       - intent: person_collab
@@ -303,6 +323,11 @@ rules:
     steps:
       - intent: person_outside_work
       - action: utter_person_outside_work
+
+  - rule: person reading followup
+    steps:
+      - intent: person_reading_followup
+      - action: utter_person_reading_followup
 
   - rule: person records followup
     steps:

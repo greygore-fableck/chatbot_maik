@@ -114,6 +114,21 @@ nlu:
       - in welcher stadt studierst du
       - wo ist deine hochschule
 
+  - intent: study_place_followup
+    examples: |
+      - warum westfälische hochschule
+      - warum studierst du dort
+      - warum ausgerechnet dort
+      - warum diese hochschule
+      - warum keine uni
+      - warum hochschule statt uni
+      - wie ist die westfälische hochschule
+      - wie gefällt dir die hochschule
+      - wie ist gelsenkirchen so
+      - wie findest du gelsenkirchen
+      - warum in gelsenkirchen
+      - was findest du an der hochschule gut
+
   - intent: study_progress
     examples: |
       - semester
@@ -182,6 +197,24 @@ nlu:
       - was kannst du an technologien
       - kennst du dich mit webtechnologien aus
 
+  - intent: tech_stack_followup
+    examples: |
+      - wie gut kannst du html css javascript
+      - wie gut kannst du html
+      - wie gut kannst du css
+      - wie gut kannst du javascript
+      - was davon kannst du am besten
+      - womit arbeitest du am liebsten
+      - welche sprache liegt dir am meisten
+      - welche programmiersprache magst du am meisten
+      - ist python neu für dich
+      - wie viel python kannst du wirklich
+      - was ist mit java
+      - kannst du auch java
+      - war java im studium wichtig
+      - was ist dein eigentlicher tech stack
+      - was nutzt du am meisten
+
 
   - intent: react_experience
     examples: |
@@ -204,6 +237,18 @@ nlu:
       - kennst du dich mit ki aus
       - arbeitest du mit ki
       - wie viel erfahrung hast du mit ki
+
+  - intent: ai_tools_followup
+    examples: |
+      - welche ki tools nutzt du
+      - was genau machst du mit ki
+      - wie nutzt du ki genau
+      - nutzt du ki nur privat
+      - ist das alles nur experimentell
+      - was hast du bisher mit ki gemacht
+      - welche ai tools nutzt du
+      - wie tief bist du schon im ki thema
+      - wie praktisch ist deine ki erfahrung
 
   - intent: python_experience
     examples: |
@@ -369,4 +414,3 @@ nlu:
       - warum genau wir
       - was findest du an unserer firma spannend
       - warum möchtest du ausgerechnet hier hin
-

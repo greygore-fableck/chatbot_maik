@@ -1,4 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request, send_from_directory
+from datetime import datetime
+from pathlib import Path
+import json
 import random
 import re
 import requests
@@ -8,9 +11,13 @@ from .services.rasa_client import send_message
 bp = Blueprint("routes", __name__)
 MATCH_EXACT = "exact"
 MATCH_CONTAINS = "contains"
+BOOK_RECOMMENDATION_PROMPT_PAYLOAD = "__book_recommendation_prompt__"
+BOOK_RECOMMENDATION_LIST_PAYLOAD = "__book_recommendation_list__"
+MAX_BOOK_RECOMMENDATION_LENGTH = 20
+BOOK_RECOMMENDATIONS_PATH = Path(__file__).resolve().parent / "data" / "book_recommendations.json"
 DEFAULT_FALLBACK_TEXTS = [
     "Ich bin mir gerade nicht ganz sicher, was du genau meinst. Vielleicht hilft dir einer dieser Einstiege:",
-    "Das ist fuer mich nicht ganz eindeutig. Wie waere es damit?",
+    "Das ist für mich nicht ganz eindeutig. Wie wäre es damit?",
     "Ich bin mir nicht ganz sicher, worauf du hinauswillst. Wenn du magst, steigen wir direkt bei einem der Kernthemen ein.",
     "Moment ... wolltest du vielleicht darauf hinaus?",
     "Sekunde. Vielleicht ist einer dieser Wege gerade einfacher.",
@@ -39,7 +46,7 @@ DEFAULT_FALLBACK_BUTTON_SETS = [
     [
         {"title": "Kaffee oder Tee?", "payload": "/playground_coffee_tea"},
         {"title": "Bist du eher kreativ oder strukturiert?", "payload": "/playground_structure_creativity"},
-        {"title": "Fruehaufsteher oder Nachteule?", "payload": "/playground_early_bird"},
+        {"title": "Frühaufsteher oder Nachteule?", "payload": "/playground_early_bird"},
     ],
 ]
 # Order matters: more specific rewrites should stay above broader topic matches.
@@ -110,6 +117,29 @@ NORMALIZATION_RULES = [
             "merci",
             "danke schön",
             "danke schoen",
+        },
+    },
+    {
+        "payload": BOOK_RECOMMENDATION_PROMPT_PAYLOAD,
+        "match": MATCH_EXACT,
+        "aliases": {
+            "buchempfehlung",
+            "buch empfehlung",
+            "buchtipp",
+            "buchtipps",
+            "buch tipp",
+            "lesetipp",
+            "lesetipps",
+        },
+    },
+    {
+        "payload": BOOK_RECOMMENDATION_LIST_PAYLOAD,
+        "match": MATCH_EXACT,
+        "aliases": {
+            "bisherige empfehlungen",
+            "empfehlungen",
+            "buchliste",
+            "leseliste",
         },
     },
     {
@@ -608,6 +638,105 @@ def normalize_user_message(message: str) -> str:
     return message
 
 
+def load_book_recommendations() -> list[dict]:
+    try:
+        if not BOOK_RECOMMENDATIONS_PATH.exists():
+            return []
+        data = json.loads(BOOK_RECOMMENDATIONS_PATH.read_text(encoding="utf-8"))
+        if isinstance(data, list):
+            return [item for item in data if isinstance(item, dict) and isinstance(item.get("text"), str)]
+    except (OSError, json.JSONDecodeError):
+        return []
+    return []
+
+
+def save_book_recommendations(items: list[dict]) -> None:
+    BOOK_RECOMMENDATIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    BOOK_RECOMMENDATIONS_PATH.write_text(
+        json.dumps(items[:12], ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+
+
+def clean_book_recommendation(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def build_book_recommendation_prompt_response() -> dict:
+    text = "Hast du eine Empfehlung für meinen SuB?"
+    return {
+        "response": text,
+        "messages": [
+            {
+                "text": text,
+                "buttons": [
+                    {"title": "Bisherige Empfehlungen", "payload": BOOK_RECOMMENDATION_LIST_PAYLOAD},
+                    {"title": "Frag mich was ...", "payload": "/show_playground_questions"},
+                ],
+                "custom": {
+                    "book_recommendation_input": {
+                        "placeholder": "Titel oder Autor",
+                        "submit_label": "Empfehlen",
+                        "max_length": MAX_BOOK_RECOMMENDATION_LENGTH,
+                    }
+                },
+            }
+        ],
+    }
+
+
+def build_book_recommendation_list_response() -> dict:
+    items = load_book_recommendations()
+    text = "Hier liegen die bisherigen Empfehlungen."
+    return {
+        "response": text,
+        "messages": [
+            {
+                "text": text,
+                "buttons": [
+                    {"title": "Noch eine Empfehlung", "payload": BOOK_RECOMMENDATION_PROMPT_PAYLOAD},
+                    {"title": "Frag mich was ...", "payload": "/show_playground_questions"},
+                ],
+                "custom": {
+                    "book_recommendation_list": {
+                        "title": "Bisherige Empfehlungen",
+                        "items": [item["text"] for item in items[:8]],
+                        "empty_text": "Noch nichts eingetragen. Du könntest das ändern.",
+                    }
+                },
+            }
+        ],
+    }
+
+
+def build_book_recommendation_saved_response(recommendation: str, duplicate: bool = False) -> dict:
+    text = (
+        "Steht schon auf der Liste."
+        if duplicate
+        else "Kommt auf die Liste. Mein SuB bedankt sich vorsichtig."
+    )
+    items = load_book_recommendations()
+    return {
+        "response": text,
+        "messages": [
+            {
+                "text": text,
+                "buttons": [
+                    {"title": "Bisherige Empfehlungen", "payload": BOOK_RECOMMENDATION_LIST_PAYLOAD},
+                    {"title": "Frag mich was ...", "payload": "/show_playground_questions"},
+                ],
+                "custom": {
+                    "book_recommendation_list": {
+                        "title": "Bisherige Empfehlungen",
+                        "items": [item["text"] for item in items[:8]],
+                        "empty_text": "Noch nichts eingetragen. Du könntest das ändern.",
+                    }
+                },
+            }
+        ],
+    }
+
+
 @bp.route("/")
 def index():
     return render_template("index.html")
@@ -631,6 +760,31 @@ def health():
     return jsonify({"status": "ok"}), 200
 
 
+@bp.route("/book-recommendations", methods=["POST"])
+def book_recommendations():
+    payload = request.get_json(silent=True) or {}
+    recommendation = clean_book_recommendation(payload.get("recommendation") or "")
+    if not recommendation:
+        return jsonify({"error": "Bitte gib eine kurze Empfehlung ein."}), 400
+    if len(recommendation) > MAX_BOOK_RECOMMENDATION_LENGTH:
+        return jsonify({"error": "Bitte maximal 20 Zeichen verwenden."}), 400
+
+    items = load_book_recommendations()
+    normalized = recommendation.casefold()
+    duplicate = any(item.get("text", "").casefold() == normalized for item in items)
+    if not duplicate:
+        items.insert(
+            0,
+            {
+                "text": recommendation,
+                "created_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+            },
+        )
+        save_book_recommendations(items)
+
+    return jsonify(build_book_recommendation_saved_response(recommendation, duplicate=duplicate))
+
+
 @bp.route("/webhook", methods=["POST"])
 def webhook():
     payload = request.get_json(silent=True) or {}
@@ -647,8 +801,14 @@ def webhook():
     if direct_person_name_opinion is not None:
         return jsonify(direct_person_name_opinion)
 
+    normalized_message = normalize_user_message(message)
+    if normalized_message == BOOK_RECOMMENDATION_PROMPT_PAYLOAD:
+        return jsonify(build_book_recommendation_prompt_response())
+    if normalized_message == BOOK_RECOMMENDATION_LIST_PAYLOAD:
+        return jsonify(build_book_recommendation_list_response())
+
     try:
-        data = send_message(normalize_user_message(message), sender=sender)
+        data = send_message(normalized_message, sender=sender)
     except requests.RequestException:
         return jsonify(
             {

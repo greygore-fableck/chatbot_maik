@@ -467,6 +467,150 @@
         return card;
       };
 
+      const buildBookSpotlight = (book) => {
+        if (!book || (!book.title && !book.subtitle)) return null;
+        const card = document.createElement("div");
+        card.className = "chat-book-spotlight";
+
+        if (book.title) {
+          const title = document.createElement("div");
+          title.className = "chat-book-title";
+          title.textContent = book.title;
+          card.appendChild(title);
+        }
+
+        if (book.subtitle) {
+          const subtitle = document.createElement("div");
+          subtitle.className = "chat-book-subtitle";
+          subtitle.textContent = book.subtitle;
+          card.appendChild(subtitle);
+        }
+
+        return card;
+      };
+
+      const buildBookRecommendationInput = (config) => {
+        if (!config) return null;
+        const wrap = document.createElement("form");
+        wrap.className = "chat-book-form";
+
+        const field = document.createElement("div");
+        field.className = "chat-book-form-field";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "chat-book-input";
+        input.placeholder = config.placeholder || "Titel";
+        input.maxLength = Number(config.max_length) || 20;
+        input.autocomplete = "off";
+
+        const counter = document.createElement("span");
+        counter.className = "chat-book-counter";
+        counter.textContent = `0/${input.maxLength}`;
+
+        const submit = document.createElement("button");
+        submit.type = "submit";
+        submit.className = "chat-book-submit";
+        submit.textContent = config.submit_label || "Senden";
+
+        const updateCounter = () => {
+          counter.textContent = `${input.value.length}/${input.maxLength}`;
+        };
+
+        input.addEventListener("input", updateCounter);
+
+        wrap.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const recommendation = input.value.trim();
+          if (!recommendation) return;
+          if (recommendation.length > input.maxLength) return;
+          input.disabled = true;
+          submit.disabled = true;
+          counter.textContent = `${recommendation.length}/${input.maxLength}`;
+          appendMessage("Du", `Buchempfehlung: ${recommendation}`, "user");
+          const typingMessage = showTypingIndicator();
+          chatStatus.textContent = "Assistent tippt...";
+
+          try {
+            const response = await fetch("/book-recommendations", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ recommendation }),
+            });
+            const data = await response.json();
+            removeTypingIndicator(typingMessage);
+            chatStatus.textContent = "";
+            if (!response.ok) {
+              appendMessage("Assistent", data.error || "Das hat gerade nicht geklappt.", "bot");
+              input.disabled = false;
+              submit.disabled = false;
+              return;
+            }
+            if (Array.isArray(data.messages)) {
+              data.messages.forEach((msg) => {
+                appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
+              });
+            }
+            wrap.classList.add("is-submitted");
+          } catch (error) {
+            removeTypingIndicator(typingMessage);
+            chatStatus.textContent = "";
+            appendMessage("Assistent", "Das Buchregal hat gerade kurz gehakt.", "bot");
+            input.disabled = false;
+            submit.disabled = false;
+          }
+        });
+
+        field.append(input, counter);
+        wrap.append(field, submit);
+        return wrap;
+      };
+
+      const buildBookRecommendationList = (list) => {
+        if (!list) return null;
+        const card = document.createElement("div");
+        card.className = "chat-book-list";
+
+        const heading = document.createElement("div");
+        heading.className = "chat-book-list-heading";
+        heading.textContent = list.title || "Empfehlungen";
+        card.appendChild(heading);
+
+        const items = Array.isArray(list.items) ? list.items : [];
+        if (items.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "chat-book-list-empty";
+          empty.textContent = list.empty_text || "Noch nichts da.";
+          card.appendChild(empty);
+          return card;
+        }
+
+        const listElement = document.createElement("ul");
+        listElement.className = "chat-book-list-items";
+        items.forEach((item) => {
+          const entry = document.createElement("li");
+          entry.className = "chat-book-list-item";
+          entry.textContent = item;
+          listElement.appendChild(entry);
+        });
+        card.appendChild(listElement);
+        return card;
+      };
+
+      const appendBookSpotlightToLastBotMessage = (book) => {
+        const card = buildBookSpotlight(book);
+        if (!card) return false;
+        const lastBotBubble = chatMessages.querySelector(".chat-message.bot:last-of-type .chat-bubble");
+        if (!lastBotBubble) return false;
+        const buttonRow = lastBotBubble.querySelector(".chat-buttons");
+        if (buttonRow) {
+          lastBotBubble.insertBefore(card, buttonRow);
+        } else {
+          lastBotBubble.appendChild(card);
+        }
+        return true;
+      };
+
       const toggleBadgeHint = (badge, message) => {
         const parent = badge.parentElement;
         if (!parent) return;
@@ -579,6 +723,18 @@
         const studyStatusCard = buildStudyStatusCard(custom?.study_status);
         if (studyStatusCard) {
           bubble.appendChild(studyStatusCard);
+        }
+        const bookSpotlight = buildBookSpotlight(custom?.book_spotlight);
+        if (bookSpotlight) {
+          bubble.appendChild(bookSpotlight);
+        }
+        const bookRecommendationInput = buildBookRecommendationInput(custom?.book_recommendation_input);
+        if (bookRecommendationInput) {
+          bubble.appendChild(bookRecommendationInput);
+        }
+        const bookRecommendationList = buildBookRecommendationList(custom?.book_recommendation_list);
+        if (bookRecommendationList) {
+          bubble.appendChild(bookRecommendationList);
         }
         if (Array.isArray(buttons) && buttons.length > 0) {
           const buttonRow = document.createElement("div");
@@ -1047,7 +1203,7 @@
           window.setTimeout(() => {
             removeTypingIndicator(typingMessage);
             if (idleFollowupEnabled && canShowFollowup()) {
-              appendMessage("Assistent", variant.text, "bot", variant.buttons || []);
+              appendMessage("Assistent", variant.text, "bot", variant.buttons || [], variant.custom || null);
               idleFollowupEnabled = false;
             }
             chatStatus.textContent = "";
@@ -1144,9 +1300,9 @@
           if (!value) return;
           try {
             const copied = await copyTextToClipboard(value);
-            setContactCopyStatus(copied ? "Mailadresse kopiert" : "Kopieren nicht verfuegbar", copied);
+            setContactCopyStatus(copied ? "Mailadresse kopiert" : "Kopieren nicht verfügbar", copied);
           } catch (_error) {
-            setContactCopyStatus("Kopieren nicht verfuegbar");
+            setContactCopyStatus("Kopieren nicht verfügbar");
           }
         });
       }
@@ -1248,6 +1404,22 @@
                   Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                const hasBookSpotlight =
+                  typeof msg.custom?.book_spotlight?.title === "string" ||
+                  typeof msg.custom?.book_spotlight?.subtitle === "string";
+                const hasBookRecommendationInput = Boolean(msg.custom?.book_recommendation_input);
+                const hasBookRecommendationList = Boolean(msg.custom?.book_recommendation_list);
+                const onlyBookSpotlight =
+                  hasBookSpotlight &&
+                  !hasText &&
+                  !hasButtons &&
+                  !hasCoffeeStats &&
+                  !hasStudyStatus &&
+                  !hasBookRecommendationInput &&
+                  !hasBookRecommendationList;
+                if (onlyBookSpotlight && appendBookSpotlightToLastBotMessage(msg.custom?.book_spotlight)) {
+                  return;
+                }
                 if (hasStudyStatus && !hasText) {
                   const statusLoading = showTypingIndicator("Studienstand laden ...");
                   chatStatus.textContent = "Studienstand laden ...";
@@ -1258,7 +1430,15 @@
                   }, 2800);
                   return;
                 }
-                if (hasText || hasButtons || hasCoffeeStats || hasStudyStatus) {
+                if (
+                  hasText ||
+                  hasButtons ||
+                  hasCoffeeStats ||
+                  hasStudyStatus ||
+                  hasBookSpotlight ||
+                  hasBookRecommendationInput ||
+                  hasBookRecommendationList
+                ) {
                   appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });
@@ -1324,6 +1504,22 @@
                   Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                const hasBookSpotlight =
+                  typeof msg.custom?.book_spotlight?.title === "string" ||
+                  typeof msg.custom?.book_spotlight?.subtitle === "string";
+                const hasBookRecommendationInput = Boolean(msg.custom?.book_recommendation_input);
+                const hasBookRecommendationList = Boolean(msg.custom?.book_recommendation_list);
+                const onlyBookSpotlight =
+                  hasBookSpotlight &&
+                  !hasText &&
+                  !hasButtons &&
+                  !hasCoffeeStats &&
+                  !hasStudyStatus &&
+                  !hasBookRecommendationInput &&
+                  !hasBookRecommendationList;
+                if (onlyBookSpotlight && appendBookSpotlightToLastBotMessage(msg.custom?.book_spotlight)) {
+                  return;
+                }
                 if (hasStudyStatus && !hasText) {
                   const statusLoading = showTypingIndicator("Studienstand laden ...");
                   chatStatus.textContent = "Studienstand laden ...";
@@ -1334,7 +1530,15 @@
                   }, 2800);
                   return;
                 }
-                if (hasText || hasButtons || hasCoffeeStats || hasStudyStatus) {
+                if (
+                  hasText ||
+                  hasButtons ||
+                  hasCoffeeStats ||
+                  hasStudyStatus ||
+                  hasBookSpotlight ||
+                  hasBookRecommendationInput ||
+                  hasBookRecommendationList
+                ) {
                   appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });

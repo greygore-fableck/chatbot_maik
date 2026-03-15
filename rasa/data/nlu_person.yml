@@ -138,7 +138,6 @@ nlu:
       - bist du fußballfan
       - fussball
       - fußball
-      - spielst du noch fußball
       - guckst du fußball
       - hast du früher fußball gespielt
       - hast du einen verein
@@ -148,6 +147,21 @@ nlu:
       - rot weiss essen
       - rot-weiss essen
       - rwe
+
+  - intent: person_sports_followup
+    examples: |
+      - spielst du noch
+      - spielst du noch fußball
+      - spielst du noch fussball
+      - welche position hast du gespielt
+      - welche position warst du
+      - warst du stürmer
+      - warst du mittelstürmer
+      - warum rot weiss essen
+      - warum rwe
+      - wie kam es zu rot weiss essen
+      - wie bist du rwe fan geworden
+      - seit wann bist du rwe fan
 
   - intent: person_collab
     examples: |
@@ -228,6 +242,21 @@ nlu:
       - was machst du außerhalb deines jobs
       - was machst du so außerhalb der arbeit
 
+  - intent: person_reading_followup
+    examples: |
+      - was liest du gerade
+      - was liest du denn gerade
+      - welches buch liest du gerade
+      - was hast du zuletzt gelesen
+      - welches buch hast du zuletzt gelesen
+      - was liest du gern
+      - liest du gerade ein buch
+      - was hörst du gerade
+      - was hörst du so
+      - was läuft bei dir auf schallplatte
+      - was zeichnest du
+      - zeichnest du digital oder analog
+
   - intent: person_records_followup
     examples: |
       - wie viele schallplatten hast du
@@ -247,4 +276,3 @@ nlu:
       - platten?
       - erzähl mehr über deine schallplatten
       - was für schallplatten sammelst du
-
