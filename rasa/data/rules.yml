@@ -334,6 +334,11 @@ rules:
       - intent: person_records_followup
       - action: utter_person_records_followup
 
+  - rule: person flower meta
+    steps:
+      - intent: person_flower_meta
+      - action: utter_person_flower_meta
+
   # experience / status
   - rule: experience summary
     steps:

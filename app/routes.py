@@ -181,6 +181,7 @@ NORMALIZATION_RULES = [
         "payload": "/smalltalk_who_are_you",
         "match": MATCH_CONTAINS,
         "aliases": {
+            "was machst du",
             "wer bist du",
             "wer genau bist du",
             "wer bistn du",
@@ -274,6 +275,9 @@ NORMALIZATION_RULES = [
         "payload": "/current_status",
         "match": MATCH_CONTAINS,
         "aliases": {
+            "was machst du beruflich",
+            "beruflich",
+            "was arbeitest du beruflich",
             "was machst du gerade",
             "was machst du aktuell",
             "was ist gerade dein fokus",

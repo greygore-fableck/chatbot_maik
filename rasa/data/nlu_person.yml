@@ -231,6 +231,8 @@ nlu:
       - was machst du zum runterkommen
       - was machst du in deiner freizeit
       - was machst du nebenbei zum ausgleich
+      - hast du einen garten
+      - garten
 
   - intent: person_outside_work
     examples: |
@@ -249,10 +251,12 @@ nlu:
       - welches buch liest du gerade
       - was hast du zuletzt gelesen
       - welches buch hast du zuletzt gelesen
+      - was war dein letztes buch
       - was liest du gern
       - liest du gerade ein buch
       - was hörst du gerade
       - was hörst du so
+      - hörst du schallplatten
       - was läuft bei dir auf schallplatte
       - was zeichnest du
       - zeichnest du digital oder analog
@@ -276,3 +280,9 @@ nlu:
       - platten?
       - erzähl mehr über deine schallplatten
       - was für schallplatten sammelst du
+
+  - intent: person_flower_meta
+    examples: |
+      - lieblingsblume
+      - was ist deine lieblingsblume
+      - hast du eine lieblingsblume

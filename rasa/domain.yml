@@ -77,6 +77,7 @@ intents:
   - person_reading_followup
   - person_records_followup
   - person_sports_followup
+  - person_flower_meta
 
   - experience_summary
   - current_status
@@ -1181,6 +1182,19 @@ responses:
         - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
+  utter_person_flower_meta:
+    - text: |
+        Unerwartet gute Frage.
+
+        Ich bin bei Pflanzen eher im Team Garten als im Team floristisches Fachwissen. Wenn du magst, erzähle ich dir lieber, was ich sonst so zum Abschalten mache.
+      custom:
+        idle_followup: true
+      buttons:
+        - title: "Was machst du zum Abschalten?"
+          payload: "/person_unwind"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
   # --- Erfahrung / Status ---
   utter_experience_summary:
     - text: "Ich bringe einen Mix aus Design‑Denken und technischer Umsetzung mit — genau das zeige ich hier am Bot."
@@ -1193,7 +1207,10 @@ responses:
           payload: "/praxisphase_info"
 
   utter_current_status:
-    - text: "Aktuell studiere ich Medieninformatik, suche eine Praxisphase und beschäftige mich mit KI‑nahen Systemen."
+    - text: |
+        Beruflich bin ich aktuell als Koordinator in der Gleisbausicherung unterwegs.
+
+        Das ist eher eine praktische und wirtschaftliche Zwischenstation als das Feld, in das ich langfristig möchte. Inhaltlich zieht es mich klar in Richtung digitaler Produkte, UX und KI‑nahe Systeme.
       custom:
         idle_followup: true
       buttons:

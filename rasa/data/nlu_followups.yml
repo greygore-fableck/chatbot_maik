@@ -44,7 +44,5 @@ nlu:
     examples: |
       - test
       - testen
-      - hallo test
       - kurzer test
       - funktioniert das
-

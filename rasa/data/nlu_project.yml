@@ -32,6 +32,7 @@ nlu:
       - python rasa chatbot
       - mit rasa gebauter chatbot
       - wie funktioniert dein chatbot
+      - wie funktioniert das hier
       - wie ist der chatbot aufgebaut
       - was macht der chatbot
       - erklär mir den chatbot
@@ -42,6 +43,7 @@ nlu:
       - wie funktioniert das?
       - wie ist der bot aufgebaut?
       - wie hast du das gemacht?
+      - wie hast du das gebaut
       - erzähl mir was über das projekt
       - zeig mir mehr zum projekt
       - worum geht es auf der website
@@ -257,6 +259,7 @@ nlu:
       - llm
       - chatgpt
       - gpt
+      - ist das ai
       - läuft das mit ai im hintergrund
       - ist das ein llm
       - ist das hier ein llm
@@ -295,4 +298,3 @@ nlu:
       - laesst sich das skalieren
       - wie weit koennte man das ausbauen
       - ist das skalierbar
-

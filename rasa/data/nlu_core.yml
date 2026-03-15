@@ -97,6 +97,9 @@ nlu:
       - was kann ich dich zuerst fragen
       - wie starten wir am besten
       - gib mir einen einstieg
+      - funktioniert das hier
+      - bist du da
+      - hallo test
 
 
 # ---- Smalltalk ----
@@ -146,6 +149,9 @@ nlu:
       - bist du echt?
       - was ist das hier?
       - was soll das?
+      - stell dich mal vor
+      - wer redet hier eigentlich
+      - wer sitzt hinter dem chatbot
 
   - intent: smalltalk_what_can_you_do
     examples: |
@@ -159,6 +165,7 @@ nlu:
       - wobei hilfst du mir
       - wie kannst du mir helfen?
       - was machst du?
+      - was machst du so?
       - wofür bist du da?
       - wofuer bist du da?
       - wofür bist du gedacht

@@ -187,6 +187,7 @@ nlu:
       - welche programmiersprachen kannst du
       - was kannst du technisch
       - was kannst du so
+      - was kannst du programmieren
       - womit arbeitest du
       - was programmierst du
       - womit baust du deine sachen
@@ -254,6 +255,7 @@ nlu:
     examples: |
       - python
       - arbeitest du mit python
+      - nutzt du python
       - hast du schon mit python gearbeitet
       - hast du erfahrung mit python
       - kennst du python
@@ -327,9 +329,16 @@ nlu:
   - intent: current_status
     examples: |
       - status
+      - beruflich
+      - was ist dein job
       - aktuell
       - gerade
       - was machst du aktuell
+      - was machst du beruflich
+      - was arbeitest du beruflich
+      - was machst du eigentlich beruflich
+      - womit beschäftigst du dich
+      - womit verdienst du gerade dein geld
       - was arbeitest du gerade
       - dein aktueller job
       - was machst du gerade
