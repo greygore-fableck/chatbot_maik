@@ -1,0 +1,328 @@
+version: "3.1"
+nlu:
+# ---- Shared Layer ----
+  - intent: greet
+    examples: |
+      - hi
+      - hallo
+      - hey
+      - na
+      - na?
+      - na du
+      - hey na
+      - guten tag
+      - moin
+      - servus
+      - hallöchen
+
+  - intent: goodbye
+    examples: |
+      - tschüss
+      - tschuess
+      - tschau
+      - tschö
+      - bye
+      - bis bald
+      - bis dann
+      - man sieht sich
+      - ciao
+      - mach's gut
+      - machs gut
+      - auf wiedersehen
+      - hau rein
+      - see you
+
+  - intent: affirm
+    examples: |
+      - ja
+      - jo
+      - jup
+      - jawohl
+      - yes
+      - okay
+      - alles klar
+      - gern
+      - klar
+      - ok
+      - passt
+      - gerne
+      - sicher
+      - sia
+      - si
+      
+
+  - intent: deny
+    examples: |
+      - nein
+      - nee
+      - nö
+      - nope
+      - lieber nicht
+      - eher nicht
+      - nicht so
+      - nein danke
+      - ne
+      - nä
+
+  - intent: thanks
+    examples: |
+      - danke
+      - vielen dank
+      - danke schön
+      - merci
+      - thx
+      - super, danke
+      - top danke
+      - danke dir
+      - besten dank
+      - lieben dank
+      - danke dir vielmals
+      - danke für die info
+      - danke, das hilft
+      
+
+
+# ---- Start / Begrüßung (maik) ----
+  - intent: start_prompt
+    examples: |
+      - start prompt
+      - einleitung
+      - start frage
+      - womit fangen wir an
+      - wo starten wir
+      - wie geht es los
+      - was zuerst
+      - start
+      - womit soll ich anfangen
+      - was kann ich dich zuerst fragen
+      - wie starten wir am besten
+      - gib mir einen einstieg
+
+
+# ---- Smalltalk ----
+  - intent: smalltalk_how_are_you
+    examples: |
+      - wie geht's?
+      - wie geht's
+      - wie gehts?
+      - wie gehts
+      - wie geht es dir?
+      - wie geht es dir
+      - alles gut?
+      - alles gut
+      - wie läuft's?
+      - wie läufts?
+      - wie läufts
+      - na alles klar?
+      - na alles klar
+      - na wie gehts
+      - was geht?
+      - was geht
+
+  - intent: smalltalk_day
+    examples: |
+      - wie läuft dein tag
+      - wie läuft dein tag so
+      - hast du einen guten tag
+      - hast du heute einen guten tag
+      - guten tag gehabt
+      - läuft dein tag gut
+      - wie ist dein tag
+      - na alles gut heute
+      - wie läufts heute
+      - wie läuft dein tag heute
+
+  - intent: smalltalk_who_are_you
+    examples: |
+      - wer bist du?
+      - wer bist du eigentlich?
+      - wer genau bist du
+      - wer bistn du?
+      - was bist du?
+      - bist du maik
+      - bist du der chatbot
+      - bist du ein bot?
+      - mit wem spreche ich?
+      - bist du echt?
+      - was ist das hier?
+      - was soll das?
+
+  - intent: smalltalk_what_can_you_do
+    examples: |
+      - was kannst du?
+      - was kannst du denn?
+      - was kannst du eigentlich?
+      - was kann ich hier machen
+      - was kannst du mir sagen?
+      - was kannst du mir zeigen?
+      - wobei kannst du helfen?
+      - wobei hilfst du mir
+      - wie kannst du mir helfen?
+      - was machst du?
+      - wofür bist du da?
+      - wofuer bist du da?
+      - wofür bist du gedacht
+      - wofuer bist du gedacht
+      - welche fragen kannst du beantworten?
+      - worüber können wir reden
+      - was kannst du mir erzählen
+
+  - intent: smalltalk_compliment
+    examples: |
+      - sieht gut aus
+      - cool gemacht
+      - nice
+      - gefällt mir
+      - super seite
+      - starker bot
+      - sehr clean
+      - sehr schön
+      - echt gut gemacht
+      - sieht stark aus
+      - gefällt mir richtig gut
+      - sauber umgesetzt
+
+  - intent: smalltalk_humor
+    examples: |
+      - erzähl einen witz
+      - mach mich lachen
+      - sag was witziges
+      - hast du einen witz?
+      - bist du lustig?
+      - unterhalte mich
+      - haha
+      - lol
+      - witzig
+      - kennst du einen guten witz
+      - bring mich zum lachen
+      - hau einen witz raus
+      - erzähl mal was lustiges
+
+  - intent: smalltalk_time_meta
+    examples: |
+      - wie spät ist es
+      - wie spaet ist es
+      - arbeitest du nachts
+      - bist du nachts da
+      - schläfst du eigentlich nie
+      - schlaefst du eigentlich nie
+      - hast du eigentlich uhrzeiten
+
+  - intent: smalltalk_why_so
+    examples: |
+      - warum so
+      - wieso so
+      - warum eigentlich so
+      - wieso eigentlich so
+      - wie kommst du darauf
+      - warum diese antwort
+      - warum so formuliert
+
+  - intent: smalltalk_coffee
+    examples: |
+      - kaffee
+      - kaffee?
+      - brauchst du kaffee
+      - willst du kaffee
+      - ohne kaffee läuft nichts
+      - erstmal kaffee
+      - zeit für kaffee
+      - ich glaube du brauchst kaffee
+      - kaffee ist immer gut
+      - noch einen kaffee
+
+  - intent: playground_coffee_tea
+    examples: |
+      - kaffee oder tee
+      - lieber kaffee oder tee
+      - bist du team kaffee oder tee
+
+  - intent: playground_pick_coffee
+    examples: |
+      - ich nehme kaffee
+      - dann eher kaffee
+      - okay, team kaffee
+
+  - intent: playground_pick_tea
+    examples: |
+      - ich nehme tee
+      - dann eher tee
+      - okay, team tee
+
+  - intent: playground_structure_creativity
+    examples: |
+      - struktur oder kreativität
+      - eher struktur oder kreativität
+      - bist du eher struktur oder kreativität
+      - eher kreativ oder eher strukturiert
+      - kreativ oder strukturiert
+      - eher kreativ oder strukturiert
+
+  - intent: playground_early_bird
+    examples: |
+      - frühaufsteher oder nachteule
+      - eher frühaufsteher oder nachteule
+      - bist du frühaufsteher oder nachteule
+      - bist du eher frühaufsteher oder nachteule
+      - eher frühaufsteher oder nachteule?
+      - frühaufsteher oder nachteule?
+
+  - intent: project_menu_meta
+    examples: |
+      - gibt es hier kein menü
+      - gibt's hier kein menü
+      - gibt es hier kein menu
+      - gibt's hier kein menu
+      - warum gibt es kein menü
+      - warum gibt es kein menu
+      - ist das keine klassische website
+      - warum keine klassische website
+      - wo ist das menü
+
+
+# ---- Datenschutz ----
+  - intent: clarify_retry
+    examples: |
+      - das war unklar
+      - ich verstehe das nicht ganz
+      - kannst du das anders erklären
+      - erklär das bitte einfacher
+      - kannst du das kürzer sagen
+      - bitte nochmal
+      - kannst du das wiederholen
+      - ich bin noch nicht ganz mitgekommen
+      - das hilft mir noch nicht
+      - kannst du das nochmal anders formulieren
+      - ich habs noch nicht ganz verstanden
+      - kannst du das verständlicher sagen
+      - sag das bitte nochmal einfacher
+
+  - intent: meta_privacy
+    examples: |
+      - datenschutz
+      - ist das hier datenschutzkonform
+      - speicherst du daten?
+      - wird das hier gespeichert?
+      - was passiert mit meinen daten?
+      - trackst du mich?
+      - ist das anonym?
+      - cookies?
+      - werden meine nachrichten gespeichert
+      - sammelst du persönliche daten
+      - wie gehst du mit daten um
+      - wird hier irgendwas getrackt
+
+  - intent: english_fallback
+    examples: |
+      - what is this project about
+      - can i see your cv
+      - can i see your resume
+      - do you have github
+      - do you have linkedin
+      - can you explain in english
+      - please answer in english
+      - switch to english
+      - can we speak english
+      - tell me about your project
+      
+      

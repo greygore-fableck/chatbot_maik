@@ -1249,8 +1249,8 @@
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
                 if (hasStudyStatus && !hasText) {
-                  const statusLoading = showTypingIndicator("Statusbericht laden ...");
-                  chatStatus.textContent = "Statusbericht laden ...";
+                  const statusLoading = showTypingIndicator("Studienstand laden ...");
+                  chatStatus.textContent = "Studienstand laden ...";
                   window.setTimeout(() => {
                     removeTypingIndicator(statusLoading);
                     appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
@@ -1325,8 +1325,8 @@
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
                 if (hasStudyStatus && !hasText) {
-                  const statusLoading = showTypingIndicator("Statusbericht laden ...");
-                  chatStatus.textContent = "Statusbericht laden ...";
+                  const statusLoading = showTypingIndicator("Studienstand laden ...");
+                  chatStatus.textContent = "Studienstand laden ...";
                   window.setTimeout(() => {
                     removeTypingIndicator(statusLoading);
                     appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);

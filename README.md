@@ -10,7 +10,13 @@ chatbotFlask/
     services/          # Rasa-Client
     static/            # CSS/JS/HTML Assets
     templates/         # Jinja Templates
-  rasa/                # Rasa Projekt (nlu, stories, domain, models, actions)
+  rasa/                # Rasa Projekt (stories, domain, models, actions)
+    data/              # Trainingsdaten
+      nlu_core.yml           # Begrüßung, Smalltalk, Meta, Datenschutz
+      nlu_person.yml         # Maik, Werdegang, Motivation, Person
+      nlu_study_career.yml   # Studium, Praxisphase, Kontakt, Verfügbarkeit
+      nlu_project.yml        # Projekt, Technik, Architektur, Demo
+      nlu_followups.yml      # Follow-ups, Wetter, Tests
   scripts/             # optional: weitere Helfer
   app.py               # Flask Einstieg
   run_chatbot.sh       # Startet genau einen Service (flask|rasa|actions)
@@ -90,3 +96,4 @@ Für Production kannst du zusätzlich setzen:
 - Rasa läuft standardmäßig auf Port 5005.
 - Action Server läuft standardmäßig auf Port 5056.
 - Flask läuft standardmäßig auf Port 3000.
+- Rasa liest alle `nlu_*.yml`-Dateien unter `rasa/data/` gemeinsam ein; die Aufteilung dient nur der Übersichtlichkeit.

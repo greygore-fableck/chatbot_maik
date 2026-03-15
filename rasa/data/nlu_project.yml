@@ -1,0 +1,298 @@
+version: "3.1"
+nlu:
+# ---- Navigation / Hauptseiten ----
+  - intent: project_chatbot
+    examples: |
+      - chatbot
+      - chat bot
+      - der chatbot
+      - bachelorarbeit
+      - website
+      - webseite
+      - erzähl mir vom chatbot
+      - erzähl was über den chatbot
+      - erzähl mir mehr über den chatbot
+      - chatbot projekt
+      - chat projekt
+      - dein chatbot projekt
+      - das chatbot projekt
+      - projekt chatbot
+      - projekt
+      - zeig mir das projekt
+      - was ist mit deinem projekt
+      - erzähl mir vom projekt
+      - projekt bitte
+      - ich will dein projekt sehen
+      - kannst du dein projekt zeigen
+      - bachelorarbeit chatbot
+      - chatbot bachelorarbeit
+      - chatbot aus der bachelorarbeit
+      - chatbot aus deinem studium
+      - rasa projekt
+      - python rasa chatbot
+      - mit rasa gebauter chatbot
+      - wie funktioniert dein chatbot
+      - wie ist der chatbot aufgebaut
+      - was macht der chatbot
+      - erklär mir den chatbot
+      - erklär mir das chatbot projekt
+      - zeig mir den chatbot
+      - erzähl mir etwas zu deinem chatbot
+      - wie bist du gebaut?
+      - wie funktioniert das?
+      - wie ist der bot aufgebaut?
+      - wie hast du das gemacht?
+      - erzähl mir was über das projekt
+      - zeig mir mehr zum projekt
+      - worum geht es auf der website
+      - was ist das für eine website
+      - was kannst du mir über die bachelorarbeit sagen
+      - was kannst du mir über die bacherlorarbeit sagen
+      - was ist dein aktuelles projekt
+      - was ist gerade dein projekt
+      - an welchem projekt arbeitest du
+      - woran arbeitest du gerade für ein projekt
+      - ist das hier dein aktuelles projekt
+      - hast du was cooles gebaut
+      - woran bastelst du gerade
+
+  - intent: tech_impl
+    examples: |
+      - technische umsetzung
+      - technik
+      - tech
+      - wie ist das technisch umgesetzt
+      - python und rasa?
+      - ist das rasa?
+      - nutzt du python?
+      - welche technik steckt dahinter
+      - wie ist das technisch gebaut
+      - was nutzt du technisch
+      - wie sieht die technische umsetzung aus
+      - stack?
+
+  - intent: system_architecture
+    examples: |
+      - architektur
+      - system
+      - struktur
+      - system architektur
+      - systemarchitektur
+      - wie ist das system aufgebaut
+      - wie ist die struktur
+      - wie sieht der aufbau aus
+      - modularität
+      - modularer aufbau
+      - wie hängt das zusammen
+      - aufbau vom bot
+      - wie ist der bot aufgebaut
+      - wie ist das ganze aufgebaut
+      - systemstruktur
+      - zeig mir die architektur
+
+
+# ---- Chat-FAQ / kurze Antworten ----
+  - intent: project_goal
+    examples: |
+      - ziel
+      - projektziel
+      - ziel vom projekt
+      - was ist das ziel des projekts
+      - was ist das ziel vom projekt
+      - was ist dein ziel mit dem projekt
+      - was ist dein ziel mit diesem projekt
+      - welches ziel verfolgst du mit dem projekt
+      - was willst du mit diesem projekt erreichen
+      - wozu ist das projekt
+      - warum hast du das projekt gemacht
+      - wofür ist der bot gedacht
+      - was ist die intention des projekts
+      - was bringt dir das projekt
+      - was wolltest du damit erreichen
+      - wozu der ganze bot
+      - was war dein plan mit dem projekt
+
+  - intent: project_why_chatbot
+    examples: |
+      - warum chatbot
+      - chatbot statt menü
+      - warum ein chatbot
+      - warum hast du einen chatbot gebaut
+      - warum chatbot statt menü
+      - warum chatbot statt menue
+      - warum ist das ein chatbot
+      - warum ein dialog statt navigation
+      - warum keine normale navigation
+      - warum keine menüs
+      - warum läuft das hier über chat
+      - warum genau ein bot
+      - weshalb ein chatbot
+      - warum hast du das als dialog gebaut
+
+  - intent: project_audience
+    examples: |
+      - zielgruppe
+      - für wen
+      - fuer wen
+      - für wen ist der bot gedacht
+      - wer ist die zielgruppe
+      - an wen richtet sich das projekt
+      - wer soll das nutzen
+      - wer soll damit was anfangen
+      - für wen ist das hier
+      - wer ist hier die zielgruppe
+      - an wen richtet sich der chatbot
+      - wer würde den bot benutzen
+      - für wen hast du das gebaut
+      - welche leute sollen das nutzen
+
+  - intent: project_tech
+    examples: |
+      - tech stack
+      - stack
+      - technologie dahinter
+      - welche technologien nutzt du
+      - welche tools stecken dahinter
+      - was ist der tech stack
+      - womit ist der bot gebaut
+      - nutzt du python oder rasa
+      - womit hast du das gebaut
+      - welche sprache und framework
+      - was läuft da im hintergrund
+      - welche technik nutzt du dafür
+      - mit welchem stack hast du das gebaut
+      - welche frameworks stecken drin
+      - auf welcher technischen basis läuft das
+
+  - intent: project_unique
+    examples: |
+      - besonders
+      - was ist besonders
+      - was ist das besondere
+      - was ist das besondere an dem bot
+      - was macht den bot anders
+      - was unterscheidet den bot von anderen
+      - warum ist das projekt spannend
+      - was ist hier anders als sonst
+      - warum braucht man den bot
+      - was kann der besser
+      - was ist daran besonders
+      - was macht das projekt speziell
+      - warum hebt sich der bot ab
+      - was ist der unique punkt hier
+
+  - intent: project_business_use
+    examples: |
+      - nutzen für unternehmen
+      - business use
+      - einsatz im unternehmen
+      - wie kann man so einen chatbot im unternehmen einsetzen
+      - wo wäre der einsatz im unternehmen
+      - was bringt das für unternehmen
+      - wie lässt sich das im unternehmen nutzen
+      - wäre das auch was für unternehmen
+      - kann man sowas in firmen einsetzen
+      - wie könnte ein unternehmen so einen bot nutzen
+      - wo liegt der nutzen für firmen
+      - wie kann so ein bot im arbeitsalltag helfen
+      - was wäre ein anwendungsfall im unternehmen
+
+  - intent: project_where
+    examples: |
+      - demo
+      - link
+      - projektlink
+      - wo kann man das projekt sehen
+      - wo kann man das ausprobieren
+      - gibt es eine demo
+      - wo finde ich das projekt
+      - kann ich das irgendwo testen
+      - wo kann ich mir das anschauen
+      - gibt es einen link zur demo
+      - kann man den bot live testen
+      - wo ist die demo
+      - hast du einen link zum projekt
+      - wo kann ich den chatbot ausprobieren
+
+  - intent: project_improve
+    examples: |
+      - verbesserungen
+      - was fehlt
+      - naechster schritt im projekt
+      - was würdest du als nächstes verbessern
+      - was würdest du verbessern
+      - was kannst du noch verbessern
+      - was könntest du noch verbessern
+      - was würdest du am bot ändern
+      - was ist der nächste schritt am projekt
+      - was willst du als nächstes machen
+      - was fehlt dem bot noch
+      - was fehlt noch
+      - welche funktionen fehlen noch
+      - ist der bot fertig
+      - was war die größte herausforderung
+      - was war schwierig beim bauen
+      - was war die größte hürde
+      - was hat am meisten zeit gekostet
+
+  - intent: project_duration
+    examples: |
+      - dauer
+      - projekt dauer
+      - wie lange schon
+      - wie lange hast du daran gearbeitet
+      - seit wann arbeitest du daran
+      - wann hast du damit angefangen
+      - wann hast du den bot gestartet
+      - wie lange lief das projekt bisher
+      - wie lange geht das projekt schon
+      - seit wann läuft das projekt
+      - wann hat das projekt angefangen
+      - wie viel zeit steckt bisher drin
+      - wie lange arbeitest du schon an dem projekt
+
+
+  - intent: llm_question
+    examples: |
+      - llm
+      - chatgpt
+      - gpt
+      - läuft das mit ai im hintergrund
+      - ist das ein llm
+      - ist das hier ein llm
+      - nutzt du ein llm
+      - nutzt du chatgpt dafür
+      - nutzt du chatgpt dafuer
+      - ist das mit chatgpt gemacht
+      - ist das mit ki gebaut
+      - hast du dafür ai genutzt
+      - hast du dafuer ai genutzt
+      - arbeitet der bot mit einem llm
+      - ist das gpt
+      - steckt hier ein sprachmodell dahinter
+      - laeuft das ueber ein llm
+
+  - intent: modular_chatbots
+    examples: |
+      - modular
+      - modulare chatbots
+      - was hat es mit modularen chatbots auf sich
+      - was sind modulare chatbots
+      - was sind moulare chatbots
+      - was ist ein modularer chatbot
+      - was meinst du mit modular
+      - was bedeutet modular bei chatbots
+      - warum modularer aufbau
+      - was bringt ein modularer chatbot
+      - wie meinst du das mit modularen chatbots
+
+  - intent: scalability_question
+    examples: |
+      - wie skalierbar ist dein system
+      - wie skalierbar ist der bot
+      - wie gut skaliert das system
+      - koennte man das groesser bauen
+      - laesst sich das skalieren
+      - wie weit koennte man das ausbauen
+      - ist das skalierbar
+

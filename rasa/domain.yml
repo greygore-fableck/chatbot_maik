@@ -534,7 +534,7 @@ responses:
   utter_study_progress:
     - custom:
         study_status:
-          title: "Statusbericht"
+          title: "Studienstand"
           items:
             - label: "Semester"
               value: "genug gesammelt"
@@ -544,9 +544,12 @@ responses:
               value: "startet demnächst"
         followups:
           - delay: 6200
-            text: "Semester wurden genug gesammelt. Nun wird es Zeit fuer den naechsten Schritt."
+            text: |
+              Semester wurden genug gesammelt. 
+              
+              Jetzt wird es Zeit, aus „startet demnächst“ ein „gestartet“ zu machen.
             buttons:
-              - title: "Praxisphase"
+              - title: "Zur Praxisphase"
                 payload: "/praxisphase_info"
               - title: "Frag mich was ..."
                 payload: "/show_playground_questions"

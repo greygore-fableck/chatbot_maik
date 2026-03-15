@@ -1,0 +1,50 @@
+version: "3.1"
+nlu:
+  - intent: weather_out_of_scope
+    examples: |
+      - wie ist das wetter heute
+      - wie wird das wetter heute
+      - regnet es heute
+      - scheint heute die sonne
+      - wie ist das wetter bei dir
+      - wetter heute
+
+  - intent: open_followup
+    examples: |
+      - mehr
+      - mehr?
+      - weiter
+      - weiter?
+      - erzähl weiter
+      - erzaehl weiter
+      - sonst noch
+      - sonst noch?
+      - noch was
+      - noch was?
+      - okay und
+      - okay und?
+      - und jetzt
+      - was dann
+      - nächster punkt
+      - naechster punkt
+      - weitermachen
+      - erzähl mehr
+      - erzaehl mehr
+      - erzähl mir mehr
+      - erzaehl mir mehr
+      - und sonst
+      - und sonst?
+      - was noch
+      - was noch?
+      - mehr dazu
+      - kannst du mehr erzählen
+      - kannst du mehr dazu sagen
+
+  - intent: meta_test
+    examples: |
+      - test
+      - testen
+      - hallo test
+      - kurzer test
+      - funktioniert das
+

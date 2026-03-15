@@ -1,0 +1,372 @@
+version: "3.1"
+nlu:
+  - intent: praxisphase_info
+    examples: |
+      - praxisphase
+      - praxis
+      - praxissemester
+      - praktikum
+      - stelle
+      - suchst du eine praxisphase
+      - bist du auf der suche nach einem praktikum
+      - suchst du ein praktikum
+      - suchst du aktuell eher praxis oder stelle
+      - suchst du ein praxisunternehmen
+      - was ist gerade aktuell
+      - was ist aktuell
+      - was ist bei dir aktuell
+      - was läuft gerade
+      - was läuft aktuell
+      - was geht aktuell
+      - was suchst du
+      - was suchst du gerade
+      - was suchst du eigentlich
+      - wonach suchst du
+      - wonach suchst du gerade
+      - was willst du
+      - was willst du gerade
+      - was willst du aktuell
+      - was ist dir gerade wichtig
+      - was suchst du im moment
+      - arbeitest du gerade
+      - kann man dir helfen
+
+
+# ---- Kontakt ----
+  - intent: contact_email
+    examples: |
+      - email
+      - mail
+      - e-mail
+      - kontakte
+      - email adresse
+      - per email
+      - e-mail adresse
+      - schick mir deine email
+      - kontakt
+      - wie erreiche ich dich
+      - kontaktmöglichkeiten
+      - wie kann ich dich kontaktieren
+      - wo finde ich dich
+      - wie kann ich dich erreichen
+      - ich suche kontakt
+      - wie bist du erreichbar
+      - kontakt per mail
+      - wo kann man dich anschreiben
+      - wie erreicht man dich am besten
+
+  - intent: application_details
+    examples: |
+      - verfügbar
+      - verfuegbar
+      - startdatum
+      - verfügbarkeit
+      - verfuegbarkeit
+      - bist du aktuell verfügbar
+      - was suchst du genau
+      - was suchst du aktuell genau
+      - was für eine praxisphase suchst du
+      - welche rolle suchst du
+      - in welchem bereich suchst du eine praxisphase
+      - ab wann wärst du verfügbar
+      - wann kannst du anfangen
+      - wann könntest du starten
+      - was stellst du dir für die praxisphase vor
+      - was ist dir für die praxisphase wichtig
+      - welche rolle passt zu dir
+      - wonach suchst du konkret
+      - was suchst du ganz konkret
+      - was erwartest du dir von einer praxisphase
+      - was erwartest du von einer praxisphase
+      - was erwartest du dir für die praxisphase
+
+  - intent: study_details
+    examples: |
+      - studium
+      - dein studium
+      - kurz zum studium
+      - studiengang
+      - fach
+      - was studierst du denn so
+      - was studierst du
+      - was genau studierst du
+      - was genau studierst du eigentlich
+      - was ist dein studiengang
+      - welchen studiengang studierst du
+      - was studierst du eigentlich
+      - bist du im studium
+      - was ist dein fach
+
+  - intent: study_place
+    examples: |
+      - uni
+      - welche uni
+      - an welcher uni studierst du
+      - hochschule
+      - westfälische hochschule
+      - gelsenkirchen
+      - welche hochschule
+      - an welcher hochschule studierst du
+      - wo studierst du
+      - wo studierst du denn
+      - wo bist du eingeschrieben
+      - wo bist du immatrikuliert
+      - in welcher stadt studierst du
+      - wo ist deine hochschule
+
+  - intent: study_progress
+    examples: |
+      - semester
+      - studienstand
+      - zwischenstand
+      - zielgerade
+      - status studium
+      - wie lange noch
+      - wann bist du fertig
+      - wann bist du denn fertig
+      - bist du bald fertig
+      - studierst du immer noch
+      - studierst du noch
+      - noch am studieren
+      - immer noch im studium
+      - wie lange dauert das noch
+      - wann ist es denn so weit
+      - welches semester
+      - welches semster
+      - in welchem semester bist du
+      - in welchem semester bist du jetzt
+      - in welchem semester studierst du
+      - in welchem semester studierst du jetzt
+      - welches semester studierst du
+      - wie lange studierst du schon
+      - wie weit bist du
+      - warum studierst du schon so lange
+      - wie weit bist du im studium
+      - wie weit bist du mit dem studium
+      - wie weit bist du im studium gerade
+      - wie weit bist du inzwischen
+      - wie weit bist du inzwischen im studium
+      - wie ist dein stand im studium
+      - wo stehst du im studium
+      - bist du fast fertig
+      - wie nah bist du am abschluss
+      - abschluss in sicht
+      - wann bist du fertig mit dem studium
+
+  - intent: tech_skills
+    examples: |
+      - skills
+      - skills?
+      - skillset
+      - deine skills
+      - dein skillset
+      - tech?
+      - tech skills
+      - fähigkeiten
+      - fähigkeiten?
+      - faehigkeiten
+      - faehigkeiten?
+      - technologien
+      - technologien?
+      - welche technologien kannst du
+      - welche programmiersprachen kannst du
+      - was kannst du technisch
+      - was kannst du so
+      - womit arbeitest du
+      - was programmierst du
+      - womit baust du deine sachen
+      - welche technologien nutzt du so
+      - welche technischen skills hast du
+      - womit kennst du dich aus
+      - welche sprachen kannst du
+      - was kannst du an technologien
+      - kennst du dich mit webtechnologien aus
+
+
+  - intent: react_experience
+    examples: |
+      - react
+      - kennst du react
+      - hast du erfahrung mit react
+      - hast du schon mit react gearbeitet
+      - wie sieht es mit react aus
+      - kannst du react
+
+  - intent: ai_experience
+    examples: |
+      - ki
+      - ai
+      - machst du auch ki
+      - hast du schon mit ai gearbeitet
+      - hast du schon erfahrung mit ki
+      - hast du erfahrung mit ki
+      - hast du schon mit ki gearbeitet
+      - kennst du dich mit ki aus
+      - arbeitest du mit ki
+      - wie viel erfahrung hast du mit ki
+
+  - intent: python_experience
+    examples: |
+      - python
+      - arbeitest du mit python
+      - hast du schon mit python gearbeitet
+      - hast du erfahrung mit python
+      - kennst du python
+      - kannst du python
+      - wie viel python kannst du
+      - hast du schon python genutzt
+
+
+  - intent: why_you
+    examples: |
+      - warum du
+      - warum sollten wir dich einstellen
+      - warum sollten wir dich nehmen
+      - warum passt du ins team
+      - warum sollte man dich einstellen
+      - warum sollte man dich nehmen
+      - warum bist du passend
+      - warum passt du zu uns
+
+  - intent: links_portfolio
+    examples: |
+      - linkedin
+      - github
+      - cv
+      - portfolio
+      - lebenslauf
+      - unterlagen
+      - hast du github
+      - gibt es ein github repo
+      - kann ich den code sehen
+      - hast du linkedin
+      - hast du einen lebenslauf
+      - kann ich deinen cv sehen
+      - kann ich deinen lebenslauf sehen
+      - hast du unterlagen
+      - hast du bewerbungsunterlagen
+      - hast du ein portfolio
+      - wo finde ich mehr von dir
+      - gibt es weitere unterlagen
+
+
+
+
+  - intent: experience_summary
+    examples: |
+      - erfahrung
+      - profil
+      - kurzprofil
+      - bisherige erfahrung
+      - was ist deine erfahrung
+      - was hast du bisher gemacht
+      - woher kommt deine erfahrung
+      - kurzprofil
+      - gib mir ein kurzes profil
+      - kannst du dein profil kurz zusammenfassen
+      - wie würdest du dich kurz beschreiben
+      - was bringst du mit
+      - was bringst du konkret mit
+      - was bringst du fachlich mit
+      - was ist dein skillset
+      - was kannst du fachlich
+      - was kannst du schon
+      - was kann maik
+      - was kann maik eigentlich
+      - was kann maik fachlich
+      - warum sollte man mit dir sprechen
+      - warum bist du interessant
+      - erfahrung im überblick
+      - welche erfahrung hast du
+
+  - intent: current_status
+    examples: |
+      - status
+      - aktuell
+      - gerade
+      - was machst du aktuell
+      - was arbeitest du gerade
+      - dein aktueller job
+      - was machst du gerade
+      - was ist dein aktueller job
+      - arbeitest du aktuell
+      - was ist dein aktueller status
+      - bist du gerade angestellt
+      - was ist gerade dein fokus
+      - was machst du aktuell beruflich
+      - bist du gerade im studium
+      - was ist dein momentaner stand
+      - woran arbeitest du dich gerade ein
+      - in welches thema arbeitest du dich ein
+      - was lernst du gerade
+      - welches thema beschäftigt dich gerade
+
+  - intent: projects_experience
+    examples: |
+      - projekte
+      - referenzen
+      - projektbeispiele
+      - hast du eigene projekte
+      - kannst du projekte zeigen
+      - was hast du gebaut
+      - welche projekte hast du gemacht
+      - woran hast du gearbeitet
+      - hast du praktische erfahrung
+      - hast du schon praktische erfahrung
+      - wie viel praktische erfahrung hast du
+      - welche praktischen erfahrungen hast du
+      - hast du referenzen
+      - hast du bereits projekte
+      - kannst du projekte nennen
+      - wie sammelst du praxis
+      - was hast du neben dem studium gemacht
+      - gib mir beispiele für projekte
+      - hast du schon an projekten gearbeitet
+
+  - intent: strengths_tasks
+    examples: |
+      - stärken
+      - staerken
+      - stärken?
+      - skills und stärken
+      - welche aufgaben liegen dir
+      - welche aufgaben liegen dir?
+      - was sind deine stärken
+      - welche stärken hast du
+      - worin bist du gut
+      - was kannst du besonders gut
+      - was kannst du richtig gut
+      - was machst du am liebsten
+      - welche aufgaben machen dir am meisten spaß
+      - was macht dir am meisten spaß
+      - welche art aufgaben magst du
+      - wie würdest du deinen stil beschreiben
+      - bist du eher kreativ oder strukturiert
+      - wie arbeitest du vom stil her
+      - wie würdest du dich beschreiben
+      - welche aufgaben liegen dir
+      - welche aufgaben magst du
+      - welche art aufgaben machen dir spaß
+      - wo liegen deine stärken
+      - worauf bist du spezialisiert
+      - was sind deine fachlichen stärken
+
+  - intent: praxisphase_why_company
+    examples: |
+      - warum wir
+      - warum unser team
+      - warum unser unternehmen
+      - warum willst du die praxisphase bei uns machen
+      - warum gerade bei uns
+      - warum bewirbst du dich hier
+      - was reizt dich an unserem unternehmen
+      - warum unser team
+      - warum möchtest du bei uns arbeiten
+      - was erwartest du von der praxisphase bei uns
+      - warum ausgerechnet diese firma
+      - wieso willst du ausgerechnet zu uns
+      - weshalb gerade unser unternehmen
+      - warum genau wir
+      - was findest du an unserer firma spannend
+      - warum möchtest du ausgerechnet hier hin
+

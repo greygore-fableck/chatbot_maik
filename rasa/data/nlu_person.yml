@@ -1,0 +1,250 @@
+version: "3.1"
+nlu:
+  - intent: origin_overview
+    examples: |
+      - maik
+      - über maik
+      - kurz zu maik
+      - kurz zu dir
+      - erzähl mal kurz von dir
+      - erzähl mal was über dich
+      - wer steckt dahinter
+      - wer bist du denn eigentlich
+      - wer ist maik
+      - wer ist maik eigentlich
+      - ursprung von maik
+      - wie hat alles angefangen
+      - erzähl mir etwas über maik
+      - erzähl mir was über maik
+      - was kannst du mir über maik sagen
+      - sag mir was über maik
+      - mehr über maik
+      - über maik
+      - was ist dein hintergrund
+      - erzähl mir was über deinen hintergrund
+      - wie bist du dazu gekommen
+      - wie hat es angefangen
+      - wie kam es zu deinem interesse
+      - woher kommst du
+
+  - intent: werdegang_overview
+    examples: |
+      - werdegang
+      - laufbahn
+      - was hast du gemacht
+      - wie ist dein werdegang
+      - wo kommst du her beruflich
+      - was ist dein weg gewesen
+      - wie war dein verlauf
+      - was hast du vorher gemacht
+      - was hast du so gemacht
+      - hast du studiert
+      - ausbildung
+      - aubildung
+      - ausbiildung
+      - ausbildun
+      - ausbilung
+      - ausbuldung
+      - ausbuidlung
+      - ausbildung?
+      - hast du eine ausbildung
+      - hast du eine aubildung
+      - hast du eine ausbildung gemacht
+      - welche ausbildung hast du
+      - was für eine ausbildung hast du
+      - bist du ausgebildet
+      - hast du eine berufsausbildung
+      - hast du eine ausbildung oder ein studium
+
+
+# ---- Personenname ----
+  - intent: person_name_opinion
+    examples: |
+      - was hältst du von [Dennis](person_name)?
+      - was hälst du von [Thomas](person_name)
+      - kennst du [Sanja](person_name)?
+      - was sagst du zu [Axel](person_name)
+      - was hältst du von [Rita](person_name)
+      - wie findest du [Roland](person_name)?
+      - was meinst du zu [Sarah](person_name)
+      - was hältst du von [Laura](person_name)?
+      - kennst du [Kevin](person_name)?
+      - sag mir was zu [Marie](person_name)
+      - was ist mit [Dennis](person_name)
+      - mein name ist [Thomas](person_name)
+
+  - lookup: person_name
+    examples: |
+      - Sanja
+      - Axel
+      - Rita
+      - Roland
+      - Sarah
+
+# ---- Person ----
+  - intent: person_age
+    examples: |
+      - wie alt bist du?
+      - wie alt bist du
+      - wie alt bist du denn
+      - wie alt genau
+      - wie viele jahre hast du
+      - wieviel jahre hast du
+      - dein alter?
+      - alter?
+      - wie jung bist du
+      - wie alt ist maik
+      - wie alt ist maik eigentlich
+      - wie alt bist du maik
+      - wie alt bist du denn maik
+      - welches alter hat maik
+      - maik alter
+      - alter von maik
+
+  - intent: person_motivation
+    examples: |
+      - was motiviert dich
+      - was motiviert dich?
+      - warum interessiert dich ki
+      - was motiviert dich an dem thema
+      - was reizt dich an ux
+      - was findest du spannend an interaktion
+      - warum findest du das thema spannend
+      - was treibt dich da an
+      - was findest du an ki so interessant
+      - warum begeistert dich das thema
+      - was fasziniert dich an ki
+      - warum machst du das überhaupt
+      - was motiviert dich an dem bereich
+      - warum beschäftigst du dich damit
+      - was reizt dich daran überhaupt
+      - warum ist dir das thema wichtig
+      - warum steckst du da so viel rein
+
+  - intent: person_sports
+    examples: |
+      - hast du einen lieblingsverein
+      - für welchen verein bist du
+      - welchen verein supportest du
+      - welches team unterstützt du
+      - welcher verein ist dein verein
+      - welchen club feierst du
+      - welchen fußballverein magst du
+      - bist du fan von einem verein
+      - hast du einen lieblingsclub
+      - für wen bist du im fußball
+      - wen supportest du im fußball
+      - welcher fußballverein ist dein favorit
+      - bist du fußballfan
+      - fussball
+      - fußball
+      - spielst du noch fußball
+      - guckst du fußball
+      - hast du früher fußball gespielt
+      - hast du einen verein
+      - was ist dein lieblingsverein
+      - was ist dein lieblingsclub
+      - was für einen verein findest du gut
+      - rot weiss essen
+      - rot-weiss essen
+      - rwe
+
+  - intent: person_collab
+    examples: |
+      - was ist dir bei zusammenarbeit wichtig
+      - wie arbeitest du am liebsten
+      - was ist dir im team wichtig
+      - wie sollte die zusammenarbeit laufen
+      - worauf legst du im team wert
+      - wie sieht gute zusammenarbeit aus
+      - wie tickst du im team
+      - warum passt du in ein team
+      - was macht dich angenehm in der zusammenarbeit
+      - wie arbeitest du mit anderen
+
+  - intent: person_next_step
+    examples: |
+      - was willst du nach der praxisphase machen
+      - was ist dein nächster schritt
+      - wo willst du später arbeiten
+      - was kommt nach dem studium
+      - wie geht es nach dem studium weiter
+      - was planst du als nächstes
+      - wohin willst du dich entwickeln
+      - was kommt für dich als nächstes
+      - was ist bei dir als nächstes geplant
+      - wie sieht dein nächster schritt aus
+      - was machst du als nächstes nach dem studium
+      - wo soll es für dich als nächstes hingehen
+      - wie geht es für dich als nächstes weiter
+
+  - intent: person_future_vision
+    examples: |
+      - wo siehst du dich in einem jahr
+      - wo siehst du dich in 1 jahr
+      - wo siehst du dich in drei jahren
+      - wo siehst du dich in 3 jahren
+      - wo siehst du dich in fünf jahren
+      - wo siehst du dich in 5 jahren
+      - wo siehst du dich in ein paar jahren
+      - wo willst du in ein paar jahren stehen
+      - wie sieht deine zukunft aus
+      - wo willst du langfristig hin
+
+  - intent: person_development
+    examples: |
+      - was möchtest du fachlich noch vertiefen
+      - was möchtest du fachlich noch vertiefen?
+      - wie entwickelst du dich fachlich weiter
+      - woran willst du dich noch entwickeln
+      - was lernst du gerade dazu
+      - wie sieht deine fachliche entwicklung aus
+      - wo willst du fachlich noch hin
+      - welche themen willst du noch vertiefen
+      - was baust du gerade aus
+      - in welche richtung entwickelst du dich
+      - worin willst du besser werden
+      - was sind deine nächsten lernthemen
+
+  - intent: person_unwind
+    examples: |
+      - wie entspannst du
+      - wie schaltest du ab
+      - was machst du zum abschalten
+      - was machst du wenn du frei hast
+      - was machst du zum ausgleich
+      - wie kommst du runter
+      - was machst du zum runterkommen
+      - was machst du in deiner freizeit
+      - was machst du nebenbei zum ausgleich
+
+  - intent: person_outside_work
+    examples: |
+      - was machst du außerhalb der arbeit
+      - was machst du ausserhalb der arbeit
+      - was machst du gern außerhalb der arbeit
+      - was machst du gern ausserhalb der arbeit
+      - was machst du außerhalb vom job
+      - was machst du außerhalb deines jobs
+      - was machst du so außerhalb der arbeit
+
+  - intent: person_records_followup
+    examples: |
+      - wie viele schallplatten hast du
+      - wie viele platten hast du
+      - wie groß ist deine sammlung
+      - welche schallplatte war deine letzte
+      - welche platte war deine letzte
+      - welche hast du zuletzt gekauft
+      - was war dein letzter vinyl kauf
+      - was hörst du auf schallplatte
+      - was sammelst du da so
+      - welche musik hast du auf vinyl
+      - hast du eine lieblingsplatte
+      - welche platte magst du am meisten
+      - vinyl?
+      - schallplatte?
+      - platten?
+      - erzähl mehr über deine schallplatten
+      - was für schallplatten sammelst du
+
