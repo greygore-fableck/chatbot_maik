@@ -127,6 +127,7 @@ nlu:
       - worum geht es auf der website
       - was ist das für eine website
       - was kannst du mir über die bachelorarbeit sagen
+      - was kannst du mir über die bacherlorarbeit sagen
       - was ist dein aktuelles projekt
       - was ist gerade dein projekt
       - an welchem projekt arbeitest du
@@ -169,6 +170,9 @@ nlu:
 
   - intent: origin_overview
     examples: |
+      - maik
+      - über maik
+      - kurz zu maik
       - wer ist maik
       - wer ist maik eigentlich
       - ursprung von maik
@@ -249,6 +253,9 @@ nlu:
 # ---- Chat-FAQ / kurze Antworten ----
   - intent: project_goal
     examples: |
+      - ziel
+      - projektziel
+      - ziel vom projekt
       - was ist das ziel des projekts
       - was ist das ziel vom projekt
       - was ist dein ziel mit dem projekt
@@ -266,8 +273,12 @@ nlu:
 
   - intent: project_why_chatbot
     examples: |
+      - warum chatbot
+      - chatbot statt menü
       - warum ein chatbot
       - warum hast du einen chatbot gebaut
+      - warum chatbot statt menü
+      - warum chatbot statt menue
       - warum ist das ein chatbot
       - warum ein dialog statt navigation
       - warum keine normale navigation
@@ -279,6 +290,9 @@ nlu:
 
   - intent: project_audience
     examples: |
+      - zielgruppe
+      - für wen
+      - fuer wen
       - für wen ist der bot gedacht
       - wer ist die zielgruppe
       - an wen richtet sich das projekt
@@ -293,6 +307,9 @@ nlu:
 
   - intent: project_tech
     examples: |
+      - tech stack
+      - stack
+      - technologie dahinter
       - welche technologien nutzt du
       - welche tools stecken dahinter
       - was ist der tech stack
@@ -308,6 +325,9 @@ nlu:
 
   - intent: project_unique
     examples: |
+      - besonders
+      - was ist besonders
+      - was ist das besondere
       - was ist das besondere an dem bot
       - was macht den bot anders
       - was unterscheidet den bot von anderen
@@ -322,6 +342,9 @@ nlu:
 
   - intent: project_business_use
     examples: |
+      - nutzen für unternehmen
+      - business use
+      - einsatz im unternehmen
       - wie kann man so einen chatbot im unternehmen einsetzen
       - wo wäre der einsatz im unternehmen
       - was bringt das für unternehmen
@@ -335,6 +358,9 @@ nlu:
 
   - intent: project_where
     examples: |
+      - demo
+      - link
+      - projektlink
       - wo kann man das projekt sehen
       - wo kann man das ausprobieren
       - gibt es eine demo
@@ -349,6 +375,9 @@ nlu:
 
   - intent: project_improve
     examples: |
+      - verbesserungen
+      - was fehlt
+      - naechster schritt im projekt
       - was würdest du als nächstes verbessern
       - was würdest du verbessern
       - was kannst du noch verbessern
@@ -367,6 +396,9 @@ nlu:
 
   - intent: project_duration
     examples: |
+      - dauer
+      - projekt dauer
+      - wie lange schon
       - wie lange hast du daran gearbeitet
       - seit wann arbeitest du daran
       - wann hast du damit angefangen
@@ -400,6 +432,8 @@ nlu:
       - email
       - mail
       - e-mail
+      - kontakte
+      - email adresse
       - per email
       - e-mail adresse
       - schick mir deine email
@@ -415,6 +449,11 @@ nlu:
 
   - intent: application_details
     examples: |
+      - verfügbar
+      - verfuegbar
+      - startdatum
+      - verfügbarkeit
+      - verfuegbarkeit
       - was suchst du genau
       - was suchst du aktuell genau
       - was für eine praxisphase suchst du
@@ -431,8 +470,205 @@ nlu:
       - was erwartest du von einer praxisphase
       - was erwartest du dir für die praxisphase
 
+  - intent: study_details
+    examples: |
+      - studium
+      - dein studium
+      - kurz zum studium
+      - studiengang
+      - fach
+      - was studierst du
+      - was genau studierst du
+      - was genau studierst du eigentlich
+      - was ist dein studiengang
+      - welchen studiengang studierst du
+      - was studierst du eigentlich
+      - bist du im studium
+      - was ist dein fach
+
+  - intent: study_place
+    examples: |
+      - uni
+      - welche uni
+      - an welcher uni studierst du
+      - hochschule
+      - welche hochschule
+      - an welcher hochschule studierst du
+      - wo studierst du
+      - wo bist du immatrikuliert
+      - in welcher stadt studierst du
+      - wo ist deine hochschule
+
+  - intent: study_progress
+    examples: |
+      - semester
+      - welches semester
+      - welches semster
+      - in welchem semester bist du
+      - in welchem semester bist du jetzt
+      - in welchem semester studierst du
+      - in welchem semester studierst du jetzt
+      - welches semester studierst du
+      - wie lange studierst du schon
+      - wie weit bist du im studium
+      - wie weit bist du inzwischen
+      - bist du bald fertig
+      - wann bist du fertig mit dem studium
+
+  - intent: tech_skills
+    examples: |
+      - skills
+      - tech skills
+      - fähigkeiten
+      - faehigkeiten
+      - technologien
+      - welche technologien kannst du
+      - welche programmiersprachen kannst du
+      - was kannst du technisch
+      - welche technischen skills hast du
+      - womit kennst du dich aus
+      - welche sprachen kannst du
+      - was kannst du an technologien
+      - kennst du dich mit webtechnologien aus
+
+  - intent: llm_question
+    examples: |
+      - llm
+      - chatgpt
+      - gpt
+      - ist das ein llm
+      - ist das hier ein llm
+      - nutzt du ein llm
+      - nutzt du chatgpt dafür
+      - nutzt du chatgpt dafuer
+      - ist das mit chatgpt gemacht
+      - ist das mit ki gebaut
+      - hast du dafür ai genutzt
+      - hast du dafuer ai genutzt
+      - arbeitet der bot mit einem llm
+      - ist das gpt
+      - steckt hier ein sprachmodell dahinter
+      - laeuft das ueber ein llm
+
+  - intent: modular_chatbots
+    examples: |
+      - modular
+      - modulare chatbots
+      - was sind modulare chatbots
+      - was sind moulare chatbots
+      - was ist ein modularer chatbot
+      - was meinst du mit modular
+      - was bedeutet modular bei chatbots
+      - warum modularer aufbau
+      - was bringt ein modularer chatbot
+      - wie meinst du das mit modularen chatbots
+
+  - intent: scalability_question
+    examples: |
+      - wie skalierbar ist dein system
+      - wie skalierbar ist der bot
+      - wie gut skaliert das system
+      - koennte man das groesser bauen
+      - laesst sich das skalieren
+      - wie weit koennte man das ausbauen
+      - ist das skalierbar
+
+  - intent: react_experience
+    examples: |
+      - react
+      - kennst du react
+      - hast du erfahrung mit react
+      - hast du schon mit react gearbeitet
+      - wie sieht es mit react aus
+      - kannst du react
+
+  - intent: ai_experience
+    examples: |
+      - ki
+      - ai
+      - hast du schon erfahrung mit ki
+      - hast du erfahrung mit ki
+      - hast du schon mit ki gearbeitet
+      - kennst du dich mit ki aus
+      - arbeitest du mit ki
+      - wie viel erfahrung hast du mit ki
+
+  - intent: python_experience
+    examples: |
+      - python
+      - hast du schon mit python gearbeitet
+      - hast du erfahrung mit python
+      - kennst du python
+      - kannst du python
+      - wie viel python kannst du
+      - hast du schon python genutzt
+
+  - intent: weather_out_of_scope
+    examples: |
+      - wie ist das wetter heute
+      - wie wird das wetter heute
+      - regnet es heute
+      - scheint heute die sonne
+      - wie ist das wetter bei dir
+      - wetter heute
+
+  - intent: open_followup
+    examples: |
+      - mehr
+      - mehr?
+      - weiter
+      - weiter?
+      - erzähl weiter
+      - erzaehl weiter
+      - sonst noch
+      - sonst noch?
+      - noch was
+      - noch was?
+      - okay und
+      - okay und?
+      - und jetzt
+      - was dann
+      - nächster punkt
+      - naechster punkt
+      - weitermachen
+      - erzähl mehr
+      - erzaehl mehr
+      - erzähl mir mehr
+      - erzaehl mir mehr
+      - und sonst
+      - und sonst?
+      - was noch
+      - was noch?
+      - mehr dazu
+      - kannst du mehr erzählen
+      - kannst du mehr dazu sagen
+
+  - intent: meta_test
+    examples: |
+      - test
+      - testen
+      - hallo test
+      - kurzer test
+      - funktioniert das
+
+  - intent: why_you
+    examples: |
+      - warum du
+      - warum sollten wir dich einstellen
+      - warum sollten wir dich nehmen
+      - warum sollte man dich einstellen
+      - warum sollte man dich nehmen
+      - warum bist du passend
+      - warum passt du zu uns
+
   - intent: links_portfolio
     examples: |
+      - linkedin
+      - github
+      - cv
+      - portfolio
+      - lebenslauf
+      - unterlagen
       - hast du github
       - gibt es ein github repo
       - kann ich den code sehen
@@ -601,7 +837,7 @@ nlu:
       - struktur oder kreativität
       - eher struktur oder kreativität
       - bist du eher struktur oder kreativität
-      - bist du eher kreativ oder strukturiert
+      - eher kreativ oder eher strukturiert
       - kreativ oder strukturiert
       - eher kreativ oder strukturiert
 
@@ -819,6 +1055,9 @@ nlu:
 
   - intent: experience_summary
     examples: |
+      - erfahrung
+      - profil
+      - kurzprofil
       - bisherige erfahrung
       - was ist deine erfahrung
       - was hast du bisher gemacht
@@ -843,6 +1082,9 @@ nlu:
 
   - intent: current_status
     examples: |
+      - status
+      - aktuell
+      - gerade
       - was machst du gerade
       - was ist dein aktueller job
       - arbeitest du aktuell
@@ -859,6 +1101,9 @@ nlu:
 
   - intent: projects_experience
     examples: |
+      - projekte
+      - referenzen
+      - projektbeispiele
       - welche projekte hast du gemacht
       - woran hast du gearbeitet
       - hast du praktische erfahrung
@@ -875,6 +1120,10 @@ nlu:
 
   - intent: strengths_tasks
     examples: |
+      - stärken
+      - staerken
+      - stärken?
+      - skills und stärken
       - welche aufgaben liegen dir
       - welche aufgaben liegen dir?
       - was sind deine stärken
@@ -899,6 +1148,9 @@ nlu:
 
   - intent: praxisphase_why_company
     examples: |
+      - warum wir
+      - warum unser team
+      - warum unser unternehmen
       - warum willst du die praxisphase bei uns machen
       - warum gerade bei uns
       - warum bewirbst du dich hier

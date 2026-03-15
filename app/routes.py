@@ -9,66 +9,37 @@ bp = Blueprint("routes", __name__)
 MATCH_EXACT = "exact"
 MATCH_CONTAINS = "contains"
 DEFAULT_FALLBACK_TEXTS = [
-    (
-        "Ich bin mir gerade nicht ganz sicher, wie ich das einordnen soll. "
-        "Ich kann dir aber direkt weiterhelfen."
-    ),
-    (
-        "Das war fuer mich gerade nicht ganz eindeutig. "
-        "Wir koennen aber direkt weitermachen."
-    ),
-    (
-        "Darauf habe ich gerade keine wirklich gute Antwort. "
-        "Ich kann dir aber sofort etwas Passendes zeigen."
-    ),
-    (
-        "Mhh. Ich bin gerade nicht ganz sicher, was du meinst. "
-        "Wir finden aber direkt einen Einstieg."
-    ),
-    (
-        "Puh, da weiss ich gerade nicht genau, worauf du hinauswillst. "
-        "Ich kann dir aber direkt etwas zeigen."
-    ),
-    "Da muss wohl noch ein wenig Gehirnschmalz fliessen. Vielleicht ist hier etwas fuer dich dabei.",
-    "Da darf ich wohl noch etwas nachschaerfen. Vielleicht passt einer der Einstiege.",
-    "Das habe ich gerade noch nicht sauber drauf. Vielleicht ist das hier spannend.",
-    "Hier fehlt mir gerade noch die passende Antwort. Vielleicht hilft dir das hier weiter.",
-    "Nicht ganz eindeutig gerade. Vielleicht ist das hier spannend.",
-    "Da bin ich gerade nicht sicher. Vielleicht passt einer der Einstiege.",
-    "Ich hab's gerade nicht ganz. Vielleicht ist hier etwas fuer dich dabei.",
+    "Ich bin mir gerade nicht ganz sicher, was du genau meinst. Vielleicht hilft dir einer dieser Einstiege:",
+    "Das ist fuer mich nicht ganz eindeutig. Wie waere es damit?",
+    "Ich bin mir nicht ganz sicher, worauf du hinauswillst. Wenn du magst, steigen wir direkt bei einem der Kernthemen ein.",
+    "Moment ... wolltest du vielleicht darauf hinaus?",
+    "Sekunde. Vielleicht ist einer dieser Wege gerade einfacher.",
 ]
 DEFAULT_FALLBACK_BUTTON_SETS = [
     [
         {"title": "Zeig mir das Projekt 🤖💬", "payload": "/project_chatbot"},
-        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
-        {"title": "Mehr zur Praxisphase", "payload": "/praxisphase_info"},
+        {"title": "Frag mich was ...", "payload": "/show_playground_questions"},
     ],
     [
-        {"title": "Zum Projekt", "payload": "/project_chatbot"},
-        {"title": "Über Maik", "payload": "/origin_overview"},
-        {"title": "Zur Praxisphase", "payload": "/praxisphase_info"},
+        {"title": "Projektidee", "payload": "/project_goal"},
+        {"title": "Technische Umsetzung", "payload": "/tech_impl"},
+        {"title": "Etwas anderes anzeigen", "payload": "/show_playground_questions"},
     ],
     [
-        {"title": "Projekt zeigen", "payload": "/project_chatbot"},
-        {"title": "Hintergrund", "payload": "/origin_overview"},
+        {"title": "Projektidee", "payload": "/project_goal"},
+        {"title": "Werdegang", "payload": "/werdegang_overview"},
+        {"title": "Warum ein Chatbot?", "payload": "/project_why_chatbot"},
+        {"title": "Frag mich was ...", "payload": "/show_playground_questions"},
+    ],
+    [
+        {"title": "Warum ein Chatbot?", "payload": "/project_why_chatbot"},
         {"title": "Praxisphase", "payload": "/praxisphase_info"},
+        {"title": "Nicht ganz? Dann vielleicht das:", "payload": "/show_playground_questions"},
     ],
     [
-        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
-        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
-        {"title": "Praxisphase", "payload": "/praxisphase_info"},
-    ],
-    [
-        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
-        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
-    ],
-    [
-        {"title": "Erzähl mir was über Maik", "payload": "/origin_overview"},
-        {"title": "Praxisphase", "payload": "/praxisphase_info"},
-    ],
-    [
-        {"title": "Zeig mir das Projekt", "payload": "/project_chatbot"},
-        {"title": "Praxisphase", "payload": "/praxisphase_info"},
+        {"title": "Kaffee oder Tee?", "payload": "/playground_coffee_tea"},
+        {"title": "Bist du eher kreativ oder strukturiert?", "payload": "/playground_structure_creativity"},
+        {"title": "Fruehaufsteher oder Nachteule?", "payload": "/playground_early_bird"},
     ],
 ]
 # Order matters: more specific rewrites should stay above broader topic matches.
@@ -114,6 +85,7 @@ NORMALIZATION_RULES = [
         "payload": "/affirm",
         "match": MATCH_EXACT,
         "aliases": {
+            "ja",
             "jo",
             "jup",
             "jawohl",

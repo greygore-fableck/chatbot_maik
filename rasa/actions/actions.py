@@ -61,6 +61,39 @@ class ActionPersonNameOpinion(Action):
         return []
 
 
+class ActionSmartGreet(Action):
+    def name(self) -> Text:
+        return "action_smart_greet"
+
+    def _has_meaningful_history(self, tracker: Tracker) -> bool:
+        # Ignore session/bootstrap events and check whether the conversation
+        # already had at least one actual user turn before this greeting.
+        user_event_count = 0
+        for event in tracker.events:
+            if event.get("event") != "user":
+                continue
+
+            user_event_count += 1
+            if user_event_count >= 2:
+                return True
+
+        return False
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        response_name = (
+            "utter_re_greet"
+            if self._has_meaningful_history(tracker)
+            else "utter_greet"
+        )
+        dispatcher.utter_message(response=response_name)
+        return []
+
+
 class ActionSmartFallback(Action):
     ROUTES = [
         {

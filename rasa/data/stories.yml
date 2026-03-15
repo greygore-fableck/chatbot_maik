@@ -4,7 +4,7 @@ stories:
   - story: happy path (showcase)
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: action_smart_greet
       - intent: project_chatbot
       - action: utter_project_chatbot
       - intent: tech_impl

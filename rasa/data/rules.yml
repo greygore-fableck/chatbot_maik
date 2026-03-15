@@ -4,7 +4,7 @@ rules:
   - rule: greet
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: action_smart_greet
 
   - rule: start prompt
     steps:
@@ -45,6 +45,76 @@ rules:
     steps:
       - intent: application_details
       - action: utter_application_details
+
+  - rule: study details
+    steps:
+      - intent: study_details
+      - action: utter_study_details
+
+  - rule: study place
+    steps:
+      - intent: study_place
+      - action: utter_study_place
+
+  - rule: study progress
+    steps:
+      - intent: study_progress
+      - action: utter_study_progress
+
+  - rule: tech skills
+    steps:
+      - intent: tech_skills
+      - action: utter_tech_skills
+
+  - rule: llm question
+    steps:
+      - intent: llm_question
+      - action: utter_llm_question
+
+  - rule: modular chatbots
+    steps:
+      - intent: modular_chatbots
+      - action: utter_modular_chatbots
+
+  - rule: scalability question
+    steps:
+      - intent: scalability_question
+      - action: utter_scalability_question
+
+  - rule: react experience
+    steps:
+      - intent: react_experience
+      - action: utter_react_experience
+
+  - rule: ai experience
+    steps:
+      - intent: ai_experience
+      - action: utter_ai_experience
+
+  - rule: python experience
+    steps:
+      - intent: python_experience
+      - action: utter_python_experience
+
+  - rule: weather out of scope
+    steps:
+      - intent: weather_out_of_scope
+      - action: utter_weather_out_of_scope
+
+  - rule: open followup
+    steps:
+      - intent: open_followup
+      - action: utter_open_followup
+
+  - rule: meta test
+    steps:
+      - intent: meta_test
+      - action: utter_meta_test
+
+  - rule: why you
+    steps:
+      - intent: why_you
+      - action: utter_why_you
 
   - rule: links portfolio
     steps:

@@ -422,6 +422,51 @@
         return card;
       };
 
+      const buildStudyStatusCard = (status) => {
+        if (!status || !Array.isArray(status.items) || status.items.length === 0) return null;
+        const card = document.createElement("div");
+        card.className = "chat-status-card";
+
+        const heading = document.createElement("div");
+        heading.className = "chat-status-heading";
+        heading.textContent = status.title || "Status";
+        card.appendChild(heading);
+
+        status.items.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "chat-status-row";
+
+          const label = document.createElement("span");
+          label.className = "chat-status-label";
+          label.textContent = item.label || "Punkt";
+
+          const value = document.createElement("span");
+          value.className = "chat-status-value";
+          value.textContent = item.value || "";
+          if (
+            typeof item.value === "string" &&
+            ["genug gesammelt", "gestartet"].includes(item.value.trim().toLowerCase())
+          ) {
+            value.classList.add("is-positive");
+          }
+          if (typeof item.value === "string" && item.value.trim().toLowerCase() === "startet demnächst") {
+            value.classList.add("is-loading");
+          }
+
+          row.append(label, value);
+          card.appendChild(row);
+        });
+
+        if (status.note) {
+          const note = document.createElement("div");
+          note.className = "chat-status-note";
+          note.textContent = status.note;
+          card.appendChild(note);
+        }
+
+        return card;
+      };
+
       const toggleBadgeHint = (badge, message) => {
         const parent = badge.parentElement;
         if (!parent) return;
@@ -530,6 +575,10 @@
         const coffeeStatsCard = buildCoffeeStatsCard(custom?.coffee_stats);
         if (coffeeStatsCard) {
           bubble.appendChild(coffeeStatsCard);
+        }
+        const studyStatusCard = buildStudyStatusCard(custom?.study_status);
+        if (studyStatusCard) {
+          bubble.appendChild(studyStatusCard);
         }
         if (Array.isArray(buttons) && buttons.length > 0) {
           const buttonRow = document.createElement("div");
@@ -1197,7 +1246,19 @@
                 const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
                 const hasCoffeeStats =
                   Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
-                if (hasText || hasButtons || hasCoffeeStats) {
+                const hasStudyStatus =
+                  Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                if (hasStudyStatus && !hasText) {
+                  const statusLoading = showTypingIndicator("Statusbericht laden ...");
+                  chatStatus.textContent = "Statusbericht laden ...";
+                  window.setTimeout(() => {
+                    removeTypingIndicator(statusLoading);
+                    appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
+                    chatStatus.textContent = "";
+                  }, 2800);
+                  return;
+                }
+                if (hasText || hasButtons || hasCoffeeStats || hasStudyStatus) {
                   appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });
@@ -1259,7 +1320,21 @@
                 if (suppressBotReply) return;
                 const hasText = typeof msg.text === "string" && msg.text.trim() !== "";
                 const hasButtons = Array.isArray(msg.buttons) && msg.buttons.length > 0;
-                if (hasText || hasButtons) {
+                const hasCoffeeStats =
+                  Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
+                const hasStudyStatus =
+                  Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                if (hasStudyStatus && !hasText) {
+                  const statusLoading = showTypingIndicator("Statusbericht laden ...");
+                  chatStatus.textContent = "Statusbericht laden ...";
+                  window.setTimeout(() => {
+                    removeTypingIndicator(statusLoading);
+                    appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
+                    chatStatus.textContent = "";
+                  }, 2800);
+                  return;
+                }
+                if (hasText || hasButtons || hasCoffeeStats || hasStudyStatus) {
                   appendMessage("Assistent", msg.text || "", "bot", msg.buttons || [], msg.custom || null);
                 }
               });
@@ -1290,11 +1365,11 @@
         }
       };
 
-      const showTypingIndicator = () => {
+      const showTypingIndicator = (label = "Assistent tippt...") => {
         const wrapper = appendMessage("Assistent", "", "typing");
         const bubble = wrapper.querySelector(".chat-bubble");
         const text = document.createElement("span");
-        text.textContent = "Assistent tippt...";
+        text.textContent = label;
         const dots = document.createElement("span");
         dots.className = "typing-dots";
         for (let i = 0; i < 3; i += 1) {

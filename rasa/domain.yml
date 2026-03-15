@@ -22,6 +22,20 @@ intents:
   - contact_email
   - application_details
   - links_portfolio
+  - study_details
+  - study_place
+  - study_progress
+  - tech_skills
+  - llm_question
+  - modular_chatbots
+  - scalability_question
+  - react_experience
+  - ai_experience
+  - python_experience
+  - weather_out_of_scope
+  - open_followup
+  - meta_test
+  - why_you
 
   - smalltalk_how_are_you
   - smalltalk_day
@@ -96,8 +110,34 @@ responses:
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
+
+  utter_re_greet:
+    - text: "Hi! 👋"
+      buttons:
+        - title: "Was möchtest du wissen?"
+          payload: "/show_playground_questions"
+
+    - text: "Hallo! 🙂"
+      buttons:
+        - title: "Leg los"
+          payload: "/show_playground_questions"
+
+    - text: "Hey! 👋"
+      buttons:
+        - title: "Frag mich etwas"
+          payload: "/show_playground_questions"
+
+    - text: "Moin! 😄"
+      buttons:
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+    - text: "Hi 🙂"
+      buttons:
+        - title: "Womit kann ich helfen?"
+          payload: "/show_playground_questions"
 
     - text: |
         Oh, du bist neugierig. Gute Entscheidung. 👋
@@ -119,7 +159,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
     - text: |
@@ -142,7 +182,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
     - text: |
@@ -164,7 +204,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
     - text: |
@@ -186,7 +226,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Mehr zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
 
@@ -197,7 +237,7 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_thanks:
@@ -218,6 +258,28 @@ responses:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
 
+  utter_open_followup:
+    - text: |
+        Klar. Wo möchtest du tiefer rein?
+      buttons:
+        - title: "Zum Projekt"
+          payload: "/project_chatbot"
+        - title: "Über Maik"
+          payload: "/origin_overview"
+        - title: "Praxisphase"
+          payload: "/praxisphase_info"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_meta_test:
+    - text: |
+        Sieht so aus, als waere ich ansprechbar.
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
     - text: |
         Danke, dass du dir die Zeit für meine Seite genommen hast.
 
@@ -236,60 +298,68 @@ responses:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
 
+
+# --- Fallbacks ---
   utter_fallback:
-    - text: "Ich bin mir gerade nicht ganz sicher, was du genau meinst. Vielleicht hilft dir einer dieser Einstiege:"
+    - text: |
+          Das ist für mich nicht ganz eindeutig. 
+        
+          Wie wäre es damit?
       buttons:
-        - title: "Zeig mir das Projekt 🤖💬"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was über Maik"
-          payload: "/origin_overview"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+        - title: "Projektidee"
+          payload: "/project_goal"
+        - title: "Technische Umsetzung"
+          payload: "/tech_impl"
+        - title: "Zeig mir was anderes ..."
+          payload: "/show_playground_questions"
 
-    - text: "Das ist für mich nicht ganz eindeutig. Ich kann dir aber etwas über das Projekt, über mich oder über die Praxisphase zeigen."
+    - text: |
+          Ich bin mir nicht ganz sicher, worauf du hinauswillst. 
+        
+          Wenn du magst, steigen wir direkt bei einem der Kernthemen ein.
       buttons:
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was über Maik"
-          payload: "/origin_overview"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+        - title: "Projektidee"
+          payload: "/project_goal"
+        - title: "Werdegang"
+          payload: "/werdegang_overview"
+        - title: "Warum ein Chatbot?"
+          payload: "/project_why_chatbot"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
 
-    - text: "Ich bin mir nicht ganz sicher, worauf du hinauswillst. Wenn du magst, steigen wir direkt bei einem der Kernthemen ein."
+    - text: |
+        Moment … wolltest du vielleicht darauf hinaus?
       buttons:
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was über Maik"
-          payload: "/origin_overview"
-        - title: "Erzähl mir was zur Praxisphase"
+        - title: "Warum ein Chatbot?"
+          payload: "/project_why_chatbot"
+        - title: "Praxisphase"
           payload: "/praxisphase_info"
+        - title: "Ne auch nicht ..."
+          payload: "/show_playground_questions"
 
-    - text: "Darauf habe ich gerade noch keine gute Antwort. Ich kann dir aber gern einen sinnvollen Einstieg anbieten."
+    - text: |
+        Sekunde. Vielleicht ist einer dieser Wege gerade einfacher.
       buttons:
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was über Maik"
-          payload: "/origin_overview"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+        - title: "Kaffee oder Tee?"
+          payload: "/playground_coffee_tea"
+        - title: "Bist du eher kreativ oder strukturiert??"
+          payload: "/playground_structure_creativity"
+        - title: "Zeig mir mehr Vorschläge ..."
+          payload: "/show_playground_questions"
 
-    - text: "Mhh. Ich bin mir gerade nicht ganz sicher, wie ich darauf antworten soll. Aber wir können gern bei einem dieser Themen weitermachen:"
-      buttons:
-        - title: "Zeig mir das Projekt"
-          payload: "/project_chatbot"
-        - title: "Erzähl mir was über Maik"
-          payload: "/origin_overview"
-        - title: "Erzähl mir was zur Praxisphase"
-          payload: "/praxisphase_info"
+
+
+
+
 
   # --- Projekt ---
   utter_project_chatbot:
     - text: |
-        Aktuell arbeite ich an diesem Projekt hier:
-        Der Chatbot ersetzt die klassische Navigation
-        und führt dialogisch durch die Inhalte.
+        Aktuell arbeite ich an diesem Projekt.
+        Der Bot ist als Alternative zu einer klassischen Navigation gedacht.
+        
         Hier bekommst du einen Einblick,
-        wie das Projekt gedacht ist.
+        wie das Ganze gedacht ist.
       custom:
         stage: "chatbot_overview"
         followups:
@@ -304,7 +374,7 @@ responses:
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
     - text: |
-        Hier übernimmt der Chatbot die Navigation und führt Schritt für Schritt durch die Inhalte.
+        Der Bot stellt eine Alternative Navigation da und führt Schritt für Schritt durch die Inhalte.
         Die zugehörigen Informationen erscheinen dabei direkt auf der Hauptseite.
       custom:
         stage: "chatbot_overview"
@@ -332,7 +402,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
     - text: "Technisch: Python + Rasa, bewusst reduziert und stabil gehalten."
       custom:
@@ -343,7 +413,7 @@ responses:
             buttons:
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
               - title: "Erzähl mir was zur Praxisphase 📌"
                 payload: "/praxisphase_info"
@@ -377,7 +447,7 @@ responses:
                 payload: "/project_chatbot"
 
   utter_werdegang_overview:
-    - text: "Kurz zu meinem Werdegang: Gestaltung 🎨 → mehr technische Tiefe → Medieninformatik ⚙️, mit Fokus auf interaktive Systeme und konzeptionelles Arbeiten."
+    - text: "Kurz zu meinem Werdegang: Gestaltung 🎨 → mehr technische Tiefe → Medieninformatik ⚙️"
       custom:
         stage: "werdegang"
         followups:
@@ -435,9 +505,181 @@ responses:
         - title: "Kontakt per E-Mail"
           payload: "/contact_email"
 
+  utter_study_details:
+    - text: |
+        Ich studiere Medieninformatik und stehe gerade kurz vor dem Abschluss.
+        
+        Inhaltlich reizt mich daran vor allem die Verbindung aus Gestaltung, Interaktion und technischer Umsetzung.
+      buttons:
+        - title: "Wo studierst du?"
+          payload: "/study_place"
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_study_place:
+    - text: |
+        Ich studiere an der Westfaelischen Hochschule in Gelsenkirchen.
+        
+        Dort bin ich inzwischen auf der Zielgeraden Richtung Abschluss unterwegs.
+      buttons:
+        - title: "Was studierst du genau?"
+          payload: "/study_details"
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_study_progress:
+    - custom:
+        study_status:
+          title: "Statusbericht"
+          items:
+            - label: "Semester"
+              value: "genug gesammelt"
+            - label: "Bachelorarbeit"
+              value: "gestartet"
+            - label: "Praxisphase"
+              value: "startet demnächst"
+        followups:
+          - delay: 6200
+            text: "Semester wurden genug gesammelt. Nun wird es Zeit fuer den naechsten Schritt."
+            buttons:
+              - title: "Praxisphase"
+                payload: "/praxisphase_info"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
+
+  utter_tech_skills:
+    - text: |
+        Bisher vor allem: Gestaltung, HTML, CSS und ein wenig Python.
+        
+        Dazu kommt hier im Projekt noch Rasa als technischer Baustein.
+      buttons:
+        - title: "Welche Technologien nutzt du hier?"
+          payload: "/project_tech"
+        - title: "Hast du schon mit Python gearbeitet?"
+          payload: "/python_experience"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_llm_question:
+    - text: |
+        Nein, das hier ist bewusst kein LLM-Setup.
+        
+        Das Projekt soll überschaubar, nachvollziehbar und modular bleiben — gerade deshalb ist der Bot hier eher schlank aufgebaut.
+      buttons:
+        - title: "Wie funktioniert der Bot?"
+          payload: "/tech_impl"
+        - title: "Was sind modulare Chatbots?"
+          payload: "/modular_chatbots"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+    - text: |
+        Maik mit AI. Klar — hier und da wurde künstliche Intelligenz beim Denken, Formulieren oder Feinschliff schon mal mit an den Tisch geholt.
+        
+        Aber der Bot selbst hier ist bewusst kein ChatGPT-Wrapper, sondern klein, nachvollziehbar und modular gebaut.
+      buttons:
+        - title: "Wie funktioniert der Bot?"
+          payload: "/tech_impl"
+        - title: "Welche Technologien nutzt du hier?"
+          payload: "/project_tech"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_modular_chatbots:
+    - text: |
+        Modular heisst für mich: Ein Chatbot muss nicht immer das eine grosse System sein.
+        
+        Man kann ihn auch gezielt für einen klaren Kontext bauen, einzelne Teile sauber trennen und später sinnvoll erweitern.
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Zeig mir die Architektur 🧭"
+          payload: "/system_architecture"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_scalability_question:
+    - text: |
+        Dieses Projekt ist bewusst klein und kontextbezogen gehalten.
+        
+        Klar könnte man immer mehr Features einbauen — aber irgendwann wird es eher Spielerei als wirklich nützlich.
+      buttons:
+        - title: "Zeig mir die Architektur 🧭"
+          payload: "/system_architecture"
+        - title: "Was wuerdest du noch verbessern?"
+          payload: "/project_improve"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_react_experience:
+    - text: |
+        Mit React habe ich bisher noch keine wirkliche Projekterfahrung.
+        
+        Ich hätte aber auf jeden Fall Lust, mich da tiefer einzuarbeiten, wenn es im Kontext Sinn ergibt.
+      buttons:
+        - title: "Welche Technologien kannst du?"
+          payload: "/tech_skills"
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_ai_experience:
+    - text: |
+        Bisher vor allem privat und über eigene Projekte.
+        
+        Mich reizt an KI weniger das Buzzword und mehr die Frage, wie man daraus etwas Sinnvolles und Nutzbares baut.
+      buttons:
+        - title: "Warum interessiert dich KI?"
+          payload: "/person_motivation"
+        - title: "Was lernst du gerade?"
+          payload: "/current_status"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_python_experience:
+    - text: |
+        Ja, ein wenig — bisher eher aus eigenen Projekten heraus.
+        
+        Django fand ich dabei zum Beispiel ziemlich spannend.
+      buttons:
+        - title: "Welche Technologien kannst du?"
+          payload: "/tech_skills"
+        - title: "Wie ist der Bot gebaut?"
+          payload: "/project_tech"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_weather_out_of_scope:
+    - text: |
+        Das Wetter lasse ich lieber den echten Wetter-Apps.
+        
+        Wenn du magst, bleibe ich lieber bei Dingen, bei denen ich etwas mehr Substanz mitbringe.
+      buttons:
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_why_you:
+    - text: |
+        Naja, ganz platt gesagt: Wer so eine Seite baut, bringt vermutlich keine ganz schlechte Mischung aus Neugier, Eigeninitiative und Umsetzungsdrang mit.
+      buttons:
+        - title: "Erzähl mir was über Maik"
+          payload: "/origin_overview"
+        - title: "Erzähl mir was zur Praxisphase 📌"
+          payload: "/praxisphase_info"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
   utter_links_portfolio:
     - text: |
-        Diese Seite ist die direkte Live-Demo des Projekts.
+        Diese Seite dient als direkt Live-Demo.
         Für weitere Unterlagen können wir gerne direkt per Mail weitermachen.
       buttons:
         - title: "Kontakt per E-Mail"
@@ -453,7 +695,7 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_smalltalk_day:
@@ -463,7 +705,7 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_smalltalk_who_are_you:
@@ -473,7 +715,7 @@ responses:
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_age:
@@ -501,7 +743,7 @@ responses:
           payload: "/project_chatbot"
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_smalltalk_humor:
@@ -524,7 +766,7 @@ responses:
                 payload: "/contact_email"
               - title: "Erzähl mir was zur Praxisphase"
                 payload: "/praxisphase_info"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
   utter_smalltalk_time_meta:
@@ -534,7 +776,7 @@ responses:
       buttons:
         - title: "Kennst du einen guten Witz?"
           payload: "/smalltalk_humor"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_smalltalk_why_so:
@@ -542,7 +784,7 @@ responses:
       custom:
         idle_followup: true
       buttons:
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
@@ -573,7 +815,7 @@ responses:
     - text: ""
       custom:
         coffee_stats:
-          title: "Aktueller Stand der Woche"
+          title: "Aktueller Verbrauch"
           items:
             - label: "Kaffee"
               value: 6.2
@@ -590,14 +832,14 @@ responses:
                 payload: "/origin_overview"
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
   utter_playground_pick_tea:
     - text: ""
       custom:
         coffee_stats:
-          title: "Aktueller Stand der Woche"
+          title: "Aktueller Verbrauch"
           items:
             - label: "Kaffee"
               value: 6.2
@@ -614,7 +856,7 @@ responses:
                 payload: "/origin_overview"
               - title: "Zeig mir das Projekt 🤖💬"
                 payload: "/project_chatbot"
-              - title: "Frag mich was:"
+              - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
   utter_playground_structure_creativity:
@@ -640,7 +882,9 @@ responses:
 
   # --- Projekt: FAQ ---
   utter_project_goal:
-    - text: "Ziel ist, die Idee einer dialogischen Navigation praktisch zu zeigen und daraus zugleich einen guten Einstieg in ein mögliches Kennenlernen zu machen."
+    - text: |
+        Ziel ist, die dialogische Navigation praktisch zu erleben 
+        und einen guten Einstieg in ein mögliches privates Gespräch zu machen."
       custom:
         idle_followup: true
       buttons:
@@ -648,11 +892,14 @@ responses:
           payload: "/project_why_chatbot"
         - title: "Nutzen im Unternehmen"
           payload: "/project_business_use"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_project_why_chatbot:
-    - text: "Weil der Bot hier nicht nur etwas erklärt, sondern die Idee direkt zeigt: Navigation und Gespräch fallen bewusst zusammen."
+    - text: |
+        Weil der Bot hier nicht nur etwas erklärt, sondern die Idee direkt zeigt: 
+        
+        Navigation und Gespräch fallen bewusst zusammen.
       custom:
         idle_followup: true
       buttons:
@@ -660,7 +907,7 @@ responses:
           payload: "/project_goal"
         - title: "Wie wäre das im Unternehmen?"
           payload: "/project_business_use"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_project_audience:
@@ -692,7 +939,7 @@ responses:
           payload: "/project_why_chatbot"
         - title: "Wie wäre das im Unternehmen?"
           payload: "/project_business_use"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_project_business_use:
@@ -704,7 +951,7 @@ responses:
           payload: "/project_unique"
         - title: "Zeig mir die Technik 🛠️"
           payload: "/tech_impl"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_project_where:
@@ -726,7 +973,7 @@ responses:
           payload: "/person_development"
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_project_duration:
@@ -756,7 +1003,7 @@ responses:
       buttons:
         - title: "Warum gerade ein Chatbot?"
           payload: "/project_why_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_sports:
@@ -770,7 +1017,9 @@ responses:
           payload: "/project_chatbot"
 
   utter_person_collab:
-    - text: "Ich bringe Struktur und Verlässlichkeit mit, denke aber oft auch noch einmal um die Ecke. Mich interessiert nicht nur, ob etwas funktioniert, sondern ob man es noch klarer, interessanter oder stimmiger lösen kann."
+    - text: |
+        Ich bringe gern Ideen ein und denke Dinge einen Schritt weiter. 
+        Mich interessiert nicht nur, ob etwas funktioniert – sondern ob man es auch besser lösen kann.
       custom:
         idle_followup: true
       buttons:
@@ -778,7 +1027,7 @@ responses:
           payload: "/praxisphase_info"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_next_step:
@@ -802,7 +1051,9 @@ responses:
           payload: "/person_motivation"
 
   utter_person_development:
-    - text: "Ich möchte vor allem die Verbindung aus Konzeption, UX und technischer Umsetzung weiter vertiefen. Gleichzeitig finde ich es spannend, an aktuellen Themen zu arbeiten und mich fachlich ständig weiterzuentwickeln."
+    - text: |
+        Ich möchte vor allem die Verbindung aus Konzeption, UX und technischer Umsetzung weiter vertiefen. 
+        Gleichzeitig finde ich es spannend, an aktuellen Themen zu arbeiten und mich fachlich ständig weiterzuentwickeln.
       custom:
         idle_followup: true
       buttons:
@@ -810,7 +1061,7 @@ responses:
           payload: "/person_motivation"
         - title: "Erzähl mir was zur Praxisphase 📌"
           payload: "/praxisphase_info"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_unwind:
@@ -822,7 +1073,7 @@ responses:
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_outside_work:
@@ -834,7 +1085,7 @@ responses:
           payload: "/origin_overview"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_person_records_followup:
@@ -846,7 +1097,7 @@ responses:
           payload: "/contact_email"
         - title: "Erzähl mir was zur Praxisphase"
           payload: "/praxisphase_info"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   # --- Erfahrung / Status ---
@@ -889,7 +1140,7 @@ responses:
           payload: "/praxisphase_info"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
-        - title: "Frag mich was:"
+        - title: "Frag mich was ..."
           payload: "/show_playground_questions"
 
   utter_praxisphase_why_company:
@@ -931,6 +1182,7 @@ responses:
           payload: "/project_chatbot"
 
 actions:
+  - action_smart_greet
   - action_person_name_opinion
   - action_smart_fallback
 
