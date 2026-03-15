@@ -566,9 +566,9 @@ responses:
 
   utter_llm_question:
     - text: |
-        Nein, das hier ist bewusst kein LLM-Setup.
-        
-        Das Projekt soll überschaubar, nachvollziehbar und modular bleiben — gerade deshalb ist der Bot hier eher schlank aufgebaut.
+        Maik mit AI. Klar — ein paar KI-Tools durften beim Denken, Formulieren oder Feinschliff schon mit an den Tisch.
+
+        Der Bot selbst hier ist aber bewusst kein LLM-Setup, sondern klein, nachvollziehbar und modular gebaut.
       buttons:
         - title: "Wie funktioniert der Bot?"
           payload: "/tech_impl"
@@ -578,7 +578,7 @@ responses:
           payload: "/show_playground_questions"
     - text: |
         Maik mit AI. Klar — hier und da wurde künstliche Intelligenz beim Denken, Formulieren oder Feinschliff schon mal mit an den Tisch geholt.
-        
+
         Aber der Bot selbst hier ist bewusst kein ChatGPT-Wrapper, sondern klein, nachvollziehbar und modular gebaut.
       buttons:
         - title: "Wie funktioniert der Bot?"

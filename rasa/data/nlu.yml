@@ -87,6 +87,7 @@ nlu:
       - chatbot
       - chat bot
       - der chatbot
+      - bachelorarbeit
       - website
       - webseite
       - erzähl mir vom chatbot
@@ -133,6 +134,8 @@ nlu:
       - an welchem projekt arbeitest du
       - woran arbeitest du gerade für ein projekt
       - ist das hier dein aktuelles projekt
+      - hast du was cooles gebaut
+      - woran bastelst du gerade
 
   - intent: tech_impl
     examples: |
@@ -173,6 +176,11 @@ nlu:
       - maik
       - über maik
       - kurz zu maik
+      - kurz zu dir
+      - erzähl mal kurz von dir
+      - erzähl mal was über dich
+      - wer steckt dahinter
+      - wer bist du denn eigentlich
       - wer ist maik
       - wer ist maik eigentlich
       - ursprung von maik
@@ -446,6 +454,8 @@ nlu:
       - ich suche kontakt
       - wie bist du erreichbar
       - kontakt per mail
+      - wo kann man dich anschreiben
+      - wie erreicht man dich am besten
 
   - intent: application_details
     examples: |
@@ -454,12 +464,14 @@ nlu:
       - startdatum
       - verfügbarkeit
       - verfuegbarkeit
+      - bist du aktuell verfügbar
       - was suchst du genau
       - was suchst du aktuell genau
       - was für eine praxisphase suchst du
       - welche rolle suchst du
       - in welchem bereich suchst du eine praxisphase
       - ab wann wärst du verfügbar
+      - wann kannst du anfangen
       - wann könntest du starten
       - was stellst du dir für die praxisphase vor
       - was ist dir für die praxisphase wichtig
@@ -477,6 +489,7 @@ nlu:
       - kurz zum studium
       - studiengang
       - fach
+      - was studierst du denn so
       - was studierst du
       - was genau studierst du
       - was genau studierst du eigentlich
@@ -492,9 +505,13 @@ nlu:
       - welche uni
       - an welcher uni studierst du
       - hochschule
+      - westfälische hochschule
+      - gelsenkirchen
       - welche hochschule
       - an welcher hochschule studierst du
       - wo studierst du
+      - wo studierst du denn
+      - wo bist du eingeschrieben
       - wo bist du immatrikuliert
       - in welcher stadt studierst du
       - wo ist deine hochschule
@@ -510,6 +527,7 @@ nlu:
       - in welchem semester studierst du jetzt
       - welches semester studierst du
       - wie lange studierst du schon
+      - warum studierst du schon so lange
       - wie weit bist du im studium
       - wie weit bist du inzwischen
       - bist du bald fertig
@@ -518,13 +536,26 @@ nlu:
   - intent: tech_skills
     examples: |
       - skills
+      - skills?
+      - skillset
+      - deine skills
+      - dein skillset
+      - tech?
       - tech skills
       - fähigkeiten
+      - fähigkeiten?
       - faehigkeiten
+      - faehigkeiten?
       - technologien
+      - technologien?
       - welche technologien kannst du
       - welche programmiersprachen kannst du
       - was kannst du technisch
+      - was kannst du so
+      - womit arbeitest du
+      - was programmierst du
+      - womit baust du deine sachen
+      - welche technologien nutzt du so
       - welche technischen skills hast du
       - womit kennst du dich aus
       - welche sprachen kannst du
@@ -536,6 +567,7 @@ nlu:
       - llm
       - chatgpt
       - gpt
+      - läuft das mit ai im hintergrund
       - ist das ein llm
       - ist das hier ein llm
       - nutzt du ein llm
@@ -554,6 +586,7 @@ nlu:
     examples: |
       - modular
       - modulare chatbots
+      - was hat es mit modularen chatbots auf sich
       - was sind modulare chatbots
       - was sind moulare chatbots
       - was ist ein modularer chatbot
@@ -586,6 +619,8 @@ nlu:
     examples: |
       - ki
       - ai
+      - machst du auch ki
+      - hast du schon mit ai gearbeitet
       - hast du schon erfahrung mit ki
       - hast du erfahrung mit ki
       - hast du schon mit ki gearbeitet
@@ -596,6 +631,7 @@ nlu:
   - intent: python_experience
     examples: |
       - python
+      - arbeitest du mit python
       - hast du schon mit python gearbeitet
       - hast du erfahrung mit python
       - kennst du python
@@ -656,6 +692,7 @@ nlu:
       - warum du
       - warum sollten wir dich einstellen
       - warum sollten wir dich nehmen
+      - warum passt du ins team
       - warum sollte man dich einstellen
       - warum sollte man dich nehmen
       - warum bist du passend
@@ -749,6 +786,8 @@ nlu:
       - wofür bist du gedacht
       - wofuer bist du gedacht
       - welche fragen kannst du beantworten?
+      - worüber können wir reden
+      - was kannst du mir erzählen
 
   - intent: smalltalk_compliment
     examples: |
@@ -1085,6 +1124,9 @@ nlu:
       - status
       - aktuell
       - gerade
+      - was machst du aktuell
+      - was arbeitest du gerade
+      - dein aktueller job
       - was machst du gerade
       - was ist dein aktueller job
       - arbeitest du aktuell
@@ -1104,6 +1146,9 @@ nlu:
       - projekte
       - referenzen
       - projektbeispiele
+      - hast du eigene projekte
+      - kannst du projekte zeigen
+      - was hast du gebaut
       - welche projekte hast du gemacht
       - woran hast du gearbeitet
       - hast du praktische erfahrung
