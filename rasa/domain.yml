@@ -396,12 +396,12 @@ responses:
 
   # --- Technik ---
   utter_tech_impl:
-    - text: "Der Bot kombiniert intentbasierte Dialoglogik in Rasa mit einer Flask-Schnittstelle und einer eigenen Frontend-UI. Eingaben werden normalisiert, an den Bot uebergeben und die Antwort kann neben Text auch Buttons oder direkt passende Inhaltsseiten wie Technik und Architektur oeffnen."
+    - text: "Der Bot kombiniert intentbasierte Dialoglogik in Rasa mit einer Flask-Schnittstelle und einer eigenen Frontend-UI. Eingaben werden normalisiert, an den Bot übergeben und die Antwort kann neben Text auch Buttons oder direkt passende Inhaltsseiten wie Technik und Architektur öffnen."
       custom:
         stage: "tech_impl"
         followups:
           - delay: 16000
-            text: "Wenn du willst, kann ich dir als Naechstes die System-Architektur oder direkt das Projekt dahinter zeigen."
+            text: "Wenn du willst, kann ich dir als Nächstes die System-Architektur oder direkt das Projekt dahinter zeigen."
             buttons:
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
@@ -409,7 +409,7 @@ responses:
                 payload: "/project_chatbot"
               - title: "Was kannst du technisch?"
                 payload: "/tech_skills"
-    - text: "Der Bot ist bewusst schlank gehalten: Rasa steuert die Dialoge, Flask verbindet Backend und Oberflaeche, und im Frontend werden Antworten, Buttons und Seitenzustaende direkt zusammengesetzt."
+    - text: "Der Bot ist bewusst schlank gehalten: Rasa steuert die Dialoge, Flask verbindet Backend und Oberfläche, und im Frontend werden Antworten, Buttons und Seitenzustände direkt zusammengesetzt."
       custom:
         stage: "tech_impl"
         followups:
@@ -576,7 +576,7 @@ responses:
     - text: |
         Technisch bewege ich mich vor allem zwischen Webentwicklung, Python und dialogischen Interfaces.
 
-        In diesem Projekt habe ich zum Beispiel die Bot-Logik mit Rasa und Python angebunden, die Kommunikation ueber Flask organisiert und die Oberflaeche so gebaut, dass Antworten, Buttons und passende Inhaltsseiten direkt zusammenspielen.
+        In diesem Projekt habe ich zum Beispiel die Bot-Logik mit Rasa und Python angebunden, die Kommunikation über Flask organisiert und die Oberfläche so gebaut, dass Antworten, Buttons und passende Inhaltsseiten direkt zusammenspielen.
       buttons:
         - title: "Zeig mir die technische Umsetzung 🛠️"
           payload: "/tech_impl"
@@ -586,7 +586,7 @@ responses:
           payload: "/system_architecture"
 
   utter_programming_languages:
-    - text: "Vor allem diese Sprachen und Technologien spielen bei mir aktuell die groesste Rolle:"
+    - text: "Vor allem diese Sprachen und Technologien spielen bei mir aktuell die größte Rolle:"
       custom:
         study_status:
           title: "Sprachen & Technologien"
@@ -603,7 +603,7 @@ responses:
               value: "Interaktionen im Frontend"
         followups:
           - delay: 5200
-            text: "Wenn du magst, kann ich dir als Naechstes zeigen, wie sich das hier im Projekt konkret wiederfindet."
+            text: "Wenn du magst, kann ich dir als Nächstes zeigen, wie sich das hier im Projekt konkret wiederfindet."
             buttons:
               - title: "Was kannst du technisch?"
                 payload: "/tech_skills"
@@ -1271,7 +1271,7 @@ responses:
     - text: |
         Weil ich die Praxisphase nutzen will, um den Schritt von eigenen Projekten in echte Team- und Produktarbeit zu machen.
 
-        Mich reizt besonders die Verbindung aus Konzeption, UX und technischer Umsetzung - und genau dafuer suche ich einen Kontext, in dem ich praktisch mitarbeiten und dazulernen kann.
+        Mich reizt besonders die Verbindung aus Konzeption, UX und technischer Umsetzung - und genau dafür suche ich einen Kontext, in dem ich praktisch mitarbeiten und dazulernen kann.
       custom:
         idle_followup: true
       buttons:
