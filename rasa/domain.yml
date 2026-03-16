@@ -27,6 +27,7 @@ intents:
   - study_place_followup
   - study_progress
   - tech_skills
+  - programming_languages
   - tech_stack_followup
   - llm_question
   - modular_chatbots
@@ -395,22 +396,20 @@ responses:
 
   # --- Technik ---
   utter_tech_impl:
-    - text: "Technisch ist der Bot schlank und zustandsbasiert aufgebaut (Rasa/Python). Der Fokus liegt auf Klarheit und wenigen Entscheidungen."
+    - text: "Der Bot kombiniert intentbasierte Dialoglogik in Rasa mit einer Flask-Schnittstelle und einer eigenen Frontend-UI. Eingaben werden normalisiert, an den Bot uebergeben und die Antwort kann neben Text auch Buttons oder direkt passende Inhaltsseiten wie Technik und Architektur oeffnen."
       custom:
         stage: "tech_impl"
         followups:
           - delay: 16000
-            text: "Soll ich dir kurz sagen, wofür das gedacht ist?"
+            text: "Wenn du willst, kann ich dir als Naechstes die System-Architektur oder direkt das Projekt dahinter zeigen."
             buttons:
-              - title: "Erzähl mir was zur Praxisphase 📌"
-                payload: "/praxisphase_info"
-              - title: "Erzähl mir kurz was über Maik"
-                payload: "/origin_overview"
               - title: "Zeig mir die Architektur 🧭"
                 payload: "/system_architecture"
-              - title: "Frag mich was ..."
-                payload: "/show_playground_questions"
-    - text: "Technisch: Python + Rasa, bewusst reduziert und stabil gehalten."
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Was kannst du technisch?"
+                payload: "/tech_skills"
+    - text: "Der Bot ist bewusst schlank gehalten: Rasa steuert die Dialoge, Flask verbindet Backend und Oberflaeche, und im Frontend werden Antworten, Buttons und Seitenzustaende direkt zusammengesetzt."
       custom:
         stage: "tech_impl"
         followups:
@@ -513,12 +512,12 @@ responses:
 
   utter_study_details:
     - text: |
-        Ich studiere Medieninformatik und stehe gerade kurz vor dem Abschluss.
+        Ich studiere Medieninformatik an der Westfälischen Hochschule in Gelsenkirchen und stehe gerade kurz vor dem Abschluss.
         
         Inhaltlich reizt mich daran vor allem die Verbindung aus Gestaltung, Interaktion und technischer Umsetzung.
       buttons:
-        - title: "Wo studierst du?"
-          payload: "/study_place"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
         - title: "Erzähl mir was über Maik"
           payload: "/origin_overview"
         - title: "Frag mich was ..."
@@ -575,16 +574,43 @@ responses:
 
   utter_tech_skills:
     - text: |
-        Bisher vor allem: Gestaltung, HTML, CSS, JavaScript und inzwischen auch Python.
+        Technisch bewege ich mich vor allem zwischen Webentwicklung, Python und dialogischen Interfaces.
 
-        Java kam im Studium dazu, und hier im Projekt ist Rasa noch ein technischer Baustein obendrauf.
+        In diesem Projekt habe ich zum Beispiel die Bot-Logik mit Rasa und Python angebunden, die Kommunikation ueber Flask organisiert und die Oberflaeche so gebaut, dass Antworten, Buttons und passende Inhaltsseiten direkt zusammenspielen.
       buttons:
-        - title: "Welche Technologien nutzt du hier?"
-          payload: "/project_tech"
-        - title: "Hast du schon mit Python gearbeitet?"
-          payload: "/python_experience"
-        - title: "Frag mich was ..."
-          payload: "/show_playground_questions"
+        - title: "Zeig mir die technische Umsetzung 🛠️"
+          payload: "/tech_impl"
+        - title: "Welche Programmiersprachen kannst du?"
+          payload: "/programming_languages"
+        - title: "Zeig mir die Architektur 🧭"
+          payload: "/system_architecture"
+
+  utter_programming_languages:
+    - text: "Vor allem diese Sprachen und Technologien spielen bei mir aktuell die groesste Rolle:"
+      custom:
+        study_status:
+          title: "Sprachen & Technologien"
+          items:
+            - label: "Python"
+              value: "Bot-Logik, Backend, Experimente"
+            - label: "Java"
+              value: "solide Basis aus dem Studium"
+            - label: "HTML"
+              value: "lange Praxis im Web-Kontext"
+            - label: "CSS"
+              value: "UI, Layout, Feinschliff"
+            - label: "JavaScript"
+              value: "Interaktionen im Frontend"
+        followups:
+          - delay: 5200
+            text: "Wenn du magst, kann ich dir als Naechstes zeigen, wie sich das hier im Projekt konkret wiederfindet."
+            buttons:
+              - title: "Was kannst du technisch?"
+                payload: "/tech_skills"
+              - title: "Zeig mir die technische Umsetzung 🛠️"
+                payload: "/tech_impl"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
 
   utter_tech_stack_followup:
     - text: |
@@ -1242,7 +1268,10 @@ responses:
           payload: "/show_playground_questions"
 
   utter_praxisphase_why_company:
-    - text: "Weil ich in einem echten Team lernen will, wie gute digitale Produkte entstehen."
+    - text: |
+        Weil ich die Praxisphase nutzen will, um den Schritt von eigenen Projekten in echte Team- und Produktarbeit zu machen.
+
+        Mich reizt besonders die Verbindung aus Konzeption, UX und technischer Umsetzung - und genau dafuer suche ich einen Kontext, in dem ich praktisch mitarbeiten und dazulernen kann.
       custom:
         idle_followup: true
       buttons:
@@ -1250,6 +1279,8 @@ responses:
           payload: "/praxisphase_info"
         - title: "Zeig mir das Projekt"
           payload: "/project_chatbot"
+        - title: "Zeig mir die Technik 🛠️"
+          payload: "/tech_impl"
 
   utter_meta_privacy:
     - text: "Datenschutz: Ich halte die Interaktion so schlank wie möglich — ohne unnötige Datensammelei. Wenn du willst, kann ich dir den Umgang kurz erklären."

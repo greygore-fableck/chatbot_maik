@@ -71,6 +71,11 @@ rules:
       - intent: tech_skills
       - action: utter_tech_skills
 
+  - rule: programming languages
+    steps:
+      - intent: programming_languages
+      - action: utter_programming_languages
+
   - rule: tech stack followup
     steps:
       - intent: tech_stack_followup

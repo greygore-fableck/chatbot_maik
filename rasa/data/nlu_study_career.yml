@@ -184,19 +184,29 @@ nlu:
       - technologien
       - technologien?
       - welche technologien kannst du
-      - welche programmiersprachen kannst du
       - was kannst du technisch
       - was kannst du so
-      - was kannst du programmieren
       - womit arbeitest du
-      - was programmierst du
       - womit baust du deine sachen
       - welche technologien nutzt du so
       - welche technischen skills hast du
       - womit kennst du dich aus
-      - welche sprachen kannst du
       - was kannst du an technologien
       - kennst du dich mit webtechnologien aus
+      - was kannst du technisch eigentlich hier
+      - was ist dein technischer schwerpunkt
+      - was hast du technisch umgesetzt
+
+  - intent: programming_languages
+    examples: |
+      - welche programmiersprachen kannst du
+      - welche sprachen kannst du
+      - was kannst du programmieren
+      - welche programmiersprache kannst du
+      - welche programmiersprachen beherrschst du
+      - mit welchen sprachen arbeitest du
+      - welche coding sprachen kannst du
+      - womit programmierst du
 
   - intent: tech_stack_followup
     examples: |
@@ -423,3 +433,6 @@ nlu:
       - warum genau wir
       - was findest du an unserer firma spannend
       - warum möchtest du ausgerechnet hier hin
+      - warum diese bewerbung
+      - warum bewirbst du dich auf diese stelle
+      - warum diese praxisphase

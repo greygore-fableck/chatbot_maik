@@ -234,6 +234,57 @@ NORMALIZATION_RULES = [
     },
     # General capability and topic entry points.
     {
+        "payload": "/study_details",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was studierst du",
+            "was studierst du genau",
+            "welchen studiengang studierst du",
+            "was ist dein studiengang",
+        },
+    },
+    {
+        "payload": "/tech_skills",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "was kannst du technisch",
+            "was hast du technisch umgesetzt",
+            "was ist dein technischer schwerpunkt",
+            "welche technischen skills hast du",
+        },
+    },
+    {
+        "payload": "/programming_languages",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "welche programmiersprachen kannst du",
+            "welche programmiersprache kannst du",
+            "welche sprachen kannst du",
+            "mit welchen sprachen arbeitest du",
+        },
+    },
+    {
+        "payload": "/tech_impl",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "wie funktioniert der bot",
+            "wie funktioniert dein bot",
+            "wie laeuft der bot technisch",
+            "wie läuft der bot technisch",
+            "wie arbeitet der bot",
+        },
+    },
+    {
+        "payload": "/praxisphase_why_company",
+        "match": MATCH_CONTAINS,
+        "aliases": {
+            "warum diese bewerbung",
+            "warum bewirbst du dich hier",
+            "warum diese praxisphase",
+            "warum diese stelle",
+        },
+    },
+    {
         "payload": "/smalltalk_what_can_you_do",
         "match": MATCH_CONTAINS,
         "aliases": {
