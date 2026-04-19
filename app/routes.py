@@ -6,6 +6,7 @@ import random
 import re
 import requests
 
+from .company_context import build_company_context_response
 from .services.rasa_client import send_message
 
 bp = Blueprint("routes", __name__)
@@ -855,6 +856,10 @@ def webhook():
     direct_person_name_opinion = build_person_name_opinion_response(message)
     if direct_person_name_opinion is not None:
         return jsonify(direct_person_name_opinion)
+
+    company_context_response = build_company_context_response(message)
+    if company_context_response is not None:
+        return jsonify(company_context_response)
 
     normalized_message = normalize_user_message(message)
     if normalized_message == BOOK_RECOMMENDATION_PROMPT_PAYLOAD:

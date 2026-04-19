@@ -396,11 +396,24 @@ responses:
 
   # --- Technik ---
   utter_tech_impl:
-    - text: "Der Bot kombiniert intentbasierte Dialoglogik in Rasa mit einer Flask-Schnittstelle und einer eigenen Frontend-UI. Eingaben werden normalisiert, an den Bot übergeben und die Antwort kann neben Text auch Buttons oder direkt passende Inhaltsseiten wie Technik und Architektur öffnen."
+    - text: "So läuft der Bot hier durch das System:"
       custom:
         stage: "tech_impl"
+        bot_flow:
+          title: "Bot-Ablauf"
+          steps:
+            - label: "Frage"
+              hint: "Hier startet die Eingabe im Chat."
+            - label: "Normalisierung"
+              hint: "Häufige Formulierungen werden vorab passend umgeleitet."
+            - label: "Intent"
+              hint: "Rasa erkennt, worauf die Frage hinauswill."
+            - label: "Antwort"
+              hint: "Das System wählt Text, Buttons oder Zusatzlogik aus."
+            - label: "Anzeige"
+              hint: "Die Antwort erscheint direkt im Chat oder öffnet passenden Inhalt."
         followups:
-          - delay: 16000
+          - delay: 7200
             text: "Wenn du willst, kann ich dir als Nächstes die System-Architektur oder direkt das Projekt dahinter zeigen."
             buttons:
               - title: "Zeig mir die Architektur 🧭"
@@ -409,11 +422,24 @@ responses:
                 payload: "/project_chatbot"
               - title: "Was kannst du technisch?"
                 payload: "/tech_skills"
-    - text: "Der Bot ist bewusst schlank gehalten: Rasa steuert die Dialoge, Flask verbindet Backend und Oberfläche, und im Frontend werden Antworten, Buttons und Seitenzustände direkt zusammengesetzt."
+    - text: "Kurz gesagt: Frage rein, Thema erkennen, passende Antwort oder Ansicht ausgeben."
       custom:
         stage: "tech_impl"
+        bot_flow:
+          title: "Bot-Ablauf"
+          steps:
+            - label: "Frage"
+              hint: "Hier startet die Eingabe im Chat."
+            - label: "Normalisierung"
+              hint: "Häufige Formulierungen werden vorab passend umgeleitet."
+            - label: "Intent"
+              hint: "Rasa erkennt, worauf die Frage hinauswill."
+            - label: "Antwort"
+              hint: "Das System wählt Text, Buttons oder Zusatzlogik aus."
+            - label: "Anzeige"
+              hint: "Die Antwort erscheint direkt im Chat oder öffnet passenden Inhalt."
         followups:
-          - delay: 14000
+          - delay: 6800
             text: "Soll ich dir die System-Architektur zeigen?"
             buttons:
               - title: "Zeig mir die Architektur 🧭"
@@ -513,8 +539,7 @@ responses:
   utter_study_details:
     - text: |
         Ich studiere Medieninformatik an der Westfälischen Hochschule in Gelsenkirchen und stehe gerade kurz vor dem Abschluss.
-        
-        Inhaltlich reizt mich daran vor allem die Verbindung aus Gestaltung, Interaktion und technischer Umsetzung.
+
       buttons:
         - title: "Zeig mir das Projekt 🤖💬"
           payload: "/project_chatbot"
@@ -576,7 +601,9 @@ responses:
     - text: |
         Technisch bewege ich mich vor allem zwischen Webentwicklung, Python und dialogischen Interfaces.
 
-        In diesem Projekt habe ich zum Beispiel die Bot-Logik mit Rasa und Python angebunden, die Kommunikation über Flask organisiert und die Oberfläche so gebaut, dass Antworten, Buttons und passende Inhaltsseiten direkt zusammenspielen.
+        In diesem Projekt habe ich zum Beispiel die Bot-Logik mit Rasa und Python angebunden, 
+        die Kommunikation über Flask organisiert und die Oberfläche so gebaut, dass Antworten, 
+        Buttons und passende Inhaltsseiten direkt zusammenspielen.
       buttons:
         - title: "Zeig mir die technische Umsetzung 🛠️"
           payload: "/tech_impl"
@@ -586,13 +613,13 @@ responses:
           payload: "/system_architecture"
 
   utter_programming_languages:
-    - text: "Vor allem diese Sprachen und Technologien spielen bei mir aktuell die größte Rolle:"
+    - text: "Diese Sprachen und Technologien spielen bei mir aktuell die größte Rolle:"
       custom:
         study_status:
           title: "Sprachen & Technologien"
           items:
             - label: "Python"
-              value: "Bot-Logik, Backend, Experimente"
+              value: "Bot-Logik, Backend"
             - label: "Java"
               value: "solide Basis aus dem Studium"
             - label: "HTML"
@@ -629,7 +656,6 @@ responses:
     - text: |
         Maik mit AI. Klar — ein paar KI-Tools durften beim Denken, Formulieren oder Feinschliff schon mit an den Tisch.
 
-        Der Bot selbst hier ist aber bewusst kein LLM-Setup, sondern klein, nachvollziehbar und modular gebaut.
       buttons:
         - title: "Wie funktioniert der Bot?"
           payload: "/tech_impl"
@@ -639,8 +665,6 @@ responses:
           payload: "/show_playground_questions"
     - text: |
         Maik mit AI. Klar — hier und da wurde künstliche Intelligenz beim Denken, Formulieren oder Feinschliff schon mal mit an den Tisch geholt.
-
-        Aber der Bot selbst hier ist bewusst kein ChatGPT-Wrapper, sondern klein, nachvollziehbar und modular gebaut.
       buttons:
         - title: "Wie funktioniert der Bot?"
           payload: "/tech_impl"

@@ -467,6 +467,52 @@
         return card;
       };
 
+      const buildBotFlowCard = (flow) => {
+        if (!flow || !Array.isArray(flow.steps) || flow.steps.length === 0) return null;
+        const card = document.createElement("div");
+        card.className = "chat-flow-card";
+
+        const heading = document.createElement("div");
+        heading.className = "chat-flow-heading";
+        heading.textContent = flow.title || "Ablauf";
+        card.appendChild(heading);
+
+        const steps = document.createElement("div");
+        steps.className = "chat-flow-steps";
+
+        flow.steps.forEach((step, index) => {
+          const item = document.createElement("button");
+          item.type = "button";
+          item.className = "chat-flow-step";
+          if (index === 0) {
+            item.classList.add("is-entry");
+          } else {
+            item.classList.add("is-system");
+          }
+          item.textContent = step.label || `Schritt ${index + 1}`;
+          if (typeof step.hint === "string" && step.hint.trim() !== "") {
+            item.dataset.inlineHintBadge = "true";
+            item.dataset.inlineHint = step.hint;
+            item.dataset.inlineHintLabel = `${step.label || `Schritt ${index + 1}`} erklären`;
+            attachInlineHintBadge(item, step.hint);
+          } else {
+            item.disabled = true;
+          }
+          steps.appendChild(item);
+
+          if (index < flow.steps.length - 1) {
+            const connector = document.createElement("span");
+            connector.className = "chat-flow-connector";
+            connector.textContent = "→";
+            connector.setAttribute("aria-hidden", "true");
+            steps.appendChild(connector);
+          }
+        });
+
+        card.appendChild(steps);
+        return card;
+      };
+
       const buildBookSpotlight = (book) => {
         if (!book || (!book.title && !book.subtitle)) return null;
         const card = document.createElement("div");
@@ -615,12 +661,24 @@
         const parent = badge.parentElement;
         if (!parent) return;
 
+        document.querySelectorAll(".has-inline-hint[aria-expanded='true']").forEach((openBadge) => {
+          if (openBadge === badge) return;
+          const openHint = openBadge.querySelector(".chat-inline-hint");
+          openBadge.setAttribute("aria-expanded", "false");
+          openBadge.classList.remove("is-hint-open");
+          if (openHint) {
+            openHint.classList.remove("is-visible");
+            window.setTimeout(() => openHint.remove(), 180);
+          }
+        });
+
         const existingHint = badge.querySelector(".chat-inline-hint");
         const isExpanded = badge.getAttribute("aria-expanded") === "true";
 
         if (existingHint && isExpanded) {
           existingHint.classList.remove("is-visible");
           badge.setAttribute("aria-expanded", "false");
+          badge.classList.remove("is-hint-open");
           window.setTimeout(() => existingHint.remove(), 180);
           return;
         }
@@ -634,6 +692,7 @@
         hint.textContent = message;
         badge.appendChild(hint);
         badge.setAttribute("aria-expanded", "true");
+        badge.classList.add("is-hint-open");
 
         window.setTimeout(() => {
           hint.classList.add("is-visible");
@@ -723,6 +782,10 @@
         const studyStatusCard = buildStudyStatusCard(custom?.study_status);
         if (studyStatusCard) {
           bubble.appendChild(studyStatusCard);
+        }
+        const botFlowCard = buildBotFlowCard(custom?.bot_flow);
+        if (botFlowCard) {
+          bubble.appendChild(botFlowCard);
         }
         const bookSpotlight = buildBookSpotlight(custom?.book_spotlight);
         if (bookSpotlight) {
@@ -1404,6 +1467,7 @@
                   Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                const hasBotFlow = Array.isArray(msg.custom?.bot_flow?.steps) && msg.custom.bot_flow.steps.length > 0;
                 const hasBookSpotlight =
                   typeof msg.custom?.book_spotlight?.title === "string" ||
                   typeof msg.custom?.book_spotlight?.subtitle === "string";
@@ -1415,6 +1479,7 @@
                   !hasButtons &&
                   !hasCoffeeStats &&
                   !hasStudyStatus &&
+                  !hasBotFlow &&
                   !hasBookRecommendationInput &&
                   !hasBookRecommendationList;
                 if (onlyBookSpotlight && appendBookSpotlightToLastBotMessage(msg.custom?.book_spotlight)) {
@@ -1435,6 +1500,7 @@
                   hasButtons ||
                   hasCoffeeStats ||
                   hasStudyStatus ||
+                  hasBotFlow ||
                   hasBookSpotlight ||
                   hasBookRecommendationInput ||
                   hasBookRecommendationList
@@ -1504,6 +1570,7 @@
                   Array.isArray(msg.custom?.coffee_stats?.items) && msg.custom.coffee_stats.items.length > 0;
                 const hasStudyStatus =
                   Array.isArray(msg.custom?.study_status?.items) && msg.custom.study_status.items.length > 0;
+                const hasBotFlow = Array.isArray(msg.custom?.bot_flow?.steps) && msg.custom.bot_flow.steps.length > 0;
                 const hasBookSpotlight =
                   typeof msg.custom?.book_spotlight?.title === "string" ||
                   typeof msg.custom?.book_spotlight?.subtitle === "string";
@@ -1515,6 +1582,7 @@
                   !hasButtons &&
                   !hasCoffeeStats &&
                   !hasStudyStatus &&
+                  !hasBotFlow &&
                   !hasBookRecommendationInput &&
                   !hasBookRecommendationList;
                 if (onlyBookSpotlight && appendBookSpotlightToLastBotMessage(msg.custom?.book_spotlight)) {
@@ -1535,6 +1603,7 @@
                   hasButtons ||
                   hasCoffeeStats ||
                   hasStudyStatus ||
+                  hasBotFlow ||
                   hasBookSpotlight ||
                   hasBookRecommendationInput ||
                   hasBookRecommendationList
