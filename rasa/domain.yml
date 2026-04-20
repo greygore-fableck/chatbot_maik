@@ -120,6 +120,98 @@ responses:
               - title: "Frag mich was ..."
                 payload: "/show_playground_questions"
 
+    - text: |
+        Oh, ein Mensch. Damit hatte ich fast gerechnet. Willkommen. 🙂
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Falls du gerade denkst: „Okay... und jetzt?“
+
+              Ich kann dir kurz zeigen,
+              wer ich bin und worum es in diesem Projekt geht.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über Maik"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
+
+    - text: |
+        Ah, Besuch. Sehr gut. Willkommen. 🙂
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Falls du gerade denkst: „Okay... und jetzt?“
+
+              Ich kann dir kurz zeigen,
+              wer ich bin und worum es in diesem Projekt geht.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über Maik"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
+
+    - text: |
+        Oh, da ist jemand. Willkommen im Dialog. 🙂
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Falls du gerade denkst: „Okay... und jetzt?“
+
+              Ich kann dir kurz zeigen,
+              wer ich bin und worum es in diesem Projekt geht.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über Maik"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
+
+    - text: |
+        Willkommen. Ich tue mal so, als wäre ich nicht überrascht. 🙂
+      custom:
+        followups:
+          - delay: 3000
+            text: |
+              Falls du gerade denkst: „Okay... und jetzt?“
+
+              Ich kann dir kurz zeigen,
+              wer ich bin und worum es in diesem Projekt geht.
+          - delay: 10000
+            text: |
+              Womit möchtest du anfangen?
+            buttons:
+              - title: "Zeig mir das Projekt 🤖💬"
+                payload: "/project_chatbot"
+              - title: "Erzähl mir was über Maik"
+                payload: "/origin_overview"
+              - title: "Mehr zur Praxisphase"
+                payload: "/praxisphase_info"
+              - title: "Frag mich was ..."
+                payload: "/show_playground_questions"
+
   utter_re_greet:
     - text: "Hi! 👋"
       buttons:
