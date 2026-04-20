@@ -688,6 +688,8 @@ body.is-detail {
   cursor: pointer;
   display: grid;
   place-items: center;
+  overflow: hidden;
+  padding: 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
@@ -698,7 +700,10 @@ body.is-detail {
 }
 
 .chat-toggle.is-emphasis {
-  background: var(--chat-accent);
+  width: 64px;
+  height: 64px;
+  border: 2px solid rgba(253, 247, 236, 0.92);
+  background: rgba(253, 247, 236, 0.96);
   color: #f7f3ea;
 }
 
@@ -706,6 +711,39 @@ body.is-detail {
   opacity: 0.55;
   transform: scale(0.82);
   box-shadow: 0 10px 24px rgba(31, 31, 28, 0.14);
+}
+
+.chat-toggle-symbol,
+.chat-toggle-avatar {
+  grid-area: 1 / 1;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.chat-toggle-symbol {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.chat-toggle-avatar {
+  display: block;
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  object-position: center bottom;
+  opacity: 0;
+  transform: translateY(4%) scale(0.86);
+}
+
+.chat-toggle.is-emphasis .chat-toggle-symbol {
+  opacity: 0;
+  transform: scale(0.74);
+}
+
+.chat-toggle.is-emphasis .chat-toggle-avatar {
+  opacity: 1;
+  transform: translateY(4%) scale(1);
 }
 
 .chat-toggle.is-pulse {

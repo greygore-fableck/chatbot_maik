@@ -40,8 +40,16 @@
       ← Kontakt öffnen
     </div>
 
-    <button class="chat-toggle" id="chat-widget-button" type="button" aria-label="Open chat">
-      ✦
+    <button class="chat-toggle" id="chat-widget-button" type="button" aria-label="Chat öffnen">
+      <span class="chat-toggle-symbol" aria-hidden="true">✦</span>
+      <img
+        class="chat-toggle-avatar"
+        src="{{ url_for('static', filename='img/chatbot-avatar.svg') }}"
+        alt=""
+        aria-hidden="true"
+        width="266"
+        height="263"
+      />
     </button>
     <div class="chat-hint" id="chat-hint" role="status" aria-live="polite">
       Mehr dazu im Dialog →
