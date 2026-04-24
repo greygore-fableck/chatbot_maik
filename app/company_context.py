@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import re
-from typing import Optional
+from typing import Optional, Sequence
 
 
 @dataclass(frozen=True)
@@ -56,6 +56,21 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "adesso ist für mich interessant, weil digitale Projekte dort mit praktischer "
             "Umsetzung zusammenkommen. Mein Profil passt an der Stelle gut: Gestaltung, "
             "Webentwicklung und nutzerorientierte digitale Konzeption."
+        ),
+    ),
+    "materna": CompanyProfile(
+        display_name="Materna",
+        aliases=("materna",),
+        mention_response=(
+            "Materna ist für mich interessant, weil ich mein Profil dort gut in digitale Projekte "
+            "mit praktischem Bezug einbringen könnte. Gerade die Verbindung aus Konzeption, "
+            "technischer Umsetzung und Nutzerperspektive passt für mich gut dazu."
+        ),
+        why_response=(
+            "Materna ist für mich interessant, weil ich mein Thema dort sinnvoll mit realen "
+            "digitalen Aufgaben verbinden könnte. Mein Profil passt an der Stelle gut: "
+            "Gestaltung, Webentwicklung, digitale Konzeption und die Arbeit an dialogischen "
+            "Systemen."
         ),
     ),
 }
@@ -124,19 +139,43 @@ def _has_why_company_intent(normalized: str, company_key: Optional[str]) -> bool
     return has_general_target and (has_why_term or has_fit_term)
 
 
-def resolve_company_context(message: str) -> Optional[CompanyContextResult]:
+def current_company_from_message(message: str) -> Optional[str]:
+    normalized = normalize_company_text(message)
+    if not normalized:
+        return None
+    return _find_company_key(normalized)
+
+
+def current_company_from_conversation(history: Sequence[str]) -> Optional[str]:
+    for previous_message in reversed(history):
+        company_key = current_company_from_message(previous_message)
+        if company_key is not None:
+            return company_key
+    return None
+
+
+def resolve_company_context(
+    message: str,
+    history: Optional[Sequence[str]] = None,
+) -> Optional[CompanyContextResult]:
     normalized = normalize_company_text(message)
     if not normalized:
         return None
 
-    company_key = _find_company_key(normalized)
+    company_key = current_company_from_message(message)
+    if company_key is None:
+        company_key = current_company_from_conversation(history or [])
     has_why_intent = _has_why_company_intent(normalized, company_key)
 
-    if company_key:
+    if current_company_from_message(message):
         profile = COMPANY_PROFILES[company_key]
         if has_why_intent and not _is_company_name_only(normalized, company_key):
             return CompanyContextResult(company_key, COMPANY_INTENT_WHY, profile.why_response)
         return CompanyContextResult(company_key, COMPANY_INTENT_MENTION, profile.mention_response)
+
+    if company_key and has_why_intent:
+        profile = COMPANY_PROFILES[company_key]
+        return CompanyContextResult(company_key, COMPANY_INTENT_WHY, profile.why_response)
 
     if has_why_intent:
         return CompanyContextResult(None, COMPANY_INTENT_GENERAL_WHY, GENERAL_WHY_COMPANY_RESPONSE)
@@ -144,8 +183,11 @@ def resolve_company_context(message: str) -> Optional[CompanyContextResult]:
     return None
 
 
-def build_company_context_response(message: str) -> Optional[dict]:
-    result = resolve_company_context(message)
+def build_company_context_response(
+    message: str,
+    history: Optional[Sequence[str]] = None,
+) -> Optional[dict]:
+    result = resolve_company_context(message, history=history)
     if result is None:
         return None
 

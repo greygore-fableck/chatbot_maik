@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request, send_from_directory
 from datetime import datetime
 from pathlib import Path
+from collections import defaultdict, deque
 import json
 import random
 import re
@@ -10,6 +11,10 @@ from .company_context import build_company_context_response
 from .services.rasa_client import send_message
 
 bp = Blueprint("routes", __name__)
+COMPANY_CONTEXT_HISTORY_MAX_MESSAGES = 12
+COMPANY_CONTEXT_HISTORY_BY_SENDER: dict[str, deque[str]] = defaultdict(
+    lambda: deque(maxlen=COMPANY_CONTEXT_HISTORY_MAX_MESSAGES)
+)
 MATCH_EXACT = "exact"
 MATCH_CONTAINS = "contains"
 BOOK_RECOMMENDATION_PROMPT_PAYLOAD = "__book_recommendation_prompt__"
@@ -793,6 +798,16 @@ def build_book_recommendation_saved_response(recommendation: str, duplicate: boo
     }
 
 
+def get_company_conversation_history(sender: str) -> list[str]:
+    return list(COMPANY_CONTEXT_HISTORY_BY_SENDER.get(sender, ()))
+
+
+def remember_company_conversation_message(sender: str, message: str) -> None:
+    if not sender or not message:
+        return
+    COMPANY_CONTEXT_HISTORY_BY_SENDER[sender].append(message)
+
+
 @bp.route("/")
 def index():
     return render_template("index.html")
@@ -857,7 +872,11 @@ def webhook():
     if direct_person_name_opinion is not None:
         return jsonify(direct_person_name_opinion)
 
-    company_context_response = build_company_context_response(message)
+    company_context_response = build_company_context_response(
+        message,
+        history=get_company_conversation_history(sender),
+    )
+    remember_company_conversation_message(sender, message)
     if company_context_response is not None:
         return jsonify(company_context_response)
 
