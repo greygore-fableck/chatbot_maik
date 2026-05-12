@@ -135,6 +135,15 @@ def _find_company_key(normalized: str) -> Optional[str]:
     return None
 
 
+def company_key_from_value(value: Optional[str]) -> Optional[str]:
+    normalized = normalize_company_text(value or "")
+    if not normalized:
+        return None
+    if normalized in COMPANY_PROFILES:
+        return normalized
+    return _find_company_key(normalized)
+
+
 def _is_company_name_only(normalized: str, company_key: str) -> bool:
     profile = COMPANY_PROFILES[company_key]
     aliases = {normalize_company_text(alias) for alias in profile.aliases}
@@ -182,6 +191,7 @@ def current_company_from_conversation(history: Sequence[str]) -> Optional[str]:
 def resolve_company_context(
     message: str,
     history: Optional[Sequence[str]] = None,
+    company_key_hint: Optional[str] = None,
 ) -> Optional[CompanyContextResult]:
     normalized = normalize_company_text(message)
     if not normalized:
@@ -189,6 +199,8 @@ def resolve_company_context(
 
     message_company_key = current_company_from_message(message)
     company_key = message_company_key
+    if company_key is None:
+        company_key = company_key_from_value(company_key_hint)
     if company_key is None:
         company_key = current_company_from_conversation(history or [])
     has_fit_intent = _has_fit_company_intent(normalized, company_key)
@@ -219,8 +231,9 @@ def resolve_company_context(
 def build_company_context_response(
     message: str,
     history: Optional[Sequence[str]] = None,
+    company_key_hint: Optional[str] = None,
 ) -> Optional[dict]:
-    result = resolve_company_context(message, history=history)
+    result = resolve_company_context(message, history=history, company_key_hint=company_key_hint)
     if result is None:
         return None
 

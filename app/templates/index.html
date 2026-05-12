@@ -119,6 +119,7 @@
       const chatMessages = document.getElementById("chat-widget-messages");
       const chatHistoryToggle = document.getElementById("chat-history-toggle");
       const chatStatus = document.getElementById("chat-status");
+      const companyContextStorageKey = "chat-company-context";
       const chatSenderId = (() => {
         const prefix = "web-session-";
         try {
@@ -130,6 +131,39 @@
         }
         return `${prefix}${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
       })();
+      const getStoredCompanyContext = () => {
+        try {
+          const rawValue = window.sessionStorage.getItem(companyContextStorageKey);
+          if (!rawValue) return null;
+          const parsedValue = JSON.parse(rawValue);
+          if (typeof parsedValue?.company !== "string" || parsedValue.company.trim() === "") {
+            return null;
+          }
+          return { company: parsedValue.company.trim() };
+        } catch (_error) {
+          return null;
+        }
+      };
+      const rememberCompanyContext = (custom) => {
+        const company = custom?.company_context?.company;
+        if (typeof company !== "string" || company.trim() === "") return;
+        try {
+          window.sessionStorage.setItem(
+            companyContextStorageKey,
+            JSON.stringify({ company: company.trim() })
+          );
+        } catch (_error) {
+          // Ignore storage failures and keep the server-side fallback.
+        }
+      };
+      const buildWebhookPayload = (message) => {
+        const payload = { message, sender: chatSenderId };
+        const companyContext = getStoredCompanyContext();
+        if (companyContext) {
+          payload.company_context = companyContext;
+        }
+        return payload;
+      };
       const contactHint = document.getElementById("contact-hint");
       const stageProjectDetail = document.getElementById("stage-project-detail");
       const stage = document.querySelector(".stage");
@@ -1455,12 +1489,13 @@
           const response = await fetch("/webhook", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: payload, sender: chatSenderId }),
+            body: JSON.stringify(buildWebhookPayload(payload)),
           });
           const data = await response.json();
           const applyResponse = () => {
             if (Array.isArray(data.messages) && data.messages.length > 0) {
               data.messages.forEach((msg) => {
+                rememberCompanyContext(msg.custom);
                 handleStageCustom(msg.custom);
                 handleIdleFollowup(msg.custom);
                 const hasQueuedFollowups =
@@ -1563,12 +1598,13 @@
           const response = await fetch("/webhook", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: payload, sender: chatSenderId }),
+            body: JSON.stringify(buildWebhookPayload(payload)),
           });
           const data = await response.json();
           const applyResponse = () => {
             if (Array.isArray(data.messages) && data.messages.length > 0) {
               data.messages.forEach((msg) => {
+                rememberCompanyContext(msg.custom);
                 handleStageCustom(msg.custom);
                 handleIdleFollowup(msg.custom);
                 if (suppressBotReply) return;

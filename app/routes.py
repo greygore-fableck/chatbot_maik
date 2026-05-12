@@ -7,7 +7,7 @@ import random
 import re
 import requests
 
-from .company_context import build_company_context_response
+from .company_context import build_company_context_response, company_key_from_value
 from .services.rasa_client import send_message
 
 bp = Blueprint("routes", __name__)
@@ -861,6 +861,10 @@ def webhook():
     payload = request.get_json(silent=True) or {}
     message = (payload.get("message") or "").strip()
     sender = (payload.get("sender") or "web-user").strip() or "web-user"
+    request_company_context = payload.get("company_context") or {}
+    company_key_hint = None
+    if isinstance(request_company_context, dict):
+        company_key_hint = company_key_from_value(request_company_context.get("company"))
     if not message:
         return jsonify(
             {
@@ -875,6 +879,7 @@ def webhook():
     company_context_response = build_company_context_response(
         message,
         history=get_company_conversation_history(sender),
+        company_key_hint=company_key_hint,
     )
     remember_company_conversation_message(sender, message)
     if company_context_response is not None:

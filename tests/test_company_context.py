@@ -5,6 +5,7 @@ from app.company_context import (
     COMPANY_INTENT_GENERAL_WHY,
     COMPANY_INTENT_MENTION,
     COMPANY_INTENT_WHY,
+    company_key_from_value,
     current_company_from_conversation,
     current_company_from_message,
     resolve_company_context,
@@ -110,6 +111,13 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(result.intent, COMPANY_INTENT_WHY)
         self.assertIn("nutzerorientiertes Denken", result.text)
 
+    def test_general_why_uses_explicit_company_hint(self):
+        result = resolve_company_context("Und warum zu uns?", company_key_hint="msg")
+        self.assertIsNotNone(result)
+        self.assertEqual(result.company_key, "msg")
+        self.assertEqual(result.intent, COMPANY_INTENT_WHY)
+        self.assertIn("technische Umsetzung", result.text)
+
     def test_general_why_stays_general_without_company_context(self):
         result = resolve_company_context(
             "Warum gerade wir?",
@@ -130,6 +138,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Wieso adesso?"), "adesso")
         self.assertEqual(current_company_from_message("Warum denkwerk?"), "denkwerk")
         self.assertEqual(current_company_from_message("Warum msg?"), "msg")
+        self.assertEqual(company_key_from_value("MSG"), "msg")
         self.assertIsNone(current_company_from_message("Warum gerade wir?"))
 
     def test_removed_companies_are_no_longer_detected(self):
