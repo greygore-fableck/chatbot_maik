@@ -9,6 +9,7 @@ class CompanyProfile:
     aliases: tuple[str, ...]
     mention_response: str
     why_response: str
+    fit_response: str
 
 
 @dataclass(frozen=True)
@@ -20,6 +21,7 @@ class CompanyContextResult:
 
 COMPANY_INTENT_MENTION = "company_mention"
 COMPANY_INTENT_WHY = "why_company"
+COMPANY_INTENT_FIT = "fit_company"
 COMPANY_INTENT_GENERAL_WHY = "general_why_company"
 
 GENERAL_WHY_COMPANY_RESPONSE = (
@@ -40,8 +42,11 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
         ),
         why_response=(
             "adesso ist für mich interessant, weil digitale Projekte dort mit praktischer "
-            "Umsetzung zusammenkommen. Mein Profil passt an der Stelle gut: Gestaltung, "
-            "Webentwicklung und nutzerorientierte digitale Konzeption."
+            "Umsetzung zusammenkommen und nutzerorientiert gedacht werden."
+        ),
+        fit_response=(
+            "Zu adesso passt mein Profil gut, weil ich Gestaltung, Webentwicklung und "
+            "nutzerorientierte digitale Konzeption zusammenbringe."
         ),
     ),
     "denkwerk": CompanyProfile(
@@ -54,24 +59,47 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
         ),
         why_response=(
             "denkwerk ist für mich interessant, weil dort kreatives Arbeiten, technische "
-            "Umsetzung und digitales Produktdenken zusammenkommen. Dafür bringe ich eine "
-            "Mischung aus Medieninformatik, Gestaltung, Webentwicklung und "
-            "Chatbot-Konzeption mit."
+            "Umsetzung und digitales Produktdenken zusammenkommen."
+        ),
+        fit_response=(
+            "Zu denkwerk passt mein Profil gut, weil ich eine Mischung aus "
+            "Medieninformatik, Gestaltung, Webentwicklung und Chatbot-Konzeption "
+            "mitbringe."
+        ),
+    ),
+    "msg": CompanyProfile(
+        display_name="msg",
+        aliases=("msg",),
+        mention_response=(
+            "msg ist für mich besonders interessant, weil ich mein Profil dort gut in "
+            "digitale Projekte mit praktischem Bezug einbringen könnte."
+        ),
+        why_response=(
+            "msg ist für mich besonders interessant, weil dort technische Umsetzung, "
+            "digitale Anwendungen und nutzerorientiertes Denken gut zusammenkommen."
+        ),
+        fit_response=(
+            "Zu msg passt mein Profil gut, weil ich Medieninformatik, Gestaltung, "
+            "Webentwicklung und Chatbot-Konzeption mitbringe."
         ),
     ),
 }
 
 WHY_TERMS = {"warum", "wieso", "weshalb"}
-COMPANY_FIT_TERMS = {
+WHY_COMPANY_TERMS = {
     "bewerben",
     "bewerbung",
     "bewirbst",
     "bewerbe",
     "interessant",
+    "spannend",
+    "reizt",
+    "reizvoll",
+}
+COMPANY_FIT_TERMS = {
     "passt",
     "passen",
     "profil",
-    "reizt",
     "thema",
 }
 GENERAL_COMPANY_TARGETS = {
@@ -113,16 +141,27 @@ def _is_company_name_only(normalized: str, company_key: str) -> bool:
     return normalized in aliases
 
 
+def _has_fit_company_intent(normalized: str, company_key: Optional[str]) -> bool:
+    words = set(normalized.split())
+    has_fit_term = any(term in words for term in COMPANY_FIT_TERMS)
+    if company_key:
+        return has_fit_term
+
+    has_why_term = bool(words & WHY_TERMS) or any(term in words for term in WHY_COMPANY_TERMS)
+    has_general_target = any(target in normalized for target in GENERAL_COMPANY_TARGETS)
+    return has_general_target and has_fit_term and has_why_term
+
+
 def _has_why_company_intent(normalized: str, company_key: Optional[str]) -> bool:
     words = set(normalized.split())
     has_why_term = bool(words & WHY_TERMS)
-    has_fit_term = any(term in words for term in COMPANY_FIT_TERMS)
+    has_why_context_term = any(term in words for term in WHY_COMPANY_TERMS)
     has_general_target = any(target in normalized for target in GENERAL_COMPANY_TARGETS)
 
     if company_key:
-        return has_why_term or has_fit_term
+        return has_why_term or has_why_context_term
 
-    return has_general_target and (has_why_term or has_fit_term)
+    return has_general_target and (has_why_term or has_why_context_term)
 
 
 def current_company_from_message(message: str) -> Optional[str]:
@@ -152,13 +191,20 @@ def resolve_company_context(
     company_key = message_company_key
     if company_key is None:
         company_key = current_company_from_conversation(history or [])
+    has_fit_intent = _has_fit_company_intent(normalized, company_key)
     has_why_intent = _has_why_company_intent(normalized, company_key)
 
     if message_company_key:
         profile = COMPANY_PROFILES[company_key]
+        if has_fit_intent and not _is_company_name_only(normalized, company_key):
+            return CompanyContextResult(company_key, COMPANY_INTENT_FIT, profile.fit_response)
         if has_why_intent and not _is_company_name_only(normalized, company_key):
             return CompanyContextResult(company_key, COMPANY_INTENT_WHY, profile.why_response)
         return CompanyContextResult(company_key, COMPANY_INTENT_MENTION, profile.mention_response)
+
+    if company_key and has_fit_intent:
+        profile = COMPANY_PROFILES[company_key]
+        return CompanyContextResult(company_key, COMPANY_INTENT_FIT, profile.fit_response)
 
     if company_key and has_why_intent:
         profile = COMPANY_PROFILES[company_key]
