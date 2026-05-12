@@ -30,20 +30,6 @@ GENERAL_WHY_COMPANY_RESPONSE = (
 )
 
 COMPANY_PROFILES: dict[str, CompanyProfile] = {
-    "deichmann": CompanyProfile(
-        display_name="Deichmann",
-        aliases=("deichmann",),
-        mention_response=(
-            "Deichmann ist für mich ein interessanter Kontext, weil digitale Anwendungen, "
-            "Nutzerführung und Service dort sehr praktisch zusammenspielen. Genau diese "
-            "Schnittstelle passt gut zu meinem Profil."
-        ),
-        why_response=(
-            "Deichmann ist für mich interessant, weil dort digitale Anwendungen, Nutzerführung "
-            "und Service konkret zusammenspielen. Genau an dieser Schnittstelle sehe ich mein "
-            "Profil: Medieninformatik, Gestaltung, Web und Chatbot-Konzeption."
-        ),
-    ),
     "adesso": CompanyProfile(
         display_name="adesso",
         aliases=("adesso",),
@@ -58,19 +44,19 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "Webentwicklung und nutzerorientierte digitale Konzeption."
         ),
     ),
-    "materna": CompanyProfile(
-        display_name="Materna",
-        aliases=("materna",),
+    "denkwerk": CompanyProfile(
+        display_name="denkwerk",
+        aliases=("denkwerk",),
         mention_response=(
-            "Materna ist für mich interessant, weil ich mein Profil dort gut in digitale Projekte "
-            "mit praktischem Bezug einbringen könnte. Gerade die Verbindung aus Konzeption, "
-            "technischer Umsetzung und Nutzerperspektive passt für mich gut dazu."
+            "denkwerk ist für mich interessant, weil ich mein Profil dort gut an der "
+            "Schnittstelle von Gestaltung, digitalen Anwendungen und Nutzerführung "
+            "einbringen könnte."
         ),
         why_response=(
-            "Materna ist für mich interessant, weil ich mein Thema dort sinnvoll mit realen "
-            "digitalen Aufgaben verbinden könnte. Mein Profil passt an der Stelle gut: "
-            "Gestaltung, Webentwicklung, digitale Konzeption und die Arbeit an dialogischen "
-            "Systemen."
+            "denkwerk ist für mich interessant, weil dort kreatives Arbeiten, technische "
+            "Umsetzung und digitales Produktdenken zusammenkommen. Dafür bringe ich eine "
+            "Mischung aus Medieninformatik, Gestaltung, Webentwicklung und "
+            "Chatbot-Konzeption mit."
         ),
     ),
 }
@@ -162,12 +148,13 @@ def resolve_company_context(
     if not normalized:
         return None
 
-    company_key = current_company_from_message(message)
+    message_company_key = current_company_from_message(message)
+    company_key = message_company_key
     if company_key is None:
         company_key = current_company_from_conversation(history or [])
     has_why_intent = _has_why_company_intent(normalized, company_key)
 
-    if current_company_from_message(message):
+    if message_company_key:
         profile = COMPANY_PROFILES[company_key]
         if has_why_intent and not _is_company_name_only(normalized, company_key):
             return CompanyContextResult(company_key, COMPANY_INTENT_WHY, profile.why_response)
