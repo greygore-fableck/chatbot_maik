@@ -83,6 +83,38 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "Webentwicklung und Chatbot-Konzeption mitbringe."
         ),
     ),
+    "taxy.io": CompanyProfile(
+        display_name="taxy.io",
+        aliases=("taxy.io", "taxy io", "taxyio"),
+        mention_response=(
+            "taxy.io ist für mich interessant, weil ich mein Profil dort gut in digitale "
+            "Produkte mit praktischem Bezug einbringen könnte."
+        ),
+        why_response=(
+            "taxy.io ist für mich interessant, weil dort technische Umsetzung, digitale "
+            "Anwendungen und nutzerorientiertes Denken nah zusammenliegen."
+        ),
+        fit_response=(
+            "Zu taxy.io passt mein Profil gut, weil ich Medieninformatik, Gestaltung, "
+            "Webentwicklung und Chatbot-Konzeption mitbringe."
+        ),
+    ),
+    "arag it": CompanyProfile(
+        display_name="ARAG IT",
+        aliases=("arag it", "arag-it", "aragit"),
+        mention_response=(
+            "ARAG IT ist für mich interessant, weil ich mein Profil dort gut in digitale "
+            "Projekte mit praktischem Bezug einbringen könnte."
+        ),
+        why_response=(
+            "ARAG IT ist für mich interessant, weil dort technische Umsetzung, digitale "
+            "Anwendungen und nutzerorientiertes Denken gut zusammenkommen."
+        ),
+        fit_response=(
+            "Zu ARAG IT passt mein Profil gut, weil ich Medieninformatik, Gestaltung, "
+            "Webentwicklung und Chatbot-Konzeption mitbringe."
+        ),
+    ),
 }
 
 WHY_TERMS = {"warum", "wieso", "weshalb"}
