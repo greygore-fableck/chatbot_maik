@@ -26,6 +26,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assert_company_context("msg", "msg", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("taxy.io", "taxy.io", COMPANY_INTENT_MENTION, "digitale Produkte")
         self.assert_company_context("ARAG IT", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
+        self.assert_company_context("ARAG", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
 
     def test_company_why_inputs(self):
         self.assert_company_context("Wieso adesso?", "adesso", COMPANY_INTENT_WHY, "nutzerorientiert")
@@ -76,6 +77,12 @@ class CompanyContextTests(unittest.TestCase):
             "arag it",
             COMPANY_INTENT_WHY,
             "digitale Anwendungen",
+        )
+        self.assert_company_context(
+            "Warum ARAG?",
+            "arag it",
+            COMPANY_INTENT_WHY,
+            "nutzerorientiertes Denken",
         )
 
     def test_company_fit_inputs(self):
@@ -166,9 +173,11 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Warum msg?"), "msg")
         self.assertEqual(current_company_from_message("Warum taxy io?"), "taxy.io")
         self.assertEqual(current_company_from_message("Warum ARAG-IT?"), "arag it")
+        self.assertEqual(current_company_from_message("Warum ARAG?"), "arag it")
         self.assertEqual(company_key_from_value("MSG"), "msg")
         self.assertEqual(company_key_from_value("taxy io"), "taxy.io")
         self.assertEqual(company_key_from_value("ARAG-IT"), "arag it")
+        self.assertEqual(company_key_from_value("ARAG"), "arag it")
         self.assertIsNone(current_company_from_message("Warum gerade wir?"))
 
     def test_removed_companies_are_no_longer_detected(self):

@@ -101,7 +101,7 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
     ),
     "arag it": CompanyProfile(
         display_name="ARAG IT",
-        aliases=("arag it", "arag-it", "aragit"),
+        aliases=("arag", "arag it", "arag-it", "aragit"),
         mention_response=(
             "ARAG IT ist für mich interessant, weil ich mein Profil dort gut in digitale "
             "Projekte mit praktischem Bezug einbringen könnte."
