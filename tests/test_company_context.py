@@ -30,6 +30,12 @@ class CompanyContextTests(unittest.TestCase):
             COMPANY_INTENT_MENTION,
             "digitale Anwendungen",
         )
+        self.assert_company_context(
+            "REWE digital",
+            "rewe digital",
+            COMPANY_INTENT_MENTION,
+            "klarem Nutzerbezug",
+        )
         self.assert_company_context("taxy.io", "taxy.io", COMPANY_INTENT_MENTION, "digitale Produkte")
         self.assert_company_context("ARAG IT", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("ARAG", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
@@ -85,6 +91,30 @@ class CompanyContextTests(unittest.TestCase):
             "digitale Plattformen",
         )
         self.assert_company_context(
+            "Warum REWE digital?",
+            "rewe digital",
+            COMPANY_INTENT_WHY,
+            "UX/UI",
+        )
+        self.assert_company_context(
+            "Wieso rewe digital?",
+            "rewe digital",
+            COMPANY_INTENT_WHY,
+            "digitale Produkte",
+        )
+        self.assert_company_context(
+            "Weshalb REWE digital?",
+            "rewe digital",
+            COMPANY_INTENT_WHY,
+            "real genutzte Anwendungen",
+        )
+        self.assert_company_context(
+            "Was reizt Sie an REWE digital?",
+            "rewe digital",
+            COMPANY_INTENT_WHY,
+            "digitale Produkte",
+        )
+        self.assert_company_context(
             "Warum taxy.io?",
             "taxy.io",
             COMPANY_INTENT_WHY,
@@ -121,6 +151,12 @@ class CompanyContextTests(unittest.TestCase):
             "machineseeker",
             COMPANY_INTENT_FIT,
             "Webentwicklung",
+        )
+        self.assert_company_context(
+            "Was passt an Ihrem Profil zu REWE digital?",
+            "rewe digital",
+            COMPANY_INTENT_FIT,
+            "Nutzerführung",
         )
         self.assert_company_context(
             "Was passt an Ihrem Profil zu taxy.io?",
@@ -187,6 +223,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertNotIn("denkwerk", result.text)
         self.assertNotIn("msg", result.text)
         self.assertNotIn("Machineseeker", result.text)
+        self.assertNotIn("REWE digital", result.text)
 
     def test_machineseeker_context_for_general_followup(self):
         result = resolve_company_context("Und warum zu uns?", history=["Warum Machineseeker?"])
@@ -202,6 +239,20 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(result.intent, COMPANY_INTENT_GENERAL_WHY)
         self.assertNotIn("Machineseeker", result.text)
 
+    def test_rewe_digital_context_for_general_followup(self):
+        result = resolve_company_context("Und warum zu uns?", history=["Warum REWE digital?"])
+        self.assertIsNotNone(result)
+        self.assertEqual(result.company_key, "rewe digital")
+        self.assertEqual(result.intent, COMPANY_INTENT_WHY)
+        self.assertIn("real genutzte Anwendungen", result.text)
+
+    def test_rewe_digital_fallback_stays_general_without_context(self):
+        result = resolve_company_context("Warum zu uns?")
+        self.assertIsNotNone(result)
+        self.assertIsNone(result.company_key)
+        self.assertEqual(result.intent, COMPANY_INTENT_GENERAL_WHY)
+        self.assertNotIn("REWE digital", result.text)
+
     def test_conversation_context_uses_last_explicit_company(self):
         history = ["Warum msg?", "Und was reizt Sie an adesso?"]
         self.assertEqual(current_company_from_conversation(history), "adesso")
@@ -211,11 +262,15 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Warum denkwerk?"), "denkwerk")
         self.assertEqual(current_company_from_message("Warum msg?"), "msg")
         self.assertEqual(current_company_from_message("Warum machineseeker?"), "machineseeker")
+        self.assertEqual(current_company_from_message("Warum rewe digital?"), "rewe digital")
+        self.assertEqual(current_company_from_message("Warum rewedigital?"), "rewe digital")
         self.assertEqual(current_company_from_message("Warum taxy io?"), "taxy.io")
         self.assertEqual(current_company_from_message("Warum ARAG-IT?"), "arag it")
         self.assertEqual(current_company_from_message("Warum ARAG?"), "arag it")
         self.assertEqual(company_key_from_value("MSG"), "msg")
         self.assertEqual(company_key_from_value("Machineseeker"), "machineseeker")
+        self.assertEqual(company_key_from_value("REWE digital"), "rewe digital")
+        self.assertEqual(company_key_from_value("rewedigital"), "rewe digital")
         self.assertEqual(company_key_from_value("taxy io"), "taxy.io")
         self.assertEqual(company_key_from_value("ARAG-IT"), "arag it")
         self.assertEqual(company_key_from_value("ARAG"), "arag it")

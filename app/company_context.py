@@ -99,6 +99,22 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "Webentwicklung und Chatbot-Konzeption mitbringe."
         ),
     ),
+    "rewe digital": CompanyProfile(
+        display_name="REWE digital",
+        aliases=("rewe digital", "rewedigital"),
+        mention_response=(
+            "REWE digital ist für mich besonders interessant, weil ich mein Profil dort "
+            "gut in digitale Anwendungen mit klarem Nutzerbezug einbringen könnte."
+        ),
+        why_response=(
+            "REWE digital ist für mich spannend, weil dort UX/UI, digitale Produkte und "
+            "real genutzte Anwendungen zusammenkommen."
+        ),
+        fit_response=(
+            "Zu REWE digital passt mein Profil gut, weil ich Gestaltung, Nutzerführung, "
+            "digitale Konzepte und praktische Umsetzung verbinde."
+        ),
+    ),
     "taxy.io": CompanyProfile(
         display_name="taxy.io",
         aliases=("taxy.io", "taxy io", "taxyio"),
