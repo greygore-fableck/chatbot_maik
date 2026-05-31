@@ -24,6 +24,12 @@ class CompanyContextTests(unittest.TestCase):
         self.assert_company_context("adesso?", "adesso", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("denkwerk", "denkwerk", COMPANY_INTENT_MENTION, "Nutzerführung")
         self.assert_company_context("msg", "msg", COMPANY_INTENT_MENTION, "praktischem Bezug")
+        self.assert_company_context(
+            "machineseeker",
+            "machineseeker",
+            COMPANY_INTENT_MENTION,
+            "digitale Anwendungen",
+        )
         self.assert_company_context("taxy.io", "taxy.io", COMPANY_INTENT_MENTION, "digitale Produkte")
         self.assert_company_context("ARAG IT", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("ARAG", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
@@ -67,6 +73,18 @@ class CompanyContextTests(unittest.TestCase):
             "digitale Anwendungen",
         )
         self.assert_company_context(
+            "Warum Machineseeker?",
+            "machineseeker",
+            COMPANY_INTENT_WHY,
+            "Frontend",
+        )
+        self.assert_company_context(
+            "Wieso machineseeker?",
+            "machineseeker",
+            COMPANY_INTENT_WHY,
+            "digitale Plattformen",
+        )
+        self.assert_company_context(
             "Warum taxy.io?",
             "taxy.io",
             COMPANY_INTENT_WHY,
@@ -97,6 +115,12 @@ class CompanyContextTests(unittest.TestCase):
             "msg",
             COMPANY_INTENT_FIT,
             "Chatbot-Konzeption",
+        )
+        self.assert_company_context(
+            "Was passt an Ihrem Profil zu Machineseeker?",
+            "machineseeker",
+            COMPANY_INTENT_FIT,
+            "Webentwicklung",
         )
         self.assert_company_context(
             "Was passt an Ihrem Profil zu taxy.io?",
@@ -162,6 +186,21 @@ class CompanyContextTests(unittest.TestCase):
         self.assertNotIn("adesso", result.text)
         self.assertNotIn("denkwerk", result.text)
         self.assertNotIn("msg", result.text)
+        self.assertNotIn("Machineseeker", result.text)
+
+    def test_machineseeker_context_for_general_followup(self):
+        result = resolve_company_context("Und warum zu uns?", history=["Warum Machineseeker?"])
+        self.assertIsNotNone(result)
+        self.assertEqual(result.company_key, "machineseeker")
+        self.assertEqual(result.intent, COMPANY_INTENT_WHY)
+        self.assertIn("digitale Plattformen", result.text)
+
+    def test_machineseeker_fallback_stays_general_without_context(self):
+        result = resolve_company_context("Warum zu uns?")
+        self.assertIsNotNone(result)
+        self.assertIsNone(result.company_key)
+        self.assertEqual(result.intent, COMPANY_INTENT_GENERAL_WHY)
+        self.assertNotIn("Machineseeker", result.text)
 
     def test_conversation_context_uses_last_explicit_company(self):
         history = ["Warum msg?", "Und was reizt Sie an adesso?"]
@@ -171,10 +210,12 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Wieso adesso?"), "adesso")
         self.assertEqual(current_company_from_message("Warum denkwerk?"), "denkwerk")
         self.assertEqual(current_company_from_message("Warum msg?"), "msg")
+        self.assertEqual(current_company_from_message("Warum machineseeker?"), "machineseeker")
         self.assertEqual(current_company_from_message("Warum taxy io?"), "taxy.io")
         self.assertEqual(current_company_from_message("Warum ARAG-IT?"), "arag it")
         self.assertEqual(current_company_from_message("Warum ARAG?"), "arag it")
         self.assertEqual(company_key_from_value("MSG"), "msg")
+        self.assertEqual(company_key_from_value("Machineseeker"), "machineseeker")
         self.assertEqual(company_key_from_value("taxy io"), "taxy.io")
         self.assertEqual(company_key_from_value("ARAG-IT"), "arag it")
         self.assertEqual(company_key_from_value("ARAG"), "arag it")

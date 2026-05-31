@@ -83,6 +83,22 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "Webentwicklung und Chatbot-Konzeption mitbringe."
         ),
     ),
+    "machineseeker": CompanyProfile(
+        display_name="Machineseeker",
+        aliases=("machineseeker",),
+        mention_response=(
+            "Machineseeker ist für mich besonders interessant, weil ich mein Profil dort "
+            "gut in digitale Anwendungen mit praktischem Bezug einbringen könnte."
+        ),
+        why_response=(
+            "Machineseeker ist für mich spannend, weil dort Frontend, Features und digitale "
+            "Plattformen mit praktischem Bezug zusammenkommen."
+        ),
+        fit_response=(
+            "Zu Machineseeker passt mein Profil gut, weil ich Medieninformatik, Gestaltung, "
+            "Webentwicklung und Chatbot-Konzeption mitbringe."
+        ),
+    ),
     "taxy.io": CompanyProfile(
         display_name="taxy.io",
         aliases=("taxy.io", "taxy io", "taxyio"),
