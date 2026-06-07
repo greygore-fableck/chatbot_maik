@@ -115,6 +115,26 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "digitale Konzepte und praktische Umsetzung verbinde."
         ),
     ),
+    "devk": CompanyProfile(
+        display_name="DEVK",
+        aliases=("devk",),
+        mention_response=(
+            "DEVK ist für mich interessant, weil die Stelle UX/UI, Nutzerperspektive "
+            "und konkrete Anwendung verbindet."
+        ),
+        why_response=(
+            "DEVK ist für mich interessant, weil dort Nutzerführung, verständliche "
+            "digitale Anwendungen und die Verbindung von Funktionalität und Gestaltung "
+            "zusammenkommen."
+        ),
+        fit_response=(
+            "Zu DEVK passt mein Profil gut, weil ich Medieninformatik, Gestaltung, "
+            "Webentwicklung und digitales Produktdenken mitbringe. Usability-Tests "
+            "habe ich bereits mehrfach durchgeführt, mit Adobe XD arbeite ich seit "
+            "Jahren vertraut und Entwicklungen in Design und User Experience verfolge "
+            "ich aufmerksam."
+        ),
+    ),
     "taxy.io": CompanyProfile(
         display_name="taxy.io",
         aliases=("taxy.io", "taxy io", "taxyio"),

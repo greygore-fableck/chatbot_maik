@@ -36,6 +36,8 @@ class CompanyContextTests(unittest.TestCase):
             COMPANY_INTENT_MENTION,
             "klarem Nutzerbezug",
         )
+        self.assert_company_context("DEVK", "devk", COMPANY_INTENT_MENTION, "UX/UI")
+        self.assert_company_context("devk?", "devk", COMPANY_INTENT_MENTION, "konkrete Anwendung")
         self.assert_company_context("taxy.io", "taxy.io", COMPANY_INTENT_MENTION, "digitale Produkte")
         self.assert_company_context("ARAG IT", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("ARAG", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
@@ -115,6 +117,30 @@ class CompanyContextTests(unittest.TestCase):
             "digitale Produkte",
         )
         self.assert_company_context(
+            "Warum DEVK?",
+            "devk",
+            COMPANY_INTENT_WHY,
+            "verständliche digitale Anwendungen",
+        )
+        self.assert_company_context(
+            "Wieso devk?",
+            "devk",
+            COMPANY_INTENT_WHY,
+            "Funktionalität und Gestaltung",
+        )
+        self.assert_company_context(
+            "Weshalb DEVK?",
+            "devk",
+            COMPANY_INTENT_WHY,
+            "Nutzerführung",
+        )
+        self.assert_company_context(
+            "Was reizt Sie an DEVK?",
+            "devk",
+            COMPANY_INTENT_WHY,
+            "verständliche digitale Anwendungen",
+        )
+        self.assert_company_context(
             "Warum taxy.io?",
             "taxy.io",
             COMPANY_INTENT_WHY,
@@ -157,6 +183,12 @@ class CompanyContextTests(unittest.TestCase):
             "rewe digital",
             COMPANY_INTENT_FIT,
             "Nutzerführung",
+        )
+        self.assert_company_context(
+            "Was passt an Ihrem Profil zu DEVK?",
+            "devk",
+            COMPANY_INTENT_FIT,
+            "Usability-Tests",
         )
         self.assert_company_context(
             "Was passt an Ihrem Profil zu taxy.io?",
@@ -224,6 +256,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertNotIn("msg", result.text)
         self.assertNotIn("Machineseeker", result.text)
         self.assertNotIn("REWE digital", result.text)
+        self.assertNotIn("DEVK", result.text)
 
     def test_machineseeker_context_for_general_followup(self):
         result = resolve_company_context("Und warum zu uns?", history=["Warum Machineseeker?"])
@@ -253,6 +286,28 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(result.intent, COMPANY_INTENT_GENERAL_WHY)
         self.assertNotIn("REWE digital", result.text)
 
+    def test_devk_context_for_general_followup(self):
+        result = resolve_company_context("Und warum zu uns?", history=["Warum DEVK?"])
+        self.assertIsNotNone(result)
+        self.assertEqual(result.company_key, "devk")
+        self.assertEqual(result.intent, COMPANY_INTENT_WHY)
+        self.assertIn("verständliche digitale Anwendungen", result.text)
+
+    def test_devk_context_from_explicit_hint(self):
+        result = resolve_company_context("Weshalb bewerben Sie sich bei uns?", company_key_hint="DEVK")
+        self.assertIsNotNone(result)
+        self.assertEqual(result.company_key, "devk")
+        self.assertEqual(result.intent, COMPANY_INTENT_WHY)
+        self.assertIn("Funktionalität und Gestaltung", result.text)
+
+    def test_devk_fallback_stays_general_without_context(self):
+        result = resolve_company_context("Warum gerade wir?")
+        self.assertIsNotNone(result)
+        self.assertIsNone(result.company_key)
+        self.assertEqual(result.intent, COMPANY_INTENT_GENERAL_WHY)
+        self.assertNotIn("DEVK", result.text)
+        self.assertNotIn("Nutzerführung", result.text)
+
     def test_conversation_context_uses_last_explicit_company(self):
         history = ["Warum msg?", "Und was reizt Sie an adesso?"]
         self.assertEqual(current_company_from_conversation(history), "adesso")
@@ -264,6 +319,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Warum machineseeker?"), "machineseeker")
         self.assertEqual(current_company_from_message("Warum rewe digital?"), "rewe digital")
         self.assertEqual(current_company_from_message("Warum rewedigital?"), "rewe digital")
+        self.assertEqual(current_company_from_message("Warum devk?"), "devk")
         self.assertEqual(current_company_from_message("Warum taxy io?"), "taxy.io")
         self.assertEqual(current_company_from_message("Warum ARAG-IT?"), "arag it")
         self.assertEqual(current_company_from_message("Warum ARAG?"), "arag it")
@@ -271,6 +327,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(company_key_from_value("Machineseeker"), "machineseeker")
         self.assertEqual(company_key_from_value("REWE digital"), "rewe digital")
         self.assertEqual(company_key_from_value("rewedigital"), "rewe digital")
+        self.assertEqual(company_key_from_value("DEVK"), "devk")
         self.assertEqual(company_key_from_value("taxy io"), "taxy.io")
         self.assertEqual(company_key_from_value("ARAG-IT"), "arag it")
         self.assertEqual(company_key_from_value("ARAG"), "arag it")
