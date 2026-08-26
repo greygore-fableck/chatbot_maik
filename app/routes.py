@@ -813,6 +813,12 @@ def index():
     return render_template("index.html")
 
 
+@bp.route("/quiz")
+@bp.route("/quiz/")
+def quiz():
+    return send_from_directory(bp.root_path + "/static/quiz", "index.html")
+
+
 @bp.route("/favicon.ico")
 def favicon():
     response = send_from_directory(
