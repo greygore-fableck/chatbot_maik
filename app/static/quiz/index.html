@@ -1,51 +1,14 @@
 <!doctype html>
 <html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vokabeltrainer</title>
-  <link rel="stylesheet" href="/static/quiz/vocabulary-styles.css">
-</head>
-<body>
-  <main>
-    <h1>Vokabeltrainer</h1>
-    <p class="intro">Großbuchstaben markieren die betonte Silbe. Tippe auf „Anhören“, um das englische Wort vorlesen zu lassen.</p>
-
-    <fieldset class="accent-selector">
-      <legend>Akzent</legend>
-      <label><input type="radio" name="accent" value="en-GB" checked> Britisches Englisch <span class="flag" aria-hidden="true">🇬🇧</span></label>
-      <label><input type="radio" name="accent" value="en-US"> US-Englisch <span class="flag" aria-hidden="true">🇺🇸</span></label>
-    </fieldset>
-
-    <section id="list" class="list" aria-label="Vokabelliste"></section>
-
-    <section class="exercises" aria-labelledby="exercises-title">
-      <h2 id="exercises-title">Übungen</h2>
-      <p class="exercises-intro">Wähle eine Übung aus und trainiere mit zufällig ausgewählten Vokabeln.</p>
-
-      <div class="exercise-grid">
-        <section class="exercise-card" aria-labelledby="practice-title">
-          <h3 id="practice-title">Lückentext</h3>
-          <p>Ziehe die zufällig ausgewählten Vokabeln aus der Wortbank in die passenden Lücken und prüfe anschließend deine Lösung.</p>
-          <button type="button" id="generate-text">Lückentext erstellen</button>
-          <div class="generated-text" id="generated-text" aria-live="polite"></div>
-        </section>
-
-        <section class="exercise-card" aria-labelledby="training-title">
-          <h3 id="training-title">Einzelvokabeltraining</h3>
-          <p>Wähle die Anzahl aus. Danach erhältst du eine zufällige Auswahl zum Anhören und Wiederholen.</p>
-          <div class="count-buttons" aria-label="Anzahl der Vokabeln wählen">
-            <button type="button" data-count="5">5 Wörter</button>
-            <button type="button" data-count="7">7 Wörter</button>
-            <button type="button" data-count="8">8 Wörter</button>
-          </div>
-          <div class="training-words" id="training-words" aria-live="polite"></div>
-        </section>
-      </div>
-    </section>
-  </main>
-
-  <script src="/static/quiz/vocabulary-data.js"></script>
-  <script src="/static/quiz/vocabulary-app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wumpi will wachsen</title>
+    <link rel="icon" href="/static/quiz/fish/fish-quiz-01.svg" />
+    <script type="module" crossorigin src="/static/quiz/assets/index-Db6qBoVx.js"></script>
+    <link rel="stylesheet" crossorigin href="/static/quiz/assets/index-B13hpLuc.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
