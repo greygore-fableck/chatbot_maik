@@ -167,6 +167,30 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "Webentwicklung und Chatbot-Konzeption mitbringe."
         ),
     ),
+    "scala stage": CompanyProfile(
+        display_name="SCALA stage systems & services",
+        aliases=("scala", "scala stage", "scala stage systems", "scala stage systems services"),
+        mention_response=(
+            "SCALA stage systems & services ist für mich besonders interessant, weil die Stelle "
+            "genau in die Richtung geht, die ich gerade suche: ein reales KI-Projekt mit Python, "
+            "LLMs, RAG, Embeddings und technischem Wissen aus der Praxis. Dazu kommt dieses "
+            "Theater- und Bühnentechnik-Umfeld, das sich für mich deutlich spannender anfühlt "
+            "als eine klassische IT-Umgebung."
+        ),
+        why_response=(
+            "An SCALA reizt mich vor allem die Kombination aus realem KI-Projekt und einem "
+            "ungewöhnlich spannenden Umfeld. Der Aufgabenbereich passt sehr gut zu dem, was ich "
+            "vertiefen möchte: Python, LLMs, RAG, Embeddings und der sinnvolle Umgang mit "
+            "technischen Dokumentationen und Servicewissen."
+        ),
+        fit_response=(
+            "Zu SCALA passt mein Profil, weil in meinem eigenen Projekt bereits Themen wie "
+            "LLMs, Python, strukturierte Inhalte und dialogische Systeme sichtbar werden. Ich "
+            "bringe noch nicht in jedem Bereich tiefe Praxiserfahrung mit, aber genau diese "
+            "Richtung möchte ich konsequent vertiefen und arbeite mich gerne eigenständig in "
+            "neue technische Zusammenhänge ein."
+        ),
+    ),
 }
 
 WHY_TERMS = {"warum", "wieso", "weshalb"}

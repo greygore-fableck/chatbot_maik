@@ -370,6 +370,21 @@ rules:
       - intent: praxisphase_why_company
       - action: utter_praxisphase_why_company
 
+  - rule: scala stage role interest
+    steps:
+      - intent: scala_stage_role_interest
+      - action: utter_scala_stage_role_interest
+
+  - rule: scala stage ai approach
+    steps:
+      - intent: scala_stage_ai_approach
+      - action: utter_scala_stage_ai_approach
+
+  - rule: scala stage learning fit
+    steps:
+      - intent: scala_stage_learning_fit
+      - action: utter_scala_stage_learning_fit
+
   - rule: privacy
     steps:
       - intent: meta_privacy

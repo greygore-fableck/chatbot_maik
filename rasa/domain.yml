@@ -85,6 +85,9 @@ intents:
   - projects_experience
   - strengths_tasks
   - praxisphase_why_company
+  - scala_stage_role_interest
+  - scala_stage_ai_approach
+  - scala_stage_learning_fit
 
   - meta_privacy
   - clarify_retry
@@ -1387,7 +1390,7 @@ responses:
     - text: |
         Weil ich die Praxisphase nutzen will, um den Schritt von eigenen Projekten in echte Team- und Produktarbeit zu machen.
 
-        Mich reizt besonders die Verbindung aus Konzeption, UX und technischer Umsetzung - und genau dafür suche ich einen Kontext, in dem ich praktisch mitarbeiten und dazulernen kann.
+        Mich reizt besonders die Verbindung aus KI-nahen Systemen, Konzeption und technischer Umsetzung - und genau dafür suche ich einen Kontext, in dem ich praktisch mitarbeiten und dazulernen kann.
       custom:
         idle_followup: true
       buttons:
@@ -1397,6 +1400,45 @@ responses:
           payload: "/project_chatbot"
         - title: "Zeig mir die Technik 🛠️"
           payload: "/tech_impl"
+
+  utter_scala_stage_role_interest:
+    - text: |
+        Der Aufgabenbereich trifft ziemlich genau das, was ich gerade suche: ein reales Projekt im KI-Kontext, bei dem es nicht nur um Theorie geht, sondern um nutzbare Lösungen.
+
+        Python, LLMs, RAG, Embeddings und Wissenssysteme sind genau die Themen, die ich gerne vertiefen möchte. Dazu klingt das Umfeld mit Bühnen-, Theater- und Veranstaltungstechnik für mich deutlich spannender als eine klassische IT-Schmiede.
+      buttons:
+        - title: "Was passt an deinem Profil?"
+          payload: "/scala_stage_learning_fit"
+        - title: "Wie würdest du vorgehen?"
+          payload: "/scala_stage_ai_approach"
+        - title: "Zeig mir das Projekt 🤖💬"
+          payload: "/project_chatbot"
+
+  utter_scala_stage_ai_approach:
+    - text: |
+        Ich würde mir zuerst einen Überblick verschaffen: Welche Dokumente, Stücklisten, Servicefälle und Begriffe gibt es, wie hängen sie zusammen und welche Fragen sollen später wirklich beantwortet werden?
+
+        Danach würde ich einen technischen Plan ableiten und schrittweise anfangen: Daten strukturieren, sinnvolle Such- und Verknüpfungslogik aufbauen, testen, nachschärfen. Gerade bei technischen Wissenssystemen ist für mich wichtig, nicht sofort groß zu bauen, sondern erst zu verstehen, welche Informationen wirklich belastbar sind.
+      buttons:
+        - title: "Erfahrung mit KI?"
+          payload: "/ai_experience"
+        - title: "Was interessiert dich an der Stelle?"
+          payload: "/scala_stage_role_interest"
+        - title: "Frag mich was ..."
+          payload: "/show_playground_questions"
+
+  utter_scala_stage_learning_fit:
+    - text: |
+        Ich bringe erste praktische Erfahrung aus maikmitai.de mit: Python, ein eigener Chatbot, strukturierte Inhalte und der Versuch, Informationen über Dialoge sinnvoll zugänglich zu machen.
+
+        Gleichzeitig ist mir wichtig, ehrlich zu bleiben: RAG, Embeddings und produktionsnahe KI-Systeme sind Bereiche, die ich noch vertiefen möchte. Genau deshalb passt die Stelle für mich so gut. Ich arbeite mich gerne eigenständig in neue technische Zusammenhänge ein und mag Aufgaben, bei denen aus einem groben Problem Schritt für Schritt ein funktionierender Plan wird.
+      buttons:
+        - title: "Python-Erfahrung"
+          payload: "/python_experience"
+        - title: "Was bringst du mit?"
+          payload: "/experience_summary"
+        - title: "Wie würdest du vorgehen?"
+          payload: "/scala_stage_ai_approach"
 
   utter_meta_privacy:
     - text: "Datenschutz: Ich halte die Interaktion so schlank wie möglich — ohne unnötige Datensammelei. Wenn du willst, kann ich dir den Umgang kurz erklären."

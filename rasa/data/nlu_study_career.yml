@@ -436,3 +436,78 @@ nlu:
       - warum diese bewerbung
       - warum bewirbst du dich auf diese stelle
       - warum diese praxisphase
+
+  - intent: scala_stage_role_interest
+    examples: |
+      - warum scala
+      - warum scala stage
+      - warum möchtest du zu scala
+      - warum willst du zu scala
+      - was reizt dich an scala
+      - was reizt dich an scala stage
+      - was findest du an scala spannend
+      - was interessiert dich an der stelle
+      - warum diese stelle
+      - warum werkstudent ki softwareentwicklung
+      - warum ai engineering
+      - warum möchtest du im ai engineering arbeiten
+      - warum interessiert dich ki softwareentwicklung
+      - was reizt dich an ki softwareentwicklung
+      - was findest du an dem aufgabenbereich spannend
+      - was gefällt dir an den aufgaben
+      - warum passt der aufgabenbereich zu dir
+      - was reizt dich an llms rag und embeddings
+      - möchtest du llms rag und embeddings vertiefen
+      - warum findest du rag spannend
+      - warum findest du embeddings spannend
+      - was reizt dich am theater umfeld
+      - was findest du an bühnentechnik spannend
+      - findest du das arbeitsumfeld spannend
+      - warum keine klassische it schmiede
+
+  - intent: scala_stage_ai_approach
+    examples: |
+      - wie würdest du vorgehen
+      - wie gehst du so ein ki projekt an
+      - wie würdest du das ki projekt angehen
+      - wie würdest du einen ki assistenten bauen
+      - wie würdest du einen service assistenten bauen
+      - wie gehst du mit technischen dokumentationen um
+      - wie würdest du technische dokumente erschließen
+      - wie würdest du stücklisten auswerten
+      - wie würdest du servicefälle nutzen
+      - wie würdest du fehlerbilder verknüpfen
+      - wie würdest du komponenten erkennen
+      - wie würdest du ähnliche artikel zusammenführen
+      - wie würdest du bei rag starten
+      - wie würdest du embeddings einsetzen
+      - was wäre dein erster schritt
+      - wie startest du in ein neues technisches projekt
+      - wie machst du dir einen überblick
+      - würdest du erst planen oder direkt bauen
+      - wie strukturierst du technische daten
+      - wie würdest du wissensquellen verbinden
+
+  - intent: scala_stage_learning_fit
+    examples: |
+      - was passt an deinem profil zu der stelle
+      - was bringst du für die stelle mit
+      - warum passt du zu der stelle
+      - warum passt dein profil zu scala
+      - was bringst du für scala mit
+      - hast du erfahrung mit rag
+      - hast du erfahrung mit embeddings
+      - hast du erfahrung mit llms
+      - hast du erfahrung mit wissenssystemen
+      - hast du erfahrung mit datenbanken
+      - was kannst du bei datenbanken
+      - wie gut kannst du python
+      - wie gut kannst du java
+      - kannst du dich in neue technologien einarbeiten
+      - arbeitest du dich gerne ein
+      - kannst du eigenständig lernen
+      - kannst du eigenständig in neue themen einsteigen
+      - was hast du durch maikmitai gelernt
+      - welche erfahrung hast du durch diese seite gesammelt
+      - passt dein chatbot projekt zu der stelle
+      - warum passt dein chatbot projekt zu der stelle
