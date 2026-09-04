@@ -42,6 +42,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assert_company_context("ARAG IT", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("ARAG", "arag it", COMPANY_INTENT_MENTION, "praktischem Bezug")
         self.assert_company_context("SCALA?", "scala stage", COMPANY_INTENT_MENTION, "reales KI-Projekt")
+        self.assert_company_context("Interaktiv?", "interaktiv", COMPANY_INTENT_MENTION, "hineinwachsen")
 
     def test_company_why_inputs(self):
         self.assert_company_context("Wieso adesso?", "adesso", COMPANY_INTENT_WHY, "nutzerorientiert")
@@ -165,6 +166,12 @@ class CompanyContextTests(unittest.TestCase):
             COMPANY_INTENT_WHY,
             "RAG",
         )
+        self.assert_company_context(
+            "Warum Interaktiv?",
+            "interaktiv",
+            COMPANY_INTENT_WHY,
+            "mein Wissen vertiefe",
+        )
 
     def test_company_fit_inputs(self):
         self.assert_company_context(
@@ -214,6 +221,12 @@ class CompanyContextTests(unittest.TestCase):
             "scala stage",
             COMPANY_INTENT_FIT,
             "eigenständig",
+        )
+        self.assert_company_context(
+            "Was passt an Ihrem Profil zu Interaktiv?",
+            "interaktiv",
+            COMPANY_INTENT_FIT,
+            "Medieninformatik",
         )
 
     def test_general_why_company_inputs(self):
@@ -337,6 +350,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(current_company_from_message("Warum ARAG-IT?"), "arag it")
         self.assertEqual(current_company_from_message("Warum ARAG?"), "arag it")
         self.assertEqual(current_company_from_message("Warum SCALA stage?"), "scala stage")
+        self.assertEqual(current_company_from_message("Warum Interaktiv?"), "interaktiv")
         self.assertEqual(company_key_from_value("MSG"), "msg")
         self.assertEqual(company_key_from_value("Machineseeker"), "machineseeker")
         self.assertEqual(company_key_from_value("REWE digital"), "rewe digital")
@@ -346,6 +360,7 @@ class CompanyContextTests(unittest.TestCase):
         self.assertEqual(company_key_from_value("ARAG-IT"), "arag it")
         self.assertEqual(company_key_from_value("ARAG"), "arag it")
         self.assertEqual(company_key_from_value("SCALA"), "scala stage")
+        self.assertEqual(company_key_from_value("Interaktiv GmbH"), "interaktiv")
         self.assertIsNone(current_company_from_message("Warum gerade wir?"))
 
     def test_removed_companies_are_no_longer_detected(self):

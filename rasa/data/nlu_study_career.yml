@@ -261,6 +261,20 @@ nlu:
       - wie tief bist du schon im ki thema
       - wie praktisch ist deine ki erfahrung
 
+  - intent: rag_question
+    examples: |
+      - was ist rag
+      - was bedeutet rag
+      - was verstehst du unter rag
+      - kannst du rag erklären
+      - wie erklärst du rag
+      - warum ist rag spannend
+      - warum findest du rag spannend
+      - was hat rag mit fachwissen zu tun
+      - wie kann ki fachwissen nutzen
+      - wie kann ein llm unternehmenswissen nutzen
+      - wie würdest du rag einem nicht techniker erklären
+
   - intent: python_experience
     examples: |
       - python
@@ -458,7 +472,6 @@ nlu:
       - warum passt der aufgabenbereich zu dir
       - was reizt dich an llms rag und embeddings
       - möchtest du llms rag und embeddings vertiefen
-      - warum findest du rag spannend
       - warum findest du embeddings spannend
       - was reizt dich am theater umfeld
       - was findest du an bühnentechnik spannend
@@ -511,3 +524,82 @@ nlu:
       - welche erfahrung hast du durch diese seite gesammelt
       - passt dein chatbot projekt zu der stelle
       - warum passt dein chatbot projekt zu der stelle
+
+  - intent: interaktiv_role_interest
+    examples: |
+      - warum interaktiv
+      - warum interaktiv gmbh
+      - warum möchtest du zu interaktiv
+      - warum willst du zu interaktiv
+      - was reizt dich an interaktiv
+      - was findest du an interaktiv spannend
+      - warum interessiert dich die werkstudentenstelle bei interaktiv
+      - warum werkstudent ki spezialist
+      - warum ki spezialist
+      - was interessiert dich an der stelle als ki spezialist
+      - was reizt dich an llm anwendungen
+      - was reizt dich an echten ki anwendungsfällen
+      - warum möchtest du an llm anwendungen arbeiten
+      - warum möchtest du bei einer digitalagentur arbeiten
+      - was findest du an plone und ki spannend
+      - warum passt interaktiv zu deiner praxisphase
+      - warum willst du in kerpen arbeiten
+      - was reizt dich an einer agentur mit ki fokus
+
+  - intent: interaktiv_llm_api_approach
+    examples: |
+      - wie würdest du llm apis testen
+      - wie vergleichst du llm apis
+      - wie würdest du openrouter groq und vertex vergleichen
+      - wie testest du openrouter
+      - wie testest du groq
+      - wie testest du google vertex ai
+      - worauf achtest du bei llm apis
+      - wie entscheidest du welches modell passt
+      - wie würdest du rag bei interaktiv aufbauen
+      - wie würdest du ein rag system implementieren
+      - wie würdest du einen chatbot prototypen bauen
+      - wie würdest du ein agenten system prototypen
+      - wie gehst du bei einem llm prototyp vor
+      - wie prüfst du ob eine ki antwort gut ist
+      - wie würdest du lokale open source modelle ausprobieren
+      - wie würdest du mistral oder llama testen
+      - wie bewertest du antwortqualität kosten und geschwindigkeit
+      - wie würdest du structured output prüfen
+      - wie würdest du function calling testen
+
+  - intent: interaktiv_learning_fit
+    examples: |
+      - was passt an deinem profil zu interaktiv
+      - was bringst du für interaktiv mit
+      - warum passt dein profil zu interaktiv
+      - warum passt du zur ki spezialist stelle
+      - passt dein chatbot projekt zu interaktiv
+      - was kannst du für interaktiv beitragen
+      - hast du erfahrung mit llm apis
+      - hast du erfahrung mit rag systemen
+      - hast du erfahrung mit lokalen modellen
+      - kennst du langchain
+      - kennst du langgraph
+      - kannst du python für ki nutzen
+      - kannst du webtechnologien
+      - was kannst du in einem ki team einbringen
+      - wie schnell arbeitest du dich in neue ki tools ein
+      - bist du bereit dich in neue technologien einzuarbeiten
+      - kannst du technische themen verständlich erklären
+
+  - intent: interaktiv_team_knowledge
+    examples: |
+      - wie bringst du ki wissen ins team
+      - kannst du kurzpräsentationen zu ki halten
+      - kannst du demos zu neuen tools bauen
+      - würdest du interne workshops machen
+      - wie erklärst du technische themen nicht technikern
+      - wie erklärst du generative ai im team
+      - wie würdest du neue ki tools vorstellen
+      - kannst du marketing und entwicklung zusammenbringen
+      - wie arbeitest du mit marketing und entwicklung zusammen
+      - kannst du nicht technikern llms erklären
+      - wie vermittelst du prompt engineering
+      - wie würdest du rag verständlich erklären
+      - wie teilst du neues ki wissen

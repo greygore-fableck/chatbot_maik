@@ -86,6 +86,11 @@ rules:
       - intent: llm_question
       - action: utter_llm_question
 
+  - rule: rag question
+    steps:
+      - intent: rag_question
+      - action: utter_rag_question
+
   - rule: modular chatbots
     steps:
       - intent: modular_chatbots
@@ -384,6 +389,26 @@ rules:
     steps:
       - intent: scala_stage_learning_fit
       - action: utter_scala_stage_learning_fit
+
+  - rule: interaktiv role interest
+    steps:
+      - intent: interaktiv_role_interest
+      - action: utter_interaktiv_role_interest
+
+  - rule: interaktiv llm api approach
+    steps:
+      - intent: interaktiv_llm_api_approach
+      - action: utter_interaktiv_llm_api_approach
+
+  - rule: interaktiv learning fit
+    steps:
+      - intent: interaktiv_learning_fit
+      - action: utter_interaktiv_learning_fit
+
+  - rule: interaktiv team knowledge
+    steps:
+      - intent: interaktiv_team_knowledge
+      - action: utter_interaktiv_team_knowledge
 
   - rule: privacy
     steps:

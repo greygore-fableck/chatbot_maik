@@ -191,6 +191,28 @@ COMPANY_PROFILES: dict[str, CompanyProfile] = {
             "neue technische Zusammenhänge ein."
         ),
     ),
+    "interaktiv": CompanyProfile(
+        display_name="Interaktiv GmbH",
+        aliases=("interaktiv", "interaktiv gmbh"),
+        mention_response=(
+            "Interaktiv passt für mich gut, weil die Stelle meine bisherigen Fähigkeiten mit "
+            "einem neuen Feld verbindet, in das ich fachlich weiter hineinwachsen möchte. "
+            "Ich bringe Gestaltung, Webentwicklung und erste Chatbot-Erfahrung mit und möchte "
+            "genau darauf im KI-Bereich aufbauen."
+        ),
+        why_response=(
+            "Mich reizt, dass es bei Interaktiv um praktische KI-Anwendungen geht: LLMs, "
+            "Chatbots, RAG, API-Vergleiche und Prototyping. Das klingt nach einer Stelle, "
+            "bei der ich nicht nur über KI lese, sondern praktisch mitarbeite und mein Wissen "
+            "vertiefe."
+        ),
+        fit_response=(
+            "Ich bringe eine Ausbildung zum Mediengestalter, ein fast abgeschlossenes "
+            "Medieninformatik-Studium und Berufs- und Lebenserfahrung aus verschiedenen "
+            "Bereichen mit. Dadurch verbinde ich Gestaltung, technisches Verständnis, "
+            "praktische Umsetzung und Kommunikation."
+        ),
+    ),
 }
 
 WHY_TERMS = {"warum", "wieso", "weshalb"}
